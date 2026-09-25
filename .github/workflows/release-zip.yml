@@ -2,6 +2,8 @@ name: Release ZIP
 
 on:
   push:
+    branches:
+      - "main"
     tags:
       - "v*"
   workflow_dispatch:
@@ -30,24 +32,29 @@ jobs:
         env:
           TAG_REF: ${{ github.ref }}
           INPUT_VERSION: ${{ inputs.version }}
+          RUN_NUMBER: ${{ github.run_number }}
+          SHORT_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
 
           if [[ "${TAG_REF}" == refs/tags/v* ]]; then
             VERSION="${TAG_REF#refs/tags/v}"
+            TAG="v${VERSION}"
+            NAME="JMod v${VERSION}"
+          elif [[ "${TAG_REF}" == refs/heads/main ]]; then
+            SHORT="${SHORT_SHA:0:7}"
+            VERSION="build.${RUN_NUMBER}.${SHORT}"
+            TAG="auto-${RUN_NUMBER}-${SHORT}"
+            NAME="JMod Auto Build #${RUN_NUMBER} (${SHORT})"
           else
-            VERSION="${INPUT_VERSION}"
-          fi
-
-          VERSION="${VERSION#v}"
-
-          if [[ ! "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
-            echo "Invalid version: ${VERSION}"
-            exit 1
+            VERSION="${INPUT_VERSION#v}"
+            TAG="v${VERSION}"
+            NAME="JMod v${VERSION}"
           fi
 
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "Resolved version: ${VERSION}"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "name=${NAME}" >> "$GITHUB_OUTPUT"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -97,9 +104,10 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "v${{ steps.version.outputs.version }}"
-          name: "JMod v${{ steps.version.outputs.version }}"
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: ${{ steps.version.outputs.name }}
           generate_release_notes: true
+          prerelease: ${{ startsWith(github.ref, 'refs/heads/main') }}
           files: |
             release/jmod-${{ steps.version.outputs.version }}.zip
             release/jmod-${{ steps.version.outputs.version }}.zip.sha256
