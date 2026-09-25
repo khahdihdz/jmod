@@ -528,35 +528,16 @@
   }
 
   .rounded-progress {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: conic-gradient(var(--jmod-primary) 0deg, var(--jmod-primary) calc(var(--progress, 70) * 3.6deg), var(--jmod-border) calc(var(--progress, 70) * 3.6deg));
-    display: grid;
-    place-items: center;
+    &::after { border-color: var(--jmod-border); }
+    &.negative-progress::after { border-color: var(--jmod-danger); }
 
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 10px;
-      border-radius: 50%;
-      background: var(--jmod-surface);
-    }
-
-    .progress-left,
-    .progress-right {
-      display: none;
+    .progress-bar {
+      border-color: var(--jmod-primary);
     }
 
     .progress-value {
-      position: relative;
-      z-index: 1 !important;
+      color: var(--jmod-text);
     }
-  }
-
-  .rounded-progress.negative-progress {
-    background: conic-gradient(var(--jmod-danger) 0deg, var(--jmod-danger) 180deg, var(--jmod-border) 180deg);
   }
 
   .attached-file {
