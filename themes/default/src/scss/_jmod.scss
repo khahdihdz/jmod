@@ -647,7 +647,7 @@
       z-index: var(--jmod-z-overlay);
     }
 
-    body.sidebar_opened .jmod-overlay {
+    &.sidebar_opened .jmod-overlay {
       opacity: 1;
       pointer-events: auto;
     }
@@ -696,53 +696,3 @@
   }
 }
 
-.jmod-body.dark {
-  --jmod-bg: #0f172a;
-  --jmod-surface: #111827;
-  --jmod-surface-muted: #1e293b;
-  --jmod-border: #334155;
-  --jmod-text: #f8fafc;
-  --jmod-text-secondary: #cbd5e1;
-  --jmod-text-muted: #94a3b8;
-
-  background: var(--jmod-bg);
-
-  .jmod-sidebar,
-  .jmod-topbar,
-  .card,
-  .list-group,
-  .list-group .list-group-item,
-  .forum-section,
-  .new_post-item,
-  .post-item,
-  .breadcrumb,
-  .form-control,
-  .form-select,
-  .modal-content,
-  .attached-file,
-  .cookie-consent-banner {
-    background: var(--jmod-surface);
-    color: var(--jmod-text);
-  }
-
-  .jmod-sidebar .nav__vertical li > a:hover,
-  .jmod-sidebar .nav__vertical li.active > a,
-  .dropdown-item:hover,
-  .dropdown-item:focus {
-    background: #1e3a8a;
-    color: #dbeafe;
-  }
-}
-
-.jmod-body.auto {
-  @media (prefers-color-scheme: dark) {
-    --jmod-bg: #0f172a;
-    --jmod-surface: #111827;
-    --jmod-surface-muted: #1e293b;
-    --jmod-border: #334155;
-    --jmod-text: #f8fafc;
-    --jmod-text-secondary: #cbd5e1;
-    --jmod-text-muted: #94a3b8;
-    background: var(--jmod-bg);
-  }
-}
