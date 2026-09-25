@@ -4,6 +4,11 @@
 
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
+
+// Feature-specific styles retained for existing widgets, without loading the legacy theme shell.
+@import "progress";
+@import "slider";
+@import "album";
 @import "jmod";
 
 // Functional third-party styles that are still required by existing features.
