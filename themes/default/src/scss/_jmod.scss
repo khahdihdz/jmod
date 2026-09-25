@@ -68,9 +68,9 @@
 
   .navbar-toggle:hover .navbar-toggler-bar.bar2 { width: 17px; }
 
-  .navbar-toggle .toggled .bar1 { transform: translateY(6px) rotate(45deg); }
-  .navbar-toggle .toggled .bar2 { opacity: 0; }
-  .navbar-toggle .toggled .bar3 { transform: translateY(-6px) rotate(-45deg); }
+  .navbar-toggle.toggled .bar1 { transform: translateY(6px) rotate(45deg); }
+  .navbar-toggle.toggled .bar2 { opacity: 0; }
+  .navbar-toggle.toggled .bar3 { transform: translateY(-6px) rotate(-45deg); }
 
   .custom-control {
     position: relative;
