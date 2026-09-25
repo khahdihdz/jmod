@@ -1,0 +1,88 @@
+name: UI Preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "themes/default/**"
+      - "modules/**/templates/**"
+      - "package.json"
+      - "package-lock.json"
+      - "composer.json"
+      - "composer.lock"
+      - ".github/workflows/ui-preview.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3.31"
+          extensions: dom, gd, mbstring, pdo, simplexml, zip
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install PHP dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run production
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Start preview server
+        run: |
+          nohup php -S 127.0.0.1:8080 -t . > /tmp/jmod-server.log 2>&1 &
+          sleep 5
+          curl --fail --silent --show-error http://127.0.0.1:8080/ > /tmp/jmod-home.html
+
+      - name: Capture screenshots
+        run: |
+          mkdir -p preview
+          node <<'EOF'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({headless:true});
+            const cases = [
+              {name:'home-desktop-1920', width:1920, height:1080},
+              {name:'home-desktop-1366', width:1366, height:768},
+              {name:'home-mobile-390', width:390, height:844},
+              {name:'home-mobile-412', width:412, height:915}
+            ];
+            for (const c of cases) {
+              const page = await browser.newPage({viewport:{width:c.width,height:c.height}, deviceScaleFactor:1});
+              await page.goto('http://127.0.0.1:8080/', {waitUntil:'networkidle'});
+              await page.screenshot({path:`preview/${c.name}.png`, fullPage:true});
+              await page.close();
+            }
+            await browser.close();
+          })();
+          EOF
+
+      - name: Upload preview images
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmod-ui-preview
+          path: preview/
+          retention-days: 14
