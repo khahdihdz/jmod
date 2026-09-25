@@ -1,0 +1,84 @@
+msgid ""
+msgstr ""
+"X-Domain: homepage\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: pl\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/modules/homepage/locale/homepage.pot\n"
+"X-Crowdin-File-ID: 488\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Polish\n"
+"Language: pl_PL\n"
+"PO-Revision-Date: 2026-07-12 12:38\n"
+
+#: modules/homepage/templates/index.phtml:13
+msgid "Free, Open Source content management system"
+msgstr "Bezpłatny, otwarty system zarządzania treściami"
+
+#: modules/homepage/templates/index.phtml:20
+msgid "Download"
+msgstr "Pobierz"
+
+#: modules/homepage/templates/index.phtml:26
+msgid "Documentation"
+msgstr "Dokumentacja"
+
+#: modules/homepage/templates/index.phtml:53
+#: modules/homepage/templates/index.phtml:137
+msgid "News"
+msgstr "Aktualności"
+
+#: modules/homepage/templates/index.phtml:163
+msgid "Features"
+msgstr "Funkcje"
+
+#: modules/homepage/templates/index.phtml:169
+msgid "Responsive Layout"
+msgstr "Układ responsywny"
+
+#: modules/homepage/templates/index.phtml:172
+msgid "Your site will appear equally well on both computers and mobile devices."
+msgstr "Twoja strona pojawi się równie dobrze zarówno na komputerach, jak i na urządzeniach mobilnych."
+
+#: modules/homepage/templates/index.phtml:179
+msgid "Template System"
+msgstr "System szablonów"
+
+#: modules/homepage/templates/index.phtml:182
+msgid "Using templates, you can completely change the style of your site so that it becomes unique and not like the others."
+msgstr "Używając szablonów, możesz całkowicie zmienić styl swojej witryny, aby stała się unikatowa i nie podobała się innym."
+
+#: modules/homepage/templates/index.phtml:189
+msgid "High Performance"
+msgstr "Wysoka wydajność"
+
+#: modules/homepage/templates/index.phtml:192
+msgid "When developing JohnCMS we pay special attention to system performance.<br>Your website will not require a powerful server for as long as possible."
+msgstr "Podczas tworzenia JohnCMS zwracamy szczególną uwagę na wydajność systemu.<br>Twoja strona będzie wymagała najmniejszego serwera jak to możliwe."
+
+#: modules/homepage/templates/index.phtml:199
+msgid "Multilingual"
+msgstr "Wielojęzykowość"
+
+#: modules/homepage/templates/index.phtml:202
+msgid "Reach the maximum audience in different languages. Several languages have already been built into the system.<br>And if you don't have the desired language, you can easily add it using advanced translation tools that support johnCMS."
+msgstr "Dotrzyj do maksymalnej liczby odbiorców w różnych językach. W systemie wbudowano już kilka języków.<br>A jeśli nie masz wymaganego języka, możesz z łatwością dodać go za pomocą zaawansowanych narzędzi tłumaczeniowych, które obsługuje JohnCMS."
+
+#: modules/homepage/templates/index.phtml:211
+msgid "Modularity"
+msgstr "Modularny"
+
+#: modules/homepage/templates/index.phtml:214
+msgid "The most popular modules are built into the system.<br>You can install ready-made additional modules, create them yourself or order development of new modules from other developers."
+msgstr "Najpopularniejsze moduły są wbudowane w system.<br>Możesz zainstalować gotowe dodatkowe moduły, utworzyć je samodzielnie lub zlecić rozwój nowych modułów od innych programistów."
+
+#: modules/homepage/templates/index.phtml:218
+msgid "Free License"
+msgstr "Licencja bezpłatna"
+
+#: modules/homepage/templates/index.phtml:228
+msgid "The GNU GPL-3 license gives you the right to distribute and modify JohnCMS."
+msgstr "Licencja GNU GPL-3 daje Ci prawo do dystrybucji i modyfikowania JohnCMS."
+

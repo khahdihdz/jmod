@@ -1,0 +1,283 @@
+msgid ""
+msgstr ""
+"X-Domain: install\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100>0 && n%100<20)) ? 1 : 2);\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: ro\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/install/locale/install.pot\n"
+"X-Crowdin-File-ID: 506\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Romanian\n"
+"Language: ro_RO\n"
+"PO-Revision-Date: 2026-07-12 12:41\n"
+
+#: install/index.php:66
+#: install/steps/step_1.php:24
+msgid "Preparing for installation"
+msgstr "Pregătire pentru instalare"
+
+#: install/index.php:71
+#: install/steps/step_2.php:20
+#: install/steps/step_2.php:21
+msgid "Checking parameters"
+msgstr "Verificare parametri"
+
+#: install/index.php:76
+#: install/steps/step_3.php:25
+#: install/steps/step_3.php:26
+msgid "Database"
+msgstr "Baza de date"
+
+#: install/index.php:81
+#: install/steps/step_4.php:31
+#: install/steps/step_4.php:32
+msgid "Setting"
+msgstr "Setari"
+
+#: install/index.php:86
+msgid "Completion"
+msgstr "Finalizare"
+
+#: install/steps/step_2.php:27
+msgid "PHP version"
+msgstr "Versiune PHP"
+
+#: install/steps/step_2.php:30
+#, php-format
+msgid "The PHP version must be at least %s"
+msgstr "Versiunea PHP trebuie să fie cel puțin %s"
+
+#: install/steps/step_2.php:34
+#: install/steps/step_2.php:40
+#: install/steps/step_2.php:46
+#: install/steps/step_2.php:52
+#: install/steps/step_2.php:58
+msgid "Yes"
+msgstr "Da"
+
+#: install/steps/step_2.php:34
+#: install/steps/step_2.php:40
+#: install/steps/step_2.php:46
+#: install/steps/step_2.php:52
+#: install/steps/step_2.php:58
+msgid "No"
+msgstr "Nu"
+
+#: install/steps/step_2.php:36
+msgid "PHP extension PDO must be installed"
+msgstr "Extensia PHP PDO trebuie instalată"
+
+#: install/steps/step_2.php:39
+msgid "Imagick or GD extension"
+msgstr "Imagine sau extensie GD"
+
+#: install/steps/step_2.php:42
+msgid "You must install the php extension Imagick or GD"
+msgstr "Trebuie să instalaţi php extension Imagick sau GD"
+
+#: install/steps/step_2.php:45
+msgid "zlib extension"
+msgstr "extensie zlib"
+
+#: install/steps/step_2.php:48
+msgid "PHP extension zlib must be installed"
+msgstr "Extensia PHP zlib trebuie instalată"
+
+#: install/steps/step_2.php:51
+msgid "mbstring extension"
+msgstr "Extensie mbstring"
+
+#: install/steps/step_2.php:54
+msgid "PHP extension mbstring must be installed"
+msgstr "Extensia PHP trebuie instalată"
+
+#: install/steps/step_2.php:57
+msgid "fileinfo extension"
+msgstr "extensie fileinfo"
+
+#: install/steps/step_2.php:60
+msgid "PHP extension fileinfo must be installed"
+msgstr "Fisierul extensiei PHP trebuie instalat"
+
+#: install/steps/step_3.php:124
+msgid "Correct work of JohnCMS is not guaranteed on your version of mysql server.<br>You can ignore this warning at your own risk."
+msgstr "Funcționarea corectă a JohnCMS nu este garantată pe versiunea ta de server mysql.<br>Poți ignora această avertizare pe propriul risc."
+
+#: install/steps/step_3.php:125
+#, php-format
+msgid "Server name: <b>%s</b>. <br>Your mysql server version is <b>%s</b>. But <b>%s</b> is required."
+msgstr "Numele serverului: <b>%s</b>. <br>Versiunea serverului mysql este <b>%s</b>. Dar <b>%s</b> este necesară."
+
+#: install/steps/step_3.php:129
+msgid "The system requires a properly configured <a href='https://www.php.net/manual/en/intro.mysqlnd.php' target='_blank'>MySQL Native Driver (mysqlnd)</a>."
+msgstr "Sistemul necesită configurarea corectă a <a href='https://www.php.net/manual/en/intro.mysqlnd.php' target='_blank'>Driver nativ MySQL (mysqlnd)</a>."
+
+#: install/steps/step_3.php:130
+msgid "Please contact your hosting provider's technical support to resolve this issue."
+msgstr "Vă rugăm să contactați asistența tehnică a furnizorului dvs. de găzduire pentru a rezolva această problemă."
+
+#: install/steps/step_3.php:134
+msgid "ERROR: Can't write database.local.php"
+msgstr "EROARE: Nu se poate scrie baza de date.local.php"
+
+#: install/steps/step_3.php:140
+msgid "Invalid database host name"
+msgstr "Nume gazdă bază de date nevalid"
+
+#: install/steps/step_3.php:142
+msgid "Invalid database user or password"
+msgstr "Utilizator sau parolă invalidă pentru baza de date"
+
+#: install/steps/step_3.php:144
+msgid "Database does not exist"
+msgstr "Baza de date nu există"
+
+#: install/steps/step_4.php:167
+msgid "ERROR: Can't write system.local.php"
+msgstr "EROARE: Nu se poate scrie system.local.php"
+
+#: install/steps/step_5.php:15
+#: install/steps/step_5.php:16
+msgid "Complete the installation"
+msgstr "Finalizează instalarea"
+
+#: install/templates/step_1.phtml:3
+msgid "Welcome to JohnCMS installation wizard"
+msgstr "Bine ați venit la asistentul pentru instalarea JohnCMS"
+
+#: install/templates/step_1.phtml:6
+msgid "During the installation process, a basic check of the hosting will be performed for compliance with the CMS requirements."
+msgstr "În timpul procesului de instalare, se va efectua o verificare de bază a găzduirii pentru a se asigura conformitatea cu cerințele CMS."
+
+#: install/templates/step_1.phtml:7
+msgid "If errors occurred during the installation stage and you do not know how to solve them, you can ask for help on <a href=\"https://johncms.com/forum/\" class=\"text-underline\" rel=\"nofollow\" target=\"_blank\">our forum.</a>"
+msgstr "Dacă au apărut erori în timpul etapei de instalare și nu știți cum să le rezolvați, poți cere ajutor în <a href=\"https://johncms.com/forum/\" class=\"text-underline\" rel=\"nofollow\" target=\"_blank\">forumul nostru.</a>"
+
+#: install/templates/step_1.phtml:11
+msgid "Choose language"
+msgstr "Alege limba"
+
+#: install/templates/step_1.phtml:28
+#: install/templates/step_2.phtml:34
+#: install/templates/step_2.phtml:36
+#: install/templates/step_3.phtml:92
+#: install/templates/step_4.phtml:81
+msgid "Continue"
+msgstr "Continuă"
+
+#: install/templates/step_2.phtml:3
+msgid "Checking extensions"
+msgstr "Verificare extensii"
+
+#: install/templates/step_2.phtml:20
+msgid "Permissions check (chmod)"
+msgstr "Verificare permisiuni (chmod)"
+
+#: install/templates/step_2.phtml:22
+msgid "Everything is good"
+msgstr "Totul este bun"
+
+#: install/templates/step_2.phtml:29
+msgid "For the specified directories, you must set the permissions to allow writing (777)."
+msgstr "Pentru directoarele specificate, trebuie să setați permisiunile pentru a permite scrierea (777)."
+
+#: install/templates/step_3.phtml:10
+msgid "Database connection settings"
+msgstr "Setări conexiune bază de date"
+
+#: install/templates/step_3.phtml:21
+#: install/templates/step_3.phtml:28
+msgid "DB Host"
+msgstr "Gazdă DB"
+
+#: install/templates/step_3.phtml:35
+#: install/templates/step_3.phtml:42
+msgid "Port"
+msgstr ""
+
+#: install/templates/step_3.phtml:49
+#: install/templates/step_3.phtml:56
+msgid "DB Name"
+msgstr "Nume DB"
+
+#: install/templates/step_3.phtml:63
+#: install/templates/step_3.phtml:70
+msgid "DB User"
+msgstr "Utilizator DB"
+
+#: install/templates/step_3.phtml:77
+#: install/templates/step_3.phtml:83
+msgid "DB Password"
+msgstr "Parolă DB"
+
+#: install/templates/step_3.phtml:92
+msgid "Continue anyway"
+msgstr "Continuă oricum"
+
+#: install/templates/step_4.phtml:10
+msgid "Website settings"
+msgstr "Setări website"
+
+#: install/templates/step_4.phtml:18
+#: install/templates/step_4.phtml:25
+msgid "Site address"
+msgstr "Adresa site-ului"
+
+#: install/templates/step_4.phtml:32
+#: install/templates/step_4.phtml:39
+msgid "E-mail"
+msgstr ""
+
+#: install/templates/step_4.phtml:46
+msgid "Administrator data"
+msgstr "Date administrator"
+
+#: install/templates/step_4.phtml:48
+#: install/templates/step_4.phtml:55
+msgid "Admin login"
+msgstr "Autentificare administrator"
+
+#: install/templates/step_4.phtml:62
+#: install/templates/step_4.phtml:68
+msgid "Admin password"
+msgstr "Parolă admin"
+
+#: install/templates/step_4.phtml:74
+msgid "Additionally"
+msgstr "Suplimentar"
+
+#: install/templates/step_4.phtml:77
+msgid "Install demo data"
+msgstr "Instalează datele demonstrative"
+
+#: install/templates/step_5.phtml:3
+msgid "Congratulations!"
+msgstr "Felicitări!"
+
+#: install/templates/step_5.phtml:4
+#, php-format
+msgid "JohnCMS %s installation completed successfully."
+msgstr "Instalarea JohnCMS %s este finalizată cu succes."
+
+#: install/templates/step_5.phtml:7
+msgid "ATTENTION!"
+msgstr "ATENŢIE!"
+
+#: install/templates/step_5.phtml:8
+msgid "Now you need to delete the folder <b>/install/</b>"
+msgstr "Acum trebuie să ștergeți dosarul <b>/install/</b>"
+
+#: install/templates/step_5.phtml:11
+msgid "If you need help, you can visit <a href=\"https://johncms.com/forum/\" class=\"text-underline\">our forum</a>."
+msgstr "Dacă aveţi nevoie de ajutor, puteţi vizita <a href=\"https://johncms.com/forum/\" class=\"text-underline\">forumul nostru</a>."
+
+#: install/templates/step_5.phtml:12
+msgid "Also, if necessary, you can familiarize yourself with <a href=\"https://docs.johncms.com/\" class=\"text-underline\">the documentation</a>"
+msgstr ""
+
+#: install/templates/step_5.phtml:15
+msgid "Go to website"
+msgstr "Mergi la website"
+

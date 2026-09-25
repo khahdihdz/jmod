@@ -1,0 +1,179 @@
+msgid ""
+msgstr ""
+"X-Domain: community\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: ar\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/modules/community/locale/community.pot\n"
+"X-Crowdin-File-ID: 478\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Arabic\n"
+"Language: ar_SA\n"
+"PO-Revision-Date: 2026-07-12 12:36\n"
+
+#: modules/community/src/Application/Controllers/AdministrationController.php:32
+#: modules/community/src/Application/Controllers/CommunityBirthdaysController.php:32
+#: modules/community/src/Application/Controllers/CommunityIndexController.php:27
+#: modules/community/src/Application/Controllers/CommunitySearchController.php:34
+#: modules/community/src/Application/Controllers/CommunityTopController.php:29
+#: modules/community/src/Application/Controllers/CommunityUsersController.php:32
+#: modules/community/src/Application/UseCases/ViewIndexUseCase.php:21
+msgid "Community"
+msgstr "المجتمع"
+
+#: modules/community/src/Application/Controllers/AdministrationController.php:42
+#: modules/community/src/Application/Controllers/CommunityBirthdaysController.php:42
+#: modules/community/src/Application/Controllers/CommunityIndexController.php:37
+#: modules/community/src/Application/Controllers/CommunitySearchController.php:44
+#: modules/community/src/Application/Controllers/CommunityTopController.php:39
+#: modules/community/src/Application/Controllers/CommunityUsersController.php:42
+msgid "For registered users only"
+msgstr "للمستخدمين المسجلين فقط"
+
+#: modules/community/src/Application/Controllers/AdministrationController.php:47
+#: modules/community/templates/index.phtml:45
+msgid "Administration"
+msgstr "الإدارة العليا"
+
+#: modules/community/src/Application/Controllers/CommunityBirthdaysController.php:47
+#: modules/community/templates/index.phtml:50
+msgid "Birthdays"
+msgstr "أعياد الميلاد"
+
+#: modules/community/src/Application/Controllers/CommunitySearchController.php:49
+#: modules/community/templates/administration.phtml:50
+#: modules/community/templates/search.phtml:84
+#: modules/community/templates/users.phtml:50
+msgid "User Search"
+msgstr "بحث عن مستخدم"
+
+#: modules/community/src/Application/Controllers/CommunityUsersController.php:47
+msgid "List of users"
+msgstr "قائمة المستخدمين"
+
+#: modules/community/src/Application/UseCases/ViewSearchUseCase.php:26
+#: modules/community/templates/index.phtml:32
+msgid "Nickname"
+msgstr "اسم الشهرة"
+
+#: modules/community/src/Application/UseCases/ViewSearchUseCase.php:26
+msgid "Invalid length"
+msgstr "طويل جدا"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:22
+msgid "Forum"
+msgstr "منتديات"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:27
+msgid "Guestbook"
+msgstr "سجل الزوار"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:32
+msgid "Comments"
+msgstr "التعليقات"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:41
+msgid "Karma"
+msgstr "الاعجاب"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:50
+msgid "Most active in Guestbook"
+msgstr "الأكثر نشاطا في سجل الزوار"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:56
+msgid "Most commentators"
+msgstr "الأكثر تعليقًا عليها"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:63
+msgid "Best Karma"
+msgstr "افضل المعجبين"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:68
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:74
+msgid "Most active in Forum"
+msgstr "الأكثر نشاطا في المنتدى"
+
+#: modules/community/templates/administration.phtml:33
+#: modules/community/templates/search.phtml:67
+#: modules/community/templates/top.phtml:40
+#: modules/community/templates/users.phtml:33
+msgid "List is empty"
+msgstr "القائمة فارغة"
+
+#: modules/community/templates/administration.phtml:40
+#: modules/community/templates/search.phtml:74
+#: modules/community/templates/users.phtml:40
+msgid "Total"
+msgstr "مجموع"
+
+#: modules/community/templates/administration.phtml:53
+#: modules/community/templates/search.phtml:87
+#: modules/community/templates/top.phtml:47
+#: modules/community/templates/users.phtml:53
+msgid "Back"
+msgstr "رجوع"
+
+#: modules/community/templates/index.phtml:30
+#: modules/community/templates/search.phtml:46
+msgid "Look for the User"
+msgstr "ابحث عن المستخدم"
+
+#: modules/community/templates/index.phtml:34
+#: modules/community/templates/search.phtml:50
+msgid "Search"
+msgstr "ابـحث"
+
+#: modules/community/templates/index.phtml:37
+#: modules/community/templates/search.phtml:53
+msgid "The search is performed by Nickname and are case-insensitive."
+msgstr "البحث بالاسم المستعار وهي حساسة لحالة الأحرف."
+
+#: modules/community/templates/index.phtml:41
+msgid "Users"
+msgstr "الاعضاء"
+
+#: modules/community/templates/index.phtml:55
+msgid "Top Activity"
+msgstr "الاكثر نشاطآ"
+
+#: modules/community/templates/search.phtml:48
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: modules/community/templates/user_row.phtml:61
+#: modules/community/templates/user_row.phtml:67
+msgid "post"
+msgid_plural "posts"
+msgstr[0] "المشاركات"
+msgstr[1] "منشور"
+msgstr[2] "المشاركات"
+msgstr[3] "المشاركات"
+msgstr[4] "المشاركات"
+msgstr[5] "المشاركات"
+
+#: modules/community/templates/user_row.phtml:63
+msgid "comment"
+msgid_plural "comments"
+msgstr[0] "التعليقات"
+msgstr[1] "أضف تعليق"
+msgstr[2] "التعليقات"
+msgstr[3] "التعليقات"
+msgstr[4] "التعليقات"
+msgstr[5] "التعليقات"
+
+#: modules/community/templates/user_row.phtml:65
+msgid "point"
+msgid_plural "points"
+msgstr[0] "نقاط"
+msgstr[1] "نقطة"
+msgstr[2] "نقاط"
+msgstr[3] "نقاط"
+msgstr[4] "نقاط"
+msgstr[5] "نقاط"
+
+#: modules/community/templates/user_row.phtml:89
+msgid "Delete"
+msgstr "حذف"
+

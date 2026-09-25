@@ -1,0 +1,384 @@
+msgid ""
+msgstr ""
+"X-Domain: mail\n"
+"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: uk\n"
+"X-Crowdin-File: /9.x/modules/mail/locale/mail.pot\n"
+"X-Crowdin-File-ID: 492\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Ukrainian\n"
+"Language: uk_UA\n"
+"PO-Revision-Date: 2026-07-12 15:08\n"
+
+#: modules/mail/src/Application/Controllers/AddContactController.php:36
+#: modules/mail/src/Application/Controllers/BlockUserController.php:42
+#: modules/mail/src/Application/Controllers/BlocklistIndexController.php:29
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:34
+#: modules/mail/src/Application/Controllers/ContactController.php:39
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:34
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:34
+#: modules/mail/src/Application/Controllers/FilesController.php:39
+#: modules/mail/src/Application/Controllers/IncomingConversationsController.php:39
+#: modules/mail/src/Application/Controllers/OutgoingConversationsController.php:39
+#: modules/mail/src/Application/Controllers/UnblockUserController.php:37
+#: modules/mail/src/Application/Controllers/WriteController.php:97
+msgid "My Account"
+msgstr "Мій аккаунт"
+
+#: modules/mail/src/Application/Controllers/AddContactController.php:37
+#: modules/mail/src/Application/Controllers/BlockUserController.php:43
+#: modules/mail/src/Application/Controllers/BlocklistIndexController.php:30
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:35
+#: modules/mail/src/Application/Controllers/ContactController.php:40
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:35
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:35
+#: modules/mail/src/Application/Controllers/DownloadFileController.php:30
+#: modules/mail/src/Application/Controllers/FilesController.php:40
+#: modules/mail/src/Application/Controllers/IncomingConversationsController.php:40
+#: modules/mail/src/Application/Controllers/OutgoingConversationsController.php:40
+#: modules/mail/src/Application/Controllers/UnblockUserController.php:38
+#: modules/mail/src/Application/Controllers/WriteController.php:60
+#: modules/mail/src/Application/Controllers/WriteController.php:87
+#: modules/mail/src/Application/Controllers/WriteController.php:98
+msgid "Mail"
+msgstr "Пошта"
+
+#: modules/mail/src/Application/Controllers/AddContactController.php:38
+#: modules/mail/src/Application/Controllers/ContactController.php:41
+#: modules/mail/src/Application/Controllers/ContactController.php:43
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:36
+#: modules/mail/templates/nav.phtml:15
+msgid "Contacts"
+msgstr "Контакти"
+
+#: modules/mail/src/Application/Controllers/AddContactController.php:39
+#: modules/mail/src/Application/Controllers/AddContactController.php:51
+#: modules/mail/src/Application/Controllers/AddContactController.php:52
+#: modules/mail/src/Application/Controllers/AddContactController.php:69
+#: modules/mail/src/Application/Controllers/AddContactController.php:83
+msgid "Add Contact"
+msgstr "Додати контакт"
+
+#: modules/mail/src/Application/Controllers/AddContactController.php:43
+msgid "You really want to add contact?"
+msgstr "Ви дійсно хочете додати контакт?"
+
+#: modules/mail/src/Application/Controllers/AddContactController.php:45
+msgid "Add"
+msgstr "Додати"
+
+#: modules/mail/src/Application/Controllers/AddContactController.php:71
+msgid "User has been added to your contact list"
+msgstr "Користувач доданий у Ваш список контактів"
+
+#: modules/mail/src/Application/Controllers/AddContactController.php:73
+#: modules/mail/src/Application/Services/MailMessagePreviewService.php:43
+msgid "Continue"
+msgstr "Продовжити"
+
+#: modules/mail/src/Application/Controllers/BlockUserController.php:30
+msgid "User blocked successfully"
+msgstr "Користувача успішно заблоковано"
+
+#: modules/mail/src/Application/Controllers/BlockUserController.php:44
+#: modules/mail/src/Application/Controllers/BlocklistIndexController.php:31
+#: modules/mail/src/Application/Controllers/BlocklistIndexController.php:34
+#: modules/mail/src/Application/Controllers/BlocklistIndexController.php:35
+#: modules/mail/src/Application/Controllers/UnblockUserController.php:39
+#: modules/mail/templates/nav.phtml:16
+msgid "Blacklist"
+msgstr "Чорний список"
+
+#: modules/mail/src/Application/Controllers/BlockUserController.php:45
+#: modules/mail/src/Application/Controllers/BlockUserController.php:48
+#: modules/mail/src/Application/Controllers/BlockUserController.php:49
+msgid "Block user"
+msgstr "Заблокувати користувача"
+
+#: modules/mail/src/Application/Controllers/BlockUserController.php:54
+msgid "You really want to block contact?"
+msgstr "Ви дійсно бажаєте заблокувати контакт?"
+
+#: modules/mail/src/Application/Controllers/BlockUserController.php:56
+msgid "Block"
+msgstr "Заблокувати"
+
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:36
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:48
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:49
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:66
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:80
+#: modules/mail/templates/messages.phtml:191
+msgid "Clear messages"
+msgstr "Очистити повідомлення"
+
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:40
+msgid "Confirm the deletion of messages"
+msgstr "Підтвердіть видалення повідомлень"
+
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:42
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:43
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:49
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:50
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:67
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:81
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:42
+#: modules/mail/src/Application/UseCases/GetContactListUseCase.php:91
+#: modules/mail/src/Application/UseCases/GetIncomingConversationsUseCase.php:80
+#: modules/mail/src/Application/UseCases/GetOutgoingConversationsUseCase.php:80
+#: modules/mail/templates/blocklist.phtml:56
+#: modules/mail/templates/messages.phtml:183
+msgid "Delete"
+msgstr "Видалити"
+
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:68
+msgid "Messages are deleted"
+msgstr "Повідомлення видалені"
+
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:70
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:71
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:70
+#: modules/mail/src/Application/Controllers/WriteController.php:64
+#: modules/mail/templates/contact_list.phtml:80
+#: modules/mail/templates/conversations.phtml:108
+#: modules/mail/templates/files.phtml:78
+#: modules/mail/templates/messages.phtml:206
+msgid "Back"
+msgstr "Повернутися"
+
+#: modules/mail/src/Application/Controllers/ClearConversationController.php:82
+#: modules/mail/src/Application/Controllers/WriteController.php:89
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:39
+msgid "User does not exists"
+msgstr "Користувача не існує"
+
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:37
+msgid "Delete contact"
+msgstr "Видалити контакт"
+
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:41
+msgid "When you delete a contact is deleted and all correspondence with him.<br>Are you sure you want to delete?"
+msgstr "Коли ви видаляєте контакт, видаляється вся переписка з ним.<br>Ви впевнені, що хочете видалити?"
+
+#: modules/mail/src/Application/Controllers/DeleteContactController.php:69
+msgid "Contact deleted"
+msgstr "Контакт видалено"
+
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:36
+msgid "Delete message"
+msgstr "Видалити повідомлення"
+
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:40
+msgid "You really want to remove the message?"
+msgstr "Ви дійсно бажаєте видалити повідомлення?"
+
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:48
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:49
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:66
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:80
+msgid "Deleting messages"
+msgstr "Видалення повідомлень"
+
+#: modules/mail/src/Application/Controllers/DeleteMessageController.php:68
+msgid "Message deleted"
+msgstr "Повідомлення видалено"
+
+#: modules/mail/src/Application/Controllers/DownloadFileController.php:32
+msgid "Such file does not exist"
+msgstr "Такого файлу не існує"
+
+#: modules/mail/src/Application/Controllers/FilesController.php:41
+#: modules/mail/src/Application/Controllers/FilesController.php:43
+#: modules/mail/templates/nav.phtml:14
+msgid "Files"
+msgstr "Файли"
+
+#: modules/mail/src/Application/Controllers/IncomingConversationsController.php:42
+#: modules/mail/templates/nav.phtml:12
+msgid "Incoming messages"
+msgstr "Вхідні повідомлення"
+
+#: modules/mail/src/Application/Controllers/OutgoingConversationsController.php:41
+#: modules/mail/src/Application/Controllers/OutgoingConversationsController.php:43
+#: modules/mail/templates/nav.phtml:13
+msgid "Sent messages"
+msgstr "Відправлені повідомлення"
+
+#: modules/mail/src/Application/Controllers/UnblockUserController.php:29
+msgid "User unblocked successfully"
+msgstr "Користувача успішно розблоковано"
+
+#: modules/mail/src/Application/Controllers/UnblockUserController.php:40
+#: modules/mail/src/Application/Controllers/UnblockUserController.php:43
+#: modules/mail/src/Application/Controllers/UnblockUserController.php:44
+msgid "Unblock user"
+msgstr "Розблокувати користувача"
+
+#: modules/mail/src/Application/Controllers/UnblockUserController.php:49
+msgid "You really want to unblock contact?"
+msgstr "Ви дійсно бажаєте розблокувати контакт?"
+
+#: modules/mail/src/Application/Controllers/UnblockUserController.php:51
+#: modules/mail/templates/blocklist.phtml:57
+msgid "Unblock"
+msgstr "Розблокувати"
+
+#: modules/mail/src/Application/Controllers/WriteController.php:95
+msgid "New message"
+msgstr "Нове повідомлення"
+
+#: modules/mail/src/Application/UseCases/BlockUserUseCase.php:27
+msgid "You cannot block yourself"
+msgstr "Ви не можете заблокувати самого себе"
+
+#: modules/mail/src/Application/UseCases/GetContactListUseCase.php:35
+msgid "My Contacts"
+msgstr "Мої контакти"
+
+#: modules/mail/src/Application/UseCases/GetContactListUseCase.php:40
+msgid "Blocklist"
+msgstr "Список блокування"
+
+#: modules/mail/src/Application/UseCases/GetContactListUseCase.php:87
+#: modules/mail/src/Application/UseCases/GetIncomingConversationsUseCase.php:76
+#: modules/mail/src/Application/UseCases/GetOutgoingConversationsUseCase.php:76
+#: modules/mail/templates/blocklist.phtml:55
+msgid "Correspondence"
+msgstr "Листування"
+
+#: modules/mail/src/Application/UseCases/GetContactListUseCase.php:95
+#: modules/mail/src/Application/UseCases/GetIncomingConversationsUseCase.php:84
+#: modules/mail/src/Application/UseCases/GetOutgoingConversationsUseCase.php:84
+msgid "Block User"
+msgstr "Заблокувати користувача"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:34
+msgid "Access forbidden"
+msgstr "Доступ заборонено"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:44
+msgid "Message cannot be empty"
+msgstr "Повідомлення не може бути пустим"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:48
+msgid "You cannot send messages to yourself"
+msgstr "Ви не можете надсилати повідомлення самому собі"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:54
+#, php-format
+msgid "You cannot add the message so often. Please, wait %d sec."
+msgstr "Ви не можете додавати повідомлення так часто. Будь ласка, зачекайте %d секунд."
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:61
+msgid "The user at your ignore list. Sending the message is impossible."
+msgstr "Користувач у вас в ігнорі. Відправка повідомлення неможлива."
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:64
+msgid "The user added you in the ignore list. Sending the message isn't possible."
+msgstr "Користувач додав вас до ігнору. Відправка повідомлення неможлива."
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:75
+msgid "Message already exists"
+msgstr "Повідомлення вже існує"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:85
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:139
+msgid "Error uploading file"
+msgstr "Помилка завантаження файлу"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:125
+msgid "To this user can write only contacts"
+msgstr "Цьому користувачу можуть писати тільки контакти"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:129
+msgid "To this user can write only friends"
+msgstr "Цьому користувачу можуть писати тільки друзі"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:145
+msgid "It is forbidden to upload files without a name"
+msgstr "Забороняється завантажувати файли без імені"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:149
+msgid "It is forbidden to upload files without extension"
+msgstr "Забороняється завантажувати файли без розширення"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:155
+msgid "The size of the file exceeds the maximum allowable upload"
+msgstr "Розмір файлу перевищує максимально допустимий"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:159
+msgid "File name contains invalid characters"
+msgstr "Ім'я файлу містить неприпустимі символи"
+
+#: modules/mail/src/Application/UseCases/SendMessageUseCase.php:164
+msgid "Forbidden file type! By uploading permitted only files with the following extension"
+msgstr "Заборонений тип файлу! Завантажувати можна лише файли з наступними розширеннями"
+
+#: modules/mail/templates/blocklist.phtml:27
+#: modules/mail/templates/contact_list.phtml:25
+#: modules/mail/templates/conversations.phtml:33
+#: modules/mail/templates/files.phtml:33
+#: modules/mail/templates/messages.phtml:80
+msgid "The list is empty"
+msgstr "Список порожній"
+
+#: modules/mail/templates/blocklist.phtml:52
+msgid "User since:"
+msgstr "Користувач із:"
+
+#: modules/mail/templates/confirm.phtml:32
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: modules/mail/templates/contact_list.phtml:49
+#: modules/mail/templates/conversations.phtml:64
+msgid "message"
+msgid_plural "messages"
+msgstr[0] "повідомлення"
+msgstr[1] "повідомлення"
+msgstr[2] "повідомлення"
+msgstr[3] "повідомлення"
+
+#: modules/mail/templates/contact_list.phtml:51
+msgid "unread message"
+msgid_plural "unread messages"
+msgstr[0] "непрочитане повідомлення"
+msgstr[1] "непрочитані повідомлення"
+msgstr[2] "непрочитані повідомлення"
+msgstr[3] "непрочитані повідомлення"
+
+#: modules/mail/templates/contact_list.phtml:76
+#: modules/mail/templates/conversations.phtml:104
+#: modules/mail/templates/files.phtml:74
+#: modules/mail/templates/messages.phtml:202
+msgid "Total:"
+msgstr "Всього:"
+
+#: modules/mail/templates/conversations.phtml:67
+msgid "Last:"
+msgstr "Останнє:"
+
+#: modules/mail/templates/messages.phtml:40
+#: modules/mail/templates/messages.phtml:48
+msgid "To Whom"
+msgstr "Кому"
+
+#: modules/mail/templates/messages.phtml:56
+msgid "Message"
+msgstr "Повідомлення"
+
+#: modules/mail/templates/messages.phtml:67
+msgid "Choose file"
+msgstr "Виберіть файл"
+
+#: modules/mail/templates/messages.phtml:70
+msgid "Send"
+msgstr "Відправити"
+
+#: modules/mail/templates/messages.phtml:135
+msgid "Attached files"
+msgstr "Прикріплені файли"
+

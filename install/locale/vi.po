@@ -1,0 +1,283 @@
+msgid ""
+msgstr ""
+"X-Domain: install\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: vi\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/install/locale/install.pot\n"
+"X-Crowdin-File-ID: 506\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Vietnamese\n"
+"Language: vi_VN\n"
+"PO-Revision-Date: 2026-07-12 12:42\n"
+
+#: install/index.php:66
+#: install/steps/step_1.php:24
+msgid "Preparing for installation"
+msgstr "Chuẩn bị cho quá trình cài đặt"
+
+#: install/index.php:71
+#: install/steps/step_2.php:20
+#: install/steps/step_2.php:21
+msgid "Checking parameters"
+msgstr "Kiểm tra các thông số"
+
+#: install/index.php:76
+#: install/steps/step_3.php:25
+#: install/steps/step_3.php:26
+msgid "Database"
+msgstr "Cơ sở dữ liệu"
+
+#: install/index.php:81
+#: install/steps/step_4.php:31
+#: install/steps/step_4.php:32
+msgid "Setting"
+msgstr "Cài đặt"
+
+#: install/index.php:86
+msgid "Completion"
+msgstr "Hoàn tất"
+
+#: install/steps/step_2.php:27
+msgid "PHP version"
+msgstr "Phiên bản PHP"
+
+#: install/steps/step_2.php:30
+#, php-format
+msgid "The PHP version must be at least %s"
+msgstr "Phiên bản PHP thấp nhất là %s"
+
+#: install/steps/step_2.php:34
+#: install/steps/step_2.php:40
+#: install/steps/step_2.php:46
+#: install/steps/step_2.php:52
+#: install/steps/step_2.php:58
+msgid "Yes"
+msgstr "Có"
+
+#: install/steps/step_2.php:34
+#: install/steps/step_2.php:40
+#: install/steps/step_2.php:46
+#: install/steps/step_2.php:52
+#: install/steps/step_2.php:58
+msgid "No"
+msgstr "Không"
+
+#: install/steps/step_2.php:36
+msgid "PHP extension PDO must be installed"
+msgstr "Tiện ích mở rộng PDO của PHP phải được kích hoạt"
+
+#: install/steps/step_2.php:39
+msgid "Imagick or GD extension"
+msgstr "Imagick hoặc GD extension"
+
+#: install/steps/step_2.php:42
+msgid "You must install the php extension Imagick or GD"
+msgstr ""
+
+#: install/steps/step_2.php:45
+msgid "zlib extension"
+msgstr ""
+
+#: install/steps/step_2.php:48
+msgid "PHP extension zlib must be installed"
+msgstr "Tiện ích mở rộng zlib của PHP phải được kích hoạt"
+
+#: install/steps/step_2.php:51
+msgid "mbstring extension"
+msgstr ""
+
+#: install/steps/step_2.php:54
+msgid "PHP extension mbstring must be installed"
+msgstr "Tiện ích mở rộng mbstring phải được kích hoạt"
+
+#: install/steps/step_2.php:57
+msgid "fileinfo extension"
+msgstr ""
+
+#: install/steps/step_2.php:60
+msgid "PHP extension fileinfo must be installed"
+msgstr "PHP extension fileinfo đã được kích hoạt"
+
+#: install/steps/step_3.php:124
+msgid "Correct work of JohnCMS is not guaranteed on your version of mysql server.<br>You can ignore this warning at your own risk."
+msgstr "Hoạt động chính xác của JohnCMS không được đảm bảo trên phiên bản máy chủ mysql của bạn. <br> Bạn có thể tự chịu rủi ro bỏ qua cảnh báo này."
+
+#: install/steps/step_3.php:125
+#, php-format
+msgid "Server name: <b>%s</b>. <br>Your mysql server version is <b>%s</b>. But <b>%s</b> is required."
+msgstr ""
+
+#: install/steps/step_3.php:129
+msgid "The system requires a properly configured <a href='https://www.php.net/manual/en/intro.mysqlnd.php' target='_blank'>MySQL Native Driver (mysqlnd)</a>."
+msgstr "Hệ thống yêu cầu cấu hình đúng <a href='https://www.php.net/manual/en/intro.mysqlnd.php' target='_blank'>MySQL Native Driver (mysqlnd)</a>."
+
+#: install/steps/step_3.php:130
+msgid "Please contact your hosting provider's technical support to resolve this issue."
+msgstr "Vui lòng liên hệ với bộ phận hỗ trợ kỹ thuật của nhà cung cấp dịch vụ lưu trữ của bạn để giải quyết vấn đề này."
+
+#: install/steps/step_3.php:134
+msgid "ERROR: Can't write database.local.php"
+msgstr "LỖI: không thể tạo tệp database.local.php"
+
+#: install/steps/step_3.php:140
+msgid "Invalid database host name"
+msgstr "Database host name không hợp lệ"
+
+#: install/steps/step_3.php:142
+msgid "Invalid database user or password"
+msgstr "Tài khoản hoặc mật khẩu database không hợp lệ"
+
+#: install/steps/step_3.php:144
+msgid "Database does not exist"
+msgstr "Cơ sở dữ liệu không tồn tại"
+
+#: install/steps/step_4.php:167
+msgid "ERROR: Can't write system.local.php"
+msgstr "LỖI: Không thể tạo system.local.php"
+
+#: install/steps/step_5.php:15
+#: install/steps/step_5.php:16
+msgid "Complete the installation"
+msgstr "Hoàn thành việc cài đặt"
+
+#: install/templates/step_1.phtml:3
+msgid "Welcome to JohnCMS installation wizard"
+msgstr "Chào mừng bạn đến với trình hướng dẫn cài đặt JohnCMS"
+
+#: install/templates/step_1.phtml:6
+msgid "During the installation process, a basic check of the hosting will be performed for compliance with the CMS requirements."
+msgstr "Trong suốt quá trình cài đặt, một bản kiểm thử hosting sẽ thực hiện kiểm tra cho phù hợp với yêu cầu của CMS."
+
+#: install/templates/step_1.phtml:7
+msgid "If errors occurred during the installation stage and you do not know how to solve them, you can ask for help on <a href=\"https://johncms.com/forum/\" class=\"text-underline\" rel=\"nofollow\" target=\"_blank\">our forum.</a>"
+msgstr "Nếu có lỗi xảy ra trong quá trình cài đặt và bạn không biết làm thế nào để giải quyết chúng, bạn có thể yêu cầu giúp đỡ trên <a href=\"https://johncms.com/forum/\" class=\"text-underline\" rel=\"nofollow\" target=\"_blank\">diễn đàn của chúng tôi.</a>"
+
+#: install/templates/step_1.phtml:11
+msgid "Choose language"
+msgstr "Chọn ngôn ngữ"
+
+#: install/templates/step_1.phtml:28
+#: install/templates/step_2.phtml:34
+#: install/templates/step_2.phtml:36
+#: install/templates/step_3.phtml:92
+#: install/templates/step_4.phtml:81
+msgid "Continue"
+msgstr "Tiếp tục"
+
+#: install/templates/step_2.phtml:3
+msgid "Checking extensions"
+msgstr "Kiểm tra tiện ích mở rộng extensions"
+
+#: install/templates/step_2.phtml:20
+msgid "Permissions check (chmod)"
+msgstr "Kiểm tra truyền truy xuất dữ liệu (chmod)"
+
+#: install/templates/step_2.phtml:22
+msgid "Everything is good"
+msgstr "Mọi thứ đều ổn"
+
+#: install/templates/step_2.phtml:29
+msgid "For the specified directories, you must set the permissions to allow writing (777)."
+msgstr "Cho các thư mục đặc biệt, bạn phải thiết lập quyền để cho phép ghi (777)."
+
+#: install/templates/step_3.phtml:10
+msgid "Database connection settings"
+msgstr "Cài đặt kết nối cơ sở dữ liệu"
+
+#: install/templates/step_3.phtml:21
+#: install/templates/step_3.phtml:28
+msgid "DB Host"
+msgstr ""
+
+#: install/templates/step_3.phtml:35
+#: install/templates/step_3.phtml:42
+msgid "Port"
+msgstr "Cổng"
+
+#: install/templates/step_3.phtml:49
+#: install/templates/step_3.phtml:56
+msgid "DB Name"
+msgstr "Tên DB"
+
+#: install/templates/step_3.phtml:63
+#: install/templates/step_3.phtml:70
+msgid "DB User"
+msgstr "Tài khoản DB"
+
+#: install/templates/step_3.phtml:77
+#: install/templates/step_3.phtml:83
+msgid "DB Password"
+msgstr "Mật khẩu DB"
+
+#: install/templates/step_3.phtml:92
+msgid "Continue anyway"
+msgstr "Vẫn tiếp tục"
+
+#: install/templates/step_4.phtml:10
+msgid "Website settings"
+msgstr "Cài đặt Website"
+
+#: install/templates/step_4.phtml:18
+#: install/templates/step_4.phtml:25
+msgid "Site address"
+msgstr "Địa chỉ trang web"
+
+#: install/templates/step_4.phtml:32
+#: install/templates/step_4.phtml:39
+msgid "E-mail"
+msgstr "Email"
+
+#: install/templates/step_4.phtml:46
+msgid "Administrator data"
+msgstr "Dữ liệu Admin"
+
+#: install/templates/step_4.phtml:48
+#: install/templates/step_4.phtml:55
+msgid "Admin login"
+msgstr "Đăng nhập Admin"
+
+#: install/templates/step_4.phtml:62
+#: install/templates/step_4.phtml:68
+msgid "Admin password"
+msgstr "Mật khẩu Admin"
+
+#: install/templates/step_4.phtml:74
+msgid "Additionally"
+msgstr "Ngoài ra"
+
+#: install/templates/step_4.phtml:77
+msgid "Install demo data"
+msgstr "Cài đặt dữ liệu demo"
+
+#: install/templates/step_5.phtml:3
+msgid "Congratulations!"
+msgstr "Xin chúc mừng!"
+
+#: install/templates/step_5.phtml:4
+#, php-format
+msgid "JohnCMS %s installation completed successfully."
+msgstr "JohnCMS %s đã được cài đặt hoàn thành công."
+
+#: install/templates/step_5.phtml:7
+msgid "ATTENTION!"
+msgstr "CHÚ Ý!"
+
+#: install/templates/step_5.phtml:8
+msgid "Now you need to delete the folder <b>/install/</b>"
+msgstr "Bây giờ bạn cần xóa thư mục <b>/install/</b>"
+
+#: install/templates/step_5.phtml:11
+msgid "If you need help, you can visit <a href=\"https://johncms.com/forum/\" class=\"text-underline\">our forum</a>."
+msgstr "Nếu bạn cần giúp đỡ, anh có thể truy cập <a href=\"https://johncms.com/forum/\" class=\"text-underline\">diễn đàn của chúng tôi</a>."
+
+#: install/templates/step_5.phtml:12
+msgid "Also, if necessary, you can familiarize yourself with <a href=\"https://docs.johncms.com/\" class=\"text-underline\">the documentation</a>"
+msgstr ""
+
+#: install/templates/step_5.phtml:15
+msgid "Go to website"
+msgstr "Tới trang web"
+

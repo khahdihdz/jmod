@@ -1,0 +1,308 @@
+msgid ""
+msgstr ""
+"X-Domain: help\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: ar\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/modules/help/locale/help.pot\n"
+"X-Crowdin-File-ID: 486\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Arabic\n"
+"Language: ar_SA\n"
+"PO-Revision-Date: 2026-07-12 12:37\n"
+
+#: modules/help/src/Application/Controllers/AdminSmiliesController.php:43
+#: modules/help/src/Application/Controllers/AdminSmiliesController.php:49
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:60
+msgid "For administration"
+msgstr "الإدارة"
+
+#: modules/help/src/Application/Controllers/AdminSmiliesController.php:45
+msgid "Access forbidden"
+msgstr "ممنوع الوصول"
+
+#: modules/help/src/Application/Controllers/AdminSmiliesController.php:51
+#: modules/help/src/Application/Controllers/AvatarCatalogController.php:33
+#: modules/help/src/Application/Controllers/AvatarListController.php:50
+#: modules/help/src/Application/Controllers/ForumRulesController.php:33
+#: modules/help/src/Application/Controllers/HelpIndexController.php:35
+#: modules/help/src/Application/Controllers/MySmiliesController.php:53
+#: modules/help/src/Application/Controllers/SetAvatarController.php:61
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:37
+#: modules/help/src/Application/Controllers/UserSmiliesController.php:53
+msgid "Information, FAQ"
+msgstr "معلومات، أسئلة وأجوبة"
+
+#: modules/help/src/Application/Controllers/AdminSmiliesController.php:52
+#: modules/help/src/Application/Controllers/AdminSmiliesController.php:62
+#: modules/help/src/Application/Controllers/MySmiliesController.php:54
+#: modules/help/src/Application/Controllers/MySmiliesController.php:64
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:35
+#: modules/help/src/Application/Controllers/UserSmiliesController.php:54
+#: modules/help/src/Application/Controllers/UserSmiliesController.php:64
+msgid "Smiles"
+msgstr "ابتسامات"
+
+#: modules/help/src/Application/Controllers/AvatarCatalogController.php:31
+#: modules/help/src/Application/Controllers/AvatarListController.php:51
+#: modules/help/src/Application/Controllers/SetAvatarController.php:62
+#: modules/help/templates/index.phtml:30
+msgid "Avatars"
+msgstr "الصورة الشخصية"
+
+#: modules/help/src/Application/Controllers/AvatarListController.php:40
+#: modules/help/src/Application/Controllers/SetAvatarController.php:51
+#: modules/help/src/Application/Controllers/UserSmiliesController.php:43
+msgid "Wrong data"
+msgstr ""
+
+#: modules/help/src/Application/Controllers/AvatarListController.php:42
+#: modules/help/src/Application/Controllers/UserSmiliesController.php:45
+msgid "The directory does not exist"
+msgstr ""
+
+#: modules/help/src/Application/Controllers/AvatarListController.php:44
+#: modules/help/src/Application/Controllers/MySmiliesController.php:47
+#: modules/help/src/Application/Controllers/SetAvatarController.php:42
+#: modules/help/src/Application/Controllers/SetAvatarController.php:55
+#: modules/help/src/Application/Controllers/SetAvatarController.php:87
+#: modules/help/src/Application/Controllers/SetMySmiliesController.php:42
+#: modules/help/src/Application/Controllers/UserSmiliesController.php:47
+#: modules/help/templates/avatar_list.phtml:65
+#: modules/help/templates/avatars.phtml:48
+#: modules/help/templates/forum_rules.phtml:60
+#: modules/help/templates/index.phtml:34
+#: modules/help/templates/my_smiles_list.phtml:81
+#: modules/help/templates/smiles.phtml:48
+#: modules/help/templates/smiles_list.phtml:88
+msgid "Back"
+msgstr "الرجوع"
+
+#: modules/help/src/Application/Controllers/ForumRulesController.php:31
+#: modules/help/templates/index.phtml:29
+msgid "Forum rules"
+msgstr "قواعد المنتدى"
+
+#: modules/help/src/Application/Controllers/MySmiliesController.php:43
+#: modules/help/src/Application/Controllers/SetAvatarController.php:38
+#: modules/help/src/Application/Controllers/SetMySmiliesController.php:38
+msgid "Access denied"
+msgstr ""
+
+#: modules/help/src/Application/Controllers/MySmiliesController.php:45
+#: modules/help/src/Application/Controllers/SetAvatarController.php:40
+#: modules/help/src/Application/Controllers/SetMySmiliesController.php:40
+msgid "You are not logged in"
+msgstr ""
+
+#: modules/help/src/Application/Controllers/MySmiliesController.php:51
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:52
+#: modules/help/templates/smiles_list.phtml:45
+msgid "My smilies"
+msgstr "ابتساماتي"
+
+#: modules/help/src/Application/Controllers/SetAvatarController.php:53
+msgid "File does not exist"
+msgstr ""
+
+#: modules/help/src/Application/Controllers/SetAvatarController.php:59
+msgid "Set to Profile"
+msgstr "تعيين ملف تعريف"
+
+#: modules/help/src/Application/Controllers/SetAvatarController.php:76
+msgid "Avatar has been successfully applied"
+msgstr "تم بنجاح إزالة الحظر"
+
+#: modules/help/src/Application/Controllers/SetAvatarController.php:78
+msgid "Continue"
+msgstr "الاستمرار"
+
+#: modules/help/src/Application/Controllers/SetAvatarController.php:85
+msgid "An error occurred"
+msgstr "حدث خطأ"
+
+#: modules/help/src/Application/Controllers/SetAvatarController.php:94
+msgid "Are you sure you want to set yourself this avatar?"
+msgstr "هل ترغب فعلا في استعمال الصّورة الرمزيّة الافتراضية؟"
+
+#: modules/help/src/Application/Controllers/SetAvatarController.php:97
+msgid "Save"
+msgstr "حفظ"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:92
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:85
+msgid "Animals"
+msgstr "الحيوانات"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:93
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:86
+msgid "Brawl, Weapons"
+msgstr "شجار، الأسلحة"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:94
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:87
+msgid "Emotions"
+msgstr "العواطف"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:95
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:88
+msgid "Flowers"
+msgstr "زهور"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:96
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:89
+msgid "Food, Alcohol"
+msgstr "الغذاء والكحول (لا ينصح به)"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:97
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:90
+msgid "Gestures"
+msgstr "الحركات"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:98
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:91
+msgid "Holidays"
+msgstr "الاجازات"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:99
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:92
+msgid "Love"
+msgstr "الحب"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:100
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:93
+msgid "Miscellaneous"
+msgstr "منوعات"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:101
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:94
+msgid "Music, Dancing"
+msgstr "الموسيقى والرقص"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:102
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:95
+msgid "Sports"
+msgstr "الرياضة"
+
+#: modules/help/src/Application/Controllers/SmiliesCatalogController.php:103
+#: modules/help/src/Application/UseCases/GetUserSmiliesUseCase.php:96
+msgid "Technology"
+msgstr "تكنولوجيا"
+
+#: modules/help/templates/avatar_list.phtml:33
+#: modules/help/templates/avatars.phtml:34
+#: modules/help/templates/my_smiles_list.phtml:33
+#: modules/help/templates/smiles.phtml:34
+#: modules/help/templates/smiles_list.phtml:33
+msgid "The list is empty"
+msgstr "القائمة فارغة"
+
+#: modules/help/templates/avatar_list.phtml:61
+#: modules/help/templates/my_smiles_list.phtml:77
+#: modules/help/templates/smiles_list.phtml:84
+msgid "Total:"
+msgstr "مجموع"
+
+#: modules/help/templates/confirm.phtml:40
+msgid "Cancel"
+msgstr "إلغاء الأمر"
+
+#: modules/help/templates/forum_rules.phtml:27
+msgid "FORBIDDEN"
+msgstr "ممنوع"
+
+#: modules/help/templates/forum_rules.phtml:29
+msgid "Advertising messages"
+msgstr "حذف المراسلات"
+
+#: modules/help/templates/forum_rules.phtml:30
+msgid "The messages containing direct propagation of racial, national and religious animosity"
+msgstr "الرسائل التي تحتوي على الانتشار المباشر من العنصرية والقومية والدينية العداء"
+
+#: modules/help/templates/forum_rules.phtml:31
+msgid "Any abusive, obscene, vulgar, slanderous, hateful, threatening and sexually-oriented messages or any other material that may violate any applicable laws"
+msgstr "أي الرسائل المسيئة فاحشة والمبتذلة، افتراء، والبغيضة، وتهديد وتوجها جنسياً أو غيرها من المواد التي قد تنتهك أي من القوانين المعمول بها"
+
+#: modules/help/templates/forum_rules.phtml:32
+msgid "The messages obviously offending someone, espcially forum users"
+msgstr "الرسائل الواضح الإساءة إلى شخص ما ، espcially المنتدى المستخدمين"
+
+#: modules/help/templates/forum_rules.phtml:33
+msgid "Purposely to deform a writing of nicknames of other users for the purpose of giving to the message an offensive shade"
+msgstr "عمدا تشويه كتابة الأسماء المستعارة للمستخدمين الآخرين قصد إعطاء رسالة ظل الهجومية"
+
+#: modules/help/templates/forum_rules.phtml:34
+msgid "Publishing deleted by moderator messages repeatedly"
+msgstr "حذف من قبل مشرف رسائل مرارا وتكرارا النشر"
+
+#: modules/help/templates/forum_rules.phtml:35
+msgid "Post messages not related to the topic"
+msgstr "نشر الرسائل التي لا تتصل بالموضوع"
+
+#: modules/help/templates/forum_rules.phtml:36
+msgid "Continuing topics that have been closed by moderator"
+msgstr "استمرار المواضيع التي تم إغلاقها بواسطة مدير"
+
+#: modules/help/templates/forum_rules.phtml:39
+msgid "ABSOLUTELY FORBIDDEN"
+msgstr "ممنوع تماما"
+
+#: modules/help/templates/forum_rules.phtml:41
+msgid "Writing in the public topics a discontent with inappropriate actions of other users and discussing about moderators working. Use private messages for this purpose"
+msgstr "الكتابة في المواضيع العامة عدم الرضا غير لائقة من المستخدمين الآخرين ومناقشة حول المشرفين العامل. استخدام الرسائل الخاصة لهذا الغرض"
+
+#: modules/help/templates/forum_rules.phtml:42
+msgid "Register the nicknames having offensive tone for other users"
+msgstr "تسجيل الأسماء المستعارة الغير لائقة لهجة هجومية للمستخدمين الآخرين"
+
+#: modules/help/templates/forum_rules.phtml:45
+msgid "UNACCEPTABLE"
+msgstr "غير مقبول"
+
+#: modules/help/templates/forum_rules.phtml:47
+msgid "Quote full messages of the previous user and quote the messages already containing other quotes"
+msgstr "واقتبس الرسائل الكاملة للمستخدم السابقة واقتبس رسائل الفعل تحتوي على عروض الأسعار الأخرى"
+
+#: modules/help/templates/forum_rules.phtml:48
+msgid "Post messages only contains external link"
+msgstr "رسائل البريد فقط يحتوي على ارتباط خارجي"
+
+#: modules/help/templates/forum_rules.phtml:49
+msgid "Post messages written in translite"
+msgstr "آخر رسائل مكتوبة في translite"
+
+#: modules/help/templates/forum_rules.phtml:50
+msgid "Posting of purposeless messages: consisting of smileys only or posts like \"Ok\", \"What?\", \"Who is there?\", etc."
+msgstr "نشر الرسائل بلا هدف: تتكون من الابتسامات فقط أو الوظائف مثل \"موافق\"، \"ماذا؟\"، \"من هناك؟\"، إلخ."
+
+#: modules/help/templates/forum_rules.phtml:55
+msgid "Message posted despite the above warnings will be changed or deleted."
+msgstr "اي رسالة نشرت على الرغم من التحذيرات أعلاه سيتم تعديلها أو حذفها."
+
+#: modules/help/templates/forum_rules.phtml:56
+msgid "This rule applies to all members and moderators, repeated actions will make you get ban or even lose your account."
+msgstr "تنطبق هذه القاعدة على جميع الأعضاء و المشرفين الإجراءات المتكررة سوف تجعلك تحصل على الحظر أو حتى تفقد حسابك."
+
+#: modules/help/templates/index.phtml:31
+msgid "Smilies"
+msgstr "الابتسامات"
+
+#: modules/help/templates/my_smiles_list.phtml:36
+msgid "Add Smilies"
+msgstr "إضافة الابتسامات"
+
+#: modules/help/templates/my_smiles_list.phtml:55
+#: modules/help/templates/smiles_list.phtml:62
+msgid "or"
+msgstr "او"
+
+#: modules/help/templates/my_smiles_list.phtml:64
+msgid "Delete"
+msgstr "حذف"
+
+#: modules/help/templates/smiles_list.phtml:71
+msgid "Add"
+msgstr "اضف"
+

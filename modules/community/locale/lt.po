@@ -1,0 +1,173 @@
+msgid ""
+msgstr ""
+"X-Domain: community\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && (n%100>19 || n%100<11) ? 0 : (n%10>=2 && n%10<=9) && (n%100>19 || n%100<11) ? 1 : n%1!=0 ? 2: 3);\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: lt\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/modules/community/locale/community.pot\n"
+"X-Crowdin-File-ID: 478\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Lithuanian\n"
+"Language: lt_LT\n"
+"PO-Revision-Date: 2026-07-12 12:36\n"
+
+#: modules/community/src/Application/Controllers/AdministrationController.php:32
+#: modules/community/src/Application/Controllers/CommunityBirthdaysController.php:32
+#: modules/community/src/Application/Controllers/CommunityIndexController.php:27
+#: modules/community/src/Application/Controllers/CommunitySearchController.php:34
+#: modules/community/src/Application/Controllers/CommunityTopController.php:29
+#: modules/community/src/Application/Controllers/CommunityUsersController.php:32
+#: modules/community/src/Application/UseCases/ViewIndexUseCase.php:21
+msgid "Community"
+msgstr "Bendruomenė"
+
+#: modules/community/src/Application/Controllers/AdministrationController.php:42
+#: modules/community/src/Application/Controllers/CommunityBirthdaysController.php:42
+#: modules/community/src/Application/Controllers/CommunityIndexController.php:37
+#: modules/community/src/Application/Controllers/CommunitySearchController.php:44
+#: modules/community/src/Application/Controllers/CommunityTopController.php:39
+#: modules/community/src/Application/Controllers/CommunityUsersController.php:42
+msgid "For registered users only"
+msgstr "Tik registruotiems Vartotojams"
+
+#: modules/community/src/Application/Controllers/AdministrationController.php:47
+#: modules/community/templates/index.phtml:45
+msgid "Administration"
+msgstr "Administravimas"
+
+#: modules/community/src/Application/Controllers/CommunityBirthdaysController.php:47
+#: modules/community/templates/index.phtml:50
+msgid "Birthdays"
+msgstr "Gimtadienis"
+
+#: modules/community/src/Application/Controllers/CommunitySearchController.php:49
+#: modules/community/templates/administration.phtml:50
+#: modules/community/templates/search.phtml:84
+#: modules/community/templates/users.phtml:50
+msgid "User Search"
+msgstr "Vartotojo Paieška"
+
+#: modules/community/src/Application/Controllers/CommunityUsersController.php:47
+msgid "List of users"
+msgstr "Vartotojų sąrašas"
+
+#: modules/community/src/Application/UseCases/ViewSearchUseCase.php:26
+#: modules/community/templates/index.phtml:32
+msgid "Nickname"
+msgstr "Slapyvardis"
+
+#: modules/community/src/Application/UseCases/ViewSearchUseCase.php:26
+msgid "Invalid length"
+msgstr "Neleistinas ilgis"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:22
+msgid "Forum"
+msgstr "Forumas"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:27
+msgid "Guestbook"
+msgstr "Svečių Knyga"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:32
+msgid "Comments"
+msgstr "Komentarai"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:41
+msgid "Karma"
+msgstr ""
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:50
+msgid "Most active in Guestbook"
+msgstr "Aktyviausieji Svečių knygoje"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:56
+msgid "Most commentators"
+msgstr "Dažniausi komentatoriai"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:63
+msgid "Best Karma"
+msgstr "Geriausia Karma"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:68
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:74
+msgid "Most active in Forum"
+msgstr "Aktyviausi Forume"
+
+#: modules/community/templates/administration.phtml:33
+#: modules/community/templates/search.phtml:67
+#: modules/community/templates/top.phtml:40
+#: modules/community/templates/users.phtml:33
+msgid "List is empty"
+msgstr "Sąrašas tuščias"
+
+#: modules/community/templates/administration.phtml:40
+#: modules/community/templates/search.phtml:74
+#: modules/community/templates/users.phtml:40
+msgid "Total"
+msgstr "Viso"
+
+#: modules/community/templates/administration.phtml:53
+#: modules/community/templates/search.phtml:87
+#: modules/community/templates/top.phtml:47
+#: modules/community/templates/users.phtml:53
+msgid "Back"
+msgstr "Atgal"
+
+#: modules/community/templates/index.phtml:30
+#: modules/community/templates/search.phtml:46
+msgid "Look for the User"
+msgstr "Ieškoti vartotoja"
+
+#: modules/community/templates/index.phtml:34
+#: modules/community/templates/search.phtml:50
+msgid "Search"
+msgstr "Paieška"
+
+#: modules/community/templates/index.phtml:37
+#: modules/community/templates/search.phtml:53
+msgid "The search is performed by Nickname and are case-insensitive."
+msgstr "Paieška atliekama pagal vartotojo slapyvardį, nejautrus didžiosioms arba mažosioms raidėms."
+
+#: modules/community/templates/index.phtml:41
+msgid "Users"
+msgstr "Vartotojai"
+
+#: modules/community/templates/index.phtml:55
+msgid "Top Activity"
+msgstr "Top Aktyvumas"
+
+#: modules/community/templates/search.phtml:48
+msgid "Username"
+msgstr "Vartotojo vardas"
+
+#: modules/community/templates/user_row.phtml:61
+#: modules/community/templates/user_row.phtml:67
+msgid "post"
+msgid_plural "posts"
+msgstr[0] "pranešimas"
+msgstr[1] "pareigybės"
+msgstr[2] "pareigybės"
+msgstr[3] "pareigybės"
+
+#: modules/community/templates/user_row.phtml:63
+msgid "comment"
+msgid_plural "comments"
+msgstr[0] "Komentaras"
+msgstr[1] "Komentarai"
+msgstr[2] "Komentarai"
+msgstr[3] "Komentarai"
+
+#: modules/community/templates/user_row.phtml:65
+msgid "point"
+msgid_plural "points"
+msgstr[0] "taškas"
+msgstr[1] "taškai"
+msgstr[2] "taškai"
+msgstr[3] "taškai"
+
+#: modules/community/templates/user_row.phtml:89
+msgid "Delete"
+msgstr "Ištrinti"
+

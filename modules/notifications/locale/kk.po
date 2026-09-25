@@ -1,0 +1,91 @@
+msgid ""
+msgstr ""
+"X-Domain: notifications\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: kk\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/modules/notifications/locale/notifications.pot\n"
+"X-Crowdin-File-ID: 502\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Kazakh\n"
+"Language: kk_KZ\n"
+"PO-Revision-Date: 2026-07-12 12:41\n"
+
+#: modules/notifications/src/Application/Controllers/ClearController.php:22
+msgid "Notifications are cleared!"
+msgstr "Хабарландырулар жойылды!"
+
+#: modules/notifications/src/Application/Controllers/IndexController.php:30
+#: modules/notifications/src/Application/Controllers/IndexController.php:41
+#: modules/notifications/src/Application/Controllers/IndexController.php:44
+#: modules/notifications/src/Application/Controllers/SettingsController.php:31
+msgid "Notifications"
+msgstr "Хабарландырулар"
+
+#: modules/notifications/src/Application/Controllers/SettingsController.php:29
+#: modules/notifications/templates/index.phtml:72
+msgid "Settings"
+msgstr "Баптаулар"
+
+#: modules/notifications/src/Application/Controllers/SettingsController.php:37
+msgid "Settings saved!"
+msgstr "Баптаулар сақталады!"
+
+#: modules/notifications/src/Application/UseCases/GetNotificationListUseCase.php:49
+msgid "Users on registration"
+msgstr "Пайдаланушыларды тіркеу"
+
+#: modules/notifications/src/Application/UseCases/GetNotificationListUseCase.php:57
+msgid "Articles on moderation"
+msgstr "Модерация туралы мақалалар"
+
+#: modules/notifications/src/Application/UseCases/GetNotificationListUseCase.php:65
+msgid "Downloads on moderation"
+msgstr "Модерацияны жүктеу"
+
+#: modules/notifications/src/Application/UseCases/GetNotificationListUseCase.php:75
+msgid "Ban"
+msgstr "Тыйым салу"
+
+#: modules/notifications/src/Application/UseCases/GetNotificationListUseCase.php:84
+msgid "New forum posts"
+msgstr "Форумдаға ең жаңа хаттар"
+
+#: modules/notifications/src/Application/UseCases/GetNotificationListUseCase.php:93
+msgid "Mail"
+msgstr "Пошта"
+
+#: modules/notifications/src/Application/UseCases/GetNotificationListUseCase.php:102
+msgid "Guestbook"
+msgstr "Қонақ кітәпшасы"
+
+#: modules/notifications/src/Application/UseCases/GetNotificationListUseCase.php:111
+msgid "Comments"
+msgstr "Пікірлер"
+
+#: modules/notifications/templates/index.phtml:20
+msgid "All notifications have already been read"
+msgstr "Барлық хабарландырулар оқылған."
+
+#: modules/notifications/templates/index.phtml:60
+msgid "Total"
+msgstr "Барлығы"
+
+#: modules/notifications/templates/index.phtml:67
+msgid "Clear notifications"
+msgstr "Барлық ескертулерді тазалау."
+
+#: modules/notifications/templates/settings.phtml:31
+msgid "Display the number of unread messages in the forum"
+msgstr "Форумның оқылмаған жазбаларының санын көрсету"
+
+#: modules/notifications/templates/settings.phtml:35
+msgid "Save"
+msgstr "Сақтау"
+
+#: modules/notifications/templates/settings.phtml:36
+msgid "Cancel"
+msgstr "Бас тарту"
+

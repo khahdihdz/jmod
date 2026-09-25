@@ -1,0 +1,155 @@
+# AGENTS.md
+
+## Purpose
+
+This document guides contributors and automated agents when working in this codebase. Follow these rules to keep architecture and refactoring consistent.
+
+## Topic Guides (read on demand)
+
+Detailed rules live in `.agents/`. Before touching the listed area, READ the matching guide first:
+
+* Module layers, dependency rules, refactoring principles, repository rules → read `.agents/architecture.md`
+* Actions with access checks (guard → context → action), exception mapping → read `.agents/access-guard.md`
+* Paginated lists, page titles / meta description → read `.agents/pagination.md`
+* User input handling, output escaping in templates → read `.agents/escaping.md`
+* Translations, `.po`/`.pot`/`.lng.php` files, `__()` strings → read `.agents/localization.md`
+* Creating a new module (structure, autoload, DI, routes, templates) → read `.agents/new-module.md`
+
+## Project Context
+
+JohnCMS is a multilingual CMS with a long-lived codebase that is gradually being refactored.
+
+Tech stack:
+
+* PHP 8.2
+* MySQL
+* Bootstrap
+* selective Vue components
+* Webpack
+* Plates templates
+
+## Project Structure
+
+* `modules/` — application modules
+* `system/src/` — primary application code
+* `system/src-legacy/` — legacy code targeted for gradual removal
+* `themes/` — admin and public templates
+* `assets/` — shared static assets
+* `config/` — configuration files
+* `data/` — cache, logs, temporary files
+* `install/` — installer assets
+* `upload/` — user uploads
+
+## Core Principles
+
+* Refactor in **small, safe steps** while preserving existing behavior; keep changes minimal and scoped, do not modify unrelated modules (full list in `.agents/architecture.md`).
+* Inject services and repositories via interfaces; repository contracts live in Domain as `*RepositoryInterface`.
+* Security: **escape on output, not on input** — never HTML-escape data when saving to DB (details in `.agents/escaping.md`).
+* Always start Eloquent queries with `Model::query()->...`, never `Model::where(...)` directly.
+
+## Legacy Code Rules
+
+Legacy code lives in `system/src-legacy`.
+
+* Do not introduce new features into legacy code.
+* Only modify legacy code when required for refactoring.
+* Move extracted logic into `system/src`.
+
+## PHP Style Rules
+
+* Always include `declare(strict_types=1);`
+* Namespace must follow PSR-4 and match the directory structure.
+* Use 4-space indentation.
+* Prefer one class per file.
+* Use typed properties, arguments, and return types.
+* Avoid redundant scalar casts (`(int)`, `(string)`, `(bool)`) when the type is already guaranteed by signatures or framework/API contracts.
+* Use PHPDoc only when types cannot be expressed with native PHP types.
+* Write all code comments, PHPDoc, and inline notes in English. This is a multilingual project reviewed by contributors from different countries, so English keeps comments accessible to everyone.
+* Use constructor injection with property promotion.
+* Prefer immutable design.
+* Prefer `final` classes for new code.
+* Do not change inheritance structure of existing classes unless explicitly required.
+* Use `readonly` only for new immutable service or DTO classes.
+* Do not introduce `readonly` to legacy classes during refactoring.
+* Keep methods focused and reasonably short.
+* Keep HTTP mapping logic in controllers only.
+* If a caught exception variable is unused, omit it (e.g. `catch (EditVoteWrongDataException)`).
+
+## Naming Conventions
+
+Classes: `PascalCase`
+Methods / properties: `camelCase`
+
+Suffix rules:
+
+* `*Controller`
+* `*UseCase`
+* `*DTO`
+* `*RepositoryInterface`
+* `*Command`
+* `*Query`
+* `*Handler`
+* `*Mapper`
+* `*Compiler`
+
+## Error Handling
+
+* Throw domain or application-specific exceptions for business failures.
+* Do not silently swallow exceptions.
+* Prefer guard clauses and early returns.
+* Error messages should be actionable and specific.
+
+## Commit Messages
+
+Use **Conventional Commits**.
+
+Format:
+
+type(scope): subject
+
+Examples:
+
+refactor(home): extract homepage use case
+fix(user): correct password validation
+
+Rules:
+
+* Use imperative English verbs.
+* Keep commit subjects short.
+* Use module name as scope when applicable.
+* Omit scope for global changes.
+* You may add a commit body (for example with multiple `-m` flags) to document key changes such as new URLs, migrations, or architectural refactoring details.
+
+## Pre-Commit Checklist
+
+Before committing:
+
+* Changes are scoped to the task.
+* No unrelated files were modified.
+* Backend style check and tests pass:
+
+```bash
+docker exec $(docker ps -q -f name=johncms9.php-fpm) composer cs-check
+docker exec $(docker ps -q -f name=johncms9.php-fpm) composer test
+```
+
+Fix style violations with:
+
+```bash
+docker exec $(docker ps -q -f name=johncms9.php-fpm) composer cs-fix
+```
+
+* UI build succeeds if frontend code was changed.
+* Services and repositories are injected via interfaces.
+
+## Documentation
+
+* `docs/` — GitBook documentation submodule.
+* File names must be in English (e.g. `getting-started.md`), not transliterated Russian.
+* When adding or removing pages, always update `docs/SUMMARY.md` to reflect the change.
+
+## Docker Command Policy
+
+* Run all `php` and `composer` commands inside the `php-fpm` Docker container.
+* Use `docker exec $(docker ps -q -f name=johncms9.php-fpm) <command>` to target the container.
+* Do not rely on host PHP/Composer versions for checks, tests, or dependency operations.

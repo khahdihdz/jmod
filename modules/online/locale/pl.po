@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"X-Domain: online\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: pl\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/modules/online/locale/online.pot\n"
+"X-Crowdin-File-ID: 496\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Polish\n"
+"Language: pl_PL\n"
+"PO-Revision-Date: 2026-07-12 12:40\n"
+
+#: modules/online/src/Application/Controllers/GuestController.php:36
+#: modules/online/src/Application/FiltersBuilder.php:23
+msgid "Guests"
+msgstr "Goście"
+
+#: modules/online/src/Application/Controllers/GuestController.php:38
+#: modules/online/src/Application/Controllers/GuestController.php:56
+#: modules/online/src/Application/Controllers/HistoryController.php:38
+#: modules/online/src/Application/Controllers/HistoryController.php:56
+#: modules/online/src/Application/Controllers/IndexController.php:38
+#: modules/online/src/Application/Controllers/IndexController.php:56
+#: modules/online/src/Application/Controllers/IpController.php:34
+#: modules/online/src/Application/Controllers/IpController.php:45
+#: modules/online/src/Application/Middlewares/OnlineAdminMiddleware.php:25
+msgid "Online"
+msgstr ""
+
+#: modules/online/src/Application/Controllers/HistoryController.php:36
+#: modules/online/src/Application/FiltersBuilder.php:19
+msgid "History"
+msgstr "Historia"
+
+#: modules/online/src/Application/Controllers/IndexController.php:36
+msgid "Who is online?"
+msgstr "Kto jest online?"
+
+#: modules/online/src/Application/Controllers/IpController.php:32
+#: modules/online/src/Application/FiltersBuilder.php:24
+msgid "IP Activity"
+msgstr "Aktywność IP"
+
+#: modules/online/src/Application/FiltersBuilder.php:18
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: modules/online/src/Application/Middlewares/OnlineAdminMiddleware.php:27
+msgid "Access denied"
+msgstr ""
+
+#: modules/online/src/Application/UseCases/GetOnlineGuestsUseCase.php:34
+msgid "Guest"
+msgstr "Gość"
+
+#: modules/online/templates/ip.phtml:43
+#: modules/online/templates/users.phtml:30
+msgid "List is empty"
+msgstr "Lista jest pusta"
+
+#: modules/online/templates/ip.phtml:50
+#: modules/online/templates/users.phtml:37
+msgid "Total"
+msgstr "Wszystkich"
+

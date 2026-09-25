@@ -1,0 +1,167 @@
+msgid ""
+msgstr ""
+"X-Domain: community\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: kk\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/modules/community/locale/community.pot\n"
+"X-Crowdin-File-ID: 478\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Kazakh\n"
+"Language: kk_KZ\n"
+"PO-Revision-Date: 2026-07-12 12:36\n"
+
+#: modules/community/src/Application/Controllers/AdministrationController.php:32
+#: modules/community/src/Application/Controllers/CommunityBirthdaysController.php:32
+#: modules/community/src/Application/Controllers/CommunityIndexController.php:27
+#: modules/community/src/Application/Controllers/CommunitySearchController.php:34
+#: modules/community/src/Application/Controllers/CommunityTopController.php:29
+#: modules/community/src/Application/Controllers/CommunityUsersController.php:32
+#: modules/community/src/Application/UseCases/ViewIndexUseCase.php:21
+msgid "Community"
+msgstr "Бірлестіктер"
+
+#: modules/community/src/Application/Controllers/AdministrationController.php:42
+#: modules/community/src/Application/Controllers/CommunityBirthdaysController.php:42
+#: modules/community/src/Application/Controllers/CommunityIndexController.php:37
+#: modules/community/src/Application/Controllers/CommunitySearchController.php:44
+#: modules/community/src/Application/Controllers/CommunityTopController.php:39
+#: modules/community/src/Application/Controllers/CommunityUsersController.php:42
+msgid "For registered users only"
+msgstr "Тек қана тіркелген қолданушылар үшін"
+
+#: modules/community/src/Application/Controllers/AdministrationController.php:47
+#: modules/community/templates/index.phtml:45
+msgid "Administration"
+msgstr "Әкімшілік"
+
+#: modules/community/src/Application/Controllers/CommunityBirthdaysController.php:47
+#: modules/community/templates/index.phtml:50
+msgid "Birthdays"
+msgstr "Туған күндер"
+
+#: modules/community/src/Application/Controllers/CommunitySearchController.php:49
+#: modules/community/templates/administration.phtml:50
+#: modules/community/templates/search.phtml:84
+#: modules/community/templates/users.phtml:50
+msgid "User Search"
+msgstr "Пайдаланушыны іздеу"
+
+#: modules/community/src/Application/Controllers/CommunityUsersController.php:47
+msgid "List of users"
+msgstr "Қолданушылар тізімі"
+
+#: modules/community/src/Application/UseCases/ViewSearchUseCase.php:26
+#: modules/community/templates/index.phtml:32
+msgid "Nickname"
+msgstr "Лақап ат"
+
+#: modules/community/src/Application/UseCases/ViewSearchUseCase.php:26
+msgid "Invalid length"
+msgstr "Ұзындығы дұрыс емес"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:22
+msgid "Forum"
+msgstr "Форум"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:27
+msgid "Guestbook"
+msgstr "Қонақ кітәпшасы"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:32
+msgid "Comments"
+msgstr "Пікірлер"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:41
+msgid "Karma"
+msgstr "Карма"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:50
+msgid "Most active in Guestbook"
+msgstr "Ең белсенді қонақ"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:56
+msgid "Most commentators"
+msgstr "Ең көптеген пікірлер берді"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:63
+msgid "Best Karma"
+msgstr "Ең жақсы карма"
+
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:68
+#: modules/community/src/Application/UseCases/ViewTopUseCase.php:74
+msgid "Most active in Forum"
+msgstr "Форумдағы ең белсенділер"
+
+#: modules/community/templates/administration.phtml:33
+#: modules/community/templates/search.phtml:67
+#: modules/community/templates/top.phtml:40
+#: modules/community/templates/users.phtml:33
+msgid "List is empty"
+msgstr "Тізім бос"
+
+#: modules/community/templates/administration.phtml:40
+#: modules/community/templates/search.phtml:74
+#: modules/community/templates/users.phtml:40
+msgid "Total"
+msgstr "Барлығы"
+
+#: modules/community/templates/administration.phtml:53
+#: modules/community/templates/search.phtml:87
+#: modules/community/templates/top.phtml:47
+#: modules/community/templates/users.phtml:53
+msgid "Back"
+msgstr "Артқа"
+
+#: modules/community/templates/index.phtml:30
+#: modules/community/templates/search.phtml:46
+msgid "Look for the User"
+msgstr "Пайдаланушыны іздеу"
+
+#: modules/community/templates/index.phtml:34
+#: modules/community/templates/search.phtml:50
+msgid "Search"
+msgstr "Іздеу"
+
+#: modules/community/templates/index.phtml:37
+#: modules/community/templates/search.phtml:53
+msgid "The search is performed by Nickname and are case-insensitive."
+msgstr "Іздеу лақап атпен орындалады және регистрге байланысты емес."
+
+#: modules/community/templates/index.phtml:41
+msgid "Users"
+msgstr "Қолданушылар"
+
+#: modules/community/templates/index.phtml:55
+msgid "Top Activity"
+msgstr "Ең жоғары белсенділік"
+
+#: modules/community/templates/search.phtml:48
+msgid "Username"
+msgstr "Қолданушы аты"
+
+#: modules/community/templates/user_row.phtml:61
+#: modules/community/templates/user_row.phtml:67
+msgid "post"
+msgid_plural "posts"
+msgstr[0] "пост"
+msgstr[1] "пост"
+
+#: modules/community/templates/user_row.phtml:63
+msgid "comment"
+msgid_plural "comments"
+msgstr[0] "Пікір"
+msgstr[1] "Пікірлер"
+
+#: modules/community/templates/user_row.phtml:65
+msgid "point"
+msgid_plural "points"
+msgstr[0] "нүкте"
+msgstr[1] "ұпайлар"
+
+#: modules/community/templates/user_row.phtml:89
+msgid "Delete"
+msgstr "Өшіру"
+

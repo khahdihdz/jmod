@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"X-Domain: online\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: ar\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/modules/online/locale/online.pot\n"
+"X-Crowdin-File-ID: 496\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Arabic\n"
+"Language: ar_SA\n"
+"PO-Revision-Date: 2026-07-12 12:40\n"
+
+#: modules/online/src/Application/Controllers/GuestController.php:36
+#: modules/online/src/Application/FiltersBuilder.php:23
+msgid "Guests"
+msgstr "الزوار"
+
+#: modules/online/src/Application/Controllers/GuestController.php:38
+#: modules/online/src/Application/Controllers/GuestController.php:56
+#: modules/online/src/Application/Controllers/HistoryController.php:38
+#: modules/online/src/Application/Controllers/HistoryController.php:56
+#: modules/online/src/Application/Controllers/IndexController.php:38
+#: modules/online/src/Application/Controllers/IndexController.php:56
+#: modules/online/src/Application/Controllers/IpController.php:34
+#: modules/online/src/Application/Controllers/IpController.php:45
+#: modules/online/src/Application/Middlewares/OnlineAdminMiddleware.php:25
+msgid "Online"
+msgstr "متصل"
+
+#: modules/online/src/Application/Controllers/HistoryController.php:36
+#: modules/online/src/Application/FiltersBuilder.php:19
+msgid "History"
+msgstr "السّجل"
+
+#: modules/online/src/Application/Controllers/IndexController.php:36
+msgid "Who is online?"
+msgstr "المتواجدون الآن؟"
+
+#: modules/online/src/Application/Controllers/IpController.php:32
+#: modules/online/src/Application/FiltersBuilder.php:24
+msgid "IP Activity"
+msgstr "نشاط IP"
+
+#: modules/online/src/Application/FiltersBuilder.php:18
+msgid "Users"
+msgstr "الاعضاء"
+
+#: modules/online/src/Application/Middlewares/OnlineAdminMiddleware.php:27
+msgid "Access denied"
+msgstr ""
+
+#: modules/online/src/Application/UseCases/GetOnlineGuestsUseCase.php:34
+msgid "Guest"
+msgstr "ضيف"
+
+#: modules/online/templates/ip.phtml:43
+#: modules/online/templates/users.phtml:30
+msgid "List is empty"
+msgstr "القائمة فارغة"
+
+#: modules/online/templates/ip.phtml:50
+#: modules/online/templates/users.phtml:37
+msgid "Total"
+msgstr "مجموع"
+

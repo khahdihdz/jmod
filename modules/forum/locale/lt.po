@@ -1,0 +1,1269 @@
+msgid ""
+msgstr ""
+"X-Domain: forum\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && (n%100>19 || n%100<11) ? 0 : (n%10>=2 && n%10<=9) && (n%100>19 || n%100<11) ? 1 : n%1!=0 ? 2: 3);\n"
+"X-Crowdin-Project: johncms\n"
+"X-Crowdin-Project-ID: 383801\n"
+"X-Crowdin-Language: lt\n"
+"X-Crowdin-File: /[johncms.johncms] 9.x/modules/forum/locale/forum.pot\n"
+"X-Crowdin-File-ID: 482\n"
+"Project-Id-Version: johncms\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Lithuanian\n"
+"Language: lt_LT\n"
+"PO-Revision-Date: 2026-07-12 12:37\n"
+
+#: modules/forum/src/Application/Controllers/AddFileController.php:47
+#: modules/forum/src/Application/Controllers/AddFileController.php:58
+#: modules/forum/src/Application/Controllers/AddFileController.php:81
+#: modules/forum/src/Application/Controllers/AddVoteController.php:41
+#: modules/forum/src/Application/Controllers/AddVoteController.php:53
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:44
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:67
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:81
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:96
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:110
+#: modules/forum/src/Application/Controllers/ChangeTopicController.php:44
+#: modules/forum/src/Application/Controllers/ClearFilterByAuthorController.php:47
+#: modules/forum/src/Application/Controllers/ClearFilterByAuthorController.php:63
+#: modules/forum/src/Application/Controllers/CloseTopicController.php:41
+#: modules/forum/src/Application/Controllers/CuratorsController.php:39
+#: modules/forum/src/Application/Controllers/CuratorsController.php:51
+#: modules/forum/src/Application/Controllers/DeletePostController.php:60
+#: modules/forum/src/Application/Controllers/DeletePostController.php:79
+#: modules/forum/src/Application/Controllers/DeletePostFileController.php:63
+#: modules/forum/src/Application/Controllers/DeletePostFileController.php:82
+#: modules/forum/src/Application/Controllers/DeleteTopicController.php:48
+#: modules/forum/src/Application/Controllers/DeleteTopicController.php:60
+#: modules/forum/src/Application/Controllers/DeleteVoteController.php:41
+#: modules/forum/src/Application/Controllers/DeleteVoteController.php:52
+#: modules/forum/src/Application/Controllers/DeleteVoteController.php:66
+#: modules/forum/src/Application/Controllers/EditPostController.php:68
+#: modules/forum/src/Application/Controllers/EditPostController.php:102
+#: modules/forum/src/Application/Controllers/EditVoteController.php:43
+#: modules/forum/src/Application/Controllers/EditVoteController.php:55
+#: modules/forum/src/Application/Controllers/FilterByAuthorController.php:47
+#: modules/forum/src/Application/Controllers/ForumFilesController.php:58
+#: modules/forum/src/Application/Controllers/MarkAllTopicsReadController.php:51
+#: modules/forum/src/Application/Controllers/MoveTopicController.php:47
+#: modules/forum/src/Application/Controllers/MoveTopicController.php:68
+#: modules/forum/src/Application/Controllers/MoveTopicController.php:84
+#: modules/forum/src/Application/Controllers/NewMessageController.php:60
+#: modules/forum/src/Application/Controllers/NewMessageController.php:75
+#: modules/forum/src/Application/Controllers/NewMessageController.php:89
+#: modules/forum/src/Application/Controllers/NewMessageController.php:112
+#: modules/forum/src/Application/Controllers/NewMessageController.php:126
+#: modules/forum/src/Application/Controllers/NewTopicController.php:76
+#: modules/forum/src/Application/Controllers/PinTopicController.php:39
+#: modules/forum/src/Application/Controllers/PollVotersController.php:53
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:60
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:78
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:91
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:105
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:140
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:154
+#: modules/forum/src/Application/Controllers/RestorePostController.php:60
+#: modules/forum/src/Application/Controllers/RestorePostController.php:79
+#: modules/forum/src/Application/Controllers/RestoreTopicController.php:39
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:47
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:63
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:78
+#: modules/forum/src/Application/Controllers/SubmitVoteController.php:42
+#: modules/forum/src/Application/Controllers/SubmitVoteController.php:58
+#: modules/forum/templates/edit_post.phtml:49
+#: modules/forum/templates/new_topic.phtml:111
+#: modules/forum/templates/reply_message.phtml:58
+msgid "Back"
+msgstr "Atgal"
+
+#: modules/forum/src/Application/Controllers/AddFileController.php:55
+#: modules/forum/src/Application/Controllers/AddFileController.php:89
+msgid "Add file"
+msgstr "Pridėti failą"
+
+#: modules/forum/src/Application/Controllers/AddFileController.php:56
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:56
+msgid "The time allotted for the file upload has expired"
+msgstr "Laikas skirtas failo įkelimui baigėsį"
+
+#: modules/forum/src/Application/Controllers/AddFileController.php:90
+#: modules/forum/src/Application/Controllers/AddFileController.php:91
+#: modules/forum/src/Application/Controllers/UploadFileController.php:57
+#: modules/forum/src/Application/Controllers/UploadFileController.php:88
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:55
+#: modules/forum/src/Application/UseCases/AttachFileToPostUseCase.php:46
+#: modules/forum/src/Application/UseCases/AttachFileToPostUseCase.php:72
+msgid "Error uploading file"
+msgstr "Failo įkelimo klaidą"
+
+#: modules/forum/src/Application/Controllers/AddFileController.php:93
+#: modules/forum/src/Application/Controllers/AddVoteController.php:105
+#: modules/forum/src/Application/Controllers/EditPostController.php:85
+#: modules/forum/src/Application/Controllers/ForumSearchController.php:58
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:127
+msgid "Repeat"
+msgstr "Pakartoti"
+
+#: modules/forum/src/Application/Controllers/AddFileController.php:106
+#: modules/forum/src/Application/Controllers/AddFileController.php:107
+#: modules/forum/src/Application/Controllers/AddVoteController.php:122
+#: modules/forum/src/Application/Controllers/AddVoteController.php:123
+#: modules/forum/templates/new_topic.phtml:102
+#: modules/forum/templates/reply_message.phtml:52
+#: modules/forum/templates/topic.phtml:137
+#: modules/forum/templates/topic.phtml:449
+msgid "Add File"
+msgstr "Pridėti failą"
+
+#: modules/forum/src/Application/Controllers/AddVoteController.php:49
+#: modules/forum/src/Application/Controllers/AddVoteController.php:50
+#: modules/forum/src/Application/Controllers/AddVoteController.php:87
+#: modules/forum/src/Application/Controllers/AddVoteController.php:88
+#: modules/forum/src/Application/Controllers/AddVoteController.php:100
+#: modules/forum/src/Application/Controllers/AddVoteController.php:101
+#: modules/forum/templates/topic.phtml:396
+msgid "Add Poll"
+msgstr "Pridėti apklausą"
+
+#: modules/forum/src/Application/Controllers/AddVoteController.php:51
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:65
+#: modules/forum/src/Application/Controllers/ChangeTopicController.php:42
+#: modules/forum/src/Application/Controllers/ClearFilterByAuthorController.php:45
+#: modules/forum/src/Application/Controllers/ClearFilterByAuthorController.php:61
+#: modules/forum/src/Application/Controllers/DeletePostController.php:77
+#: modules/forum/src/Application/Controllers/DeletePostFileController.php:80
+#: modules/forum/src/Application/Controllers/DeleteVoteController.php:50
+#: modules/forum/src/Application/Controllers/EditPostController.php:100
+#: modules/forum/src/Application/Controllers/EditVoteController.php:53
+#: modules/forum/src/Application/Controllers/FilterByAuthorController.php:45
+#: modules/forum/src/Application/Controllers/ForumFilesController.php:56
+#: modules/forum/src/Application/Controllers/MarkAllTopicsReadController.php:49
+#: modules/forum/src/Application/Controllers/MoveTopicController.php:64
+#: modules/forum/src/Application/Controllers/MoveTopicController.php:66
+#: modules/forum/src/Application/Controllers/MoveTopicController.php:80
+#: modules/forum/src/Application/Controllers/MoveTopicController.php:82
+#: modules/forum/src/Application/Controllers/PollVotersController.php:62
+#: modules/forum/src/Application/Controllers/RestorePostController.php:77
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:45
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:61
+#: modules/forum/src/Application/Controllers/ShowPostController.php:45
+#: modules/forum/src/Application/Controllers/ViewTopicVisitorsController.php:51
+#: modules/forum/src/Application/Controllers/ViewTopicVisitorsController.php:77
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:42
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:52
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:53
+msgid "Wrong data"
+msgstr "Klaidingi duomenys"
+
+#: modules/forum/src/Application/Controllers/AddVoteController.php:90
+msgid "Poll added"
+msgstr "Apklausa pridėta"
+
+#: modules/forum/src/Application/Controllers/AddVoteController.php:92
+#: modules/forum/src/Application/Controllers/EditVoteController.php:108
+msgid "Continue"
+msgstr "Tęsti"
+
+#: modules/forum/src/Application/Controllers/AddVoteController.php:103
+msgid "The required fields are not filled"
+msgstr "Privalomi laukai neužpildyti"
+
+#: modules/forum/src/Application/Controllers/AddVoteController.php:114
+#: modules/forum/src/Application/Controllers/EditVoteController.php:137
+#: modules/forum/src/Application/Controllers/EditVoteController.php:149
+msgid "Answer"
+msgstr "Atsakymas"
+
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:62
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:63
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:76
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:77
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:91
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:92
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:105
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:106
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:118
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:119
+msgid "Delete posts"
+msgstr "Ištrinti paskutini"
+
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:79
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:108
+msgid "You did not choose something to delete"
+msgstr "Jūs nieko nepasirinkote ištrinimui"
+
+#: modules/forum/src/Application/Controllers/BulkDeletePostsController.php:94
+msgid "Marked posts are deleted"
+msgstr "Pažymeros žinutės ištrintos"
+
+#: modules/forum/src/Application/Controllers/ChangeTopicController.php:40
+#: modules/forum/src/Application/Controllers/ChangeTopicController.php:41
+#: modules/forum/src/Application/Controllers/ChangeTopicController.php:98
+#: modules/forum/src/Application/Controllers/ChangeTopicController.php:99
+#: modules/forum/templates/topic.phtml:403
+msgid "Change the topic"
+msgstr ""
+
+#: modules/forum/src/Application/Controllers/ClearFilterByAuthorController.php:42
+#: modules/forum/src/Application/Controllers/ClearFilterByAuthorController.php:43
+#: modules/forum/src/Application/Controllers/ClearFilterByAuthorController.php:59
+#: modules/forum/src/Application/Controllers/ClearFilterByAuthorController.php:60
+#: modules/forum/src/Application/Controllers/FilterByAuthorController.php:43
+#: modules/forum/src/Application/Controllers/FilterByAuthorController.php:44
+#: modules/forum/src/Application/Controllers/FilterByAuthorController.php:64
+#: modules/forum/src/Application/Controllers/FilterByAuthorController.php:69
+#: modules/forum/src/Application/Controllers/FilterByAuthorController.php:70
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:42
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:43
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:59
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:60
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:73
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:74
+#: modules/forum/templates/topic.phtml:479
+msgid "Filter by author"
+msgstr "Filtruoti pagal autoriu"
+
+#: modules/forum/src/Application/Controllers/ClearForumSearchHistoryController.php:44
+#: modules/forum/src/Application/Controllers/ClearForumSearchHistoryController.php:45
+#: modules/forum/src/Application/Controllers/ForumSearchController.php:55
+#: modules/forum/src/Application/Controllers/ForumSearchController.php:64
+#: modules/forum/src/Application/Controllers/ForumSearchController.php:68
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:91
+msgid "Forum search"
+msgstr "Forumo paieška"
+
+#: modules/forum/src/Application/Controllers/CuratorsController.php:47
+#: modules/forum/src/Application/Controllers/CuratorsController.php:48
+#: modules/forum/src/Application/Controllers/CuratorsController.php:93
+#: modules/forum/src/Application/Controllers/CuratorsController.php:94
+#: modules/forum/src/Application/Controllers/DeleteTopicController.php:56
+#: modules/forum/src/Application/Controllers/DeleteTopicController.php:57
+#: modules/forum/templates/topic.phtml:468
+msgid "Curators"
+msgstr "Kuratoriai"
+
+#: modules/forum/src/Application/Controllers/CuratorsController.php:49
+#: modules/forum/src/Application/Controllers/DeleteTopicController.php:58
+#: modules/forum/src/Application/ForumUtils.php:71
+msgid "Topic has been deleted or does not exists"
+msgstr "Tema ištrinta arba ne egzistuoja"
+
+#: modules/forum/src/Application/Controllers/DeletePostController.php:46
+#: modules/forum/src/Application/Controllers/DeletePostController.php:57
+#: modules/forum/src/Application/Controllers/DeletePostFileController.php:49
+#: modules/forum/src/Application/Controllers/DeletePostFileController.php:60
+#: modules/forum/src/Application/Controllers/EditPostController.php:54
+#: modules/forum/src/Application/Controllers/EditPostController.php:65
+#: modules/forum/src/Application/Controllers/RestorePostController.php:46
+#: modules/forum/src/Application/Controllers/RestorePostController.php:57
+msgid "Error"
+msgstr "Klaida"
+
+#: modules/forum/src/Application/Controllers/DeletePostController.php:47
+#: modules/forum/src/Application/Controllers/DeletePostFileController.php:50
+#: modules/forum/src/Application/Controllers/EditPostController.php:55
+#: modules/forum/src/Application/Controllers/RestorePostController.php:47
+msgid "Message does not exists or has been deleted"
+msgstr "Žinutė ne egzistuoja, arba jį ištrintą"
+
+#: modules/forum/src/Application/Controllers/DeletePostController.php:49
+#: modules/forum/src/Application/Controllers/DeletePostFileController.php:52
+#: modules/forum/src/Application/Controllers/DownloadFileController.php:50
+#: modules/forum/src/Application/Controllers/EditPostController.php:57
+#: modules/forum/src/Application/Controllers/FilterByAuthorController.php:62
+#: modules/forum/src/Application/Controllers/ForumFilesController.php:63
+#: modules/forum/src/Application/Controllers/ForumIndexController.php:42
+#: modules/forum/src/Application/Controllers/ForumIndexController.php:55
+#: modules/forum/src/Application/Controllers/ForumIndexController.php:56
+#: modules/forum/src/Application/Controllers/ForumSearchController.php:63
+#: modules/forum/src/Application/Controllers/ForumSectionController.php:43
+#: modules/forum/src/Application/Controllers/ForumTopicController.php:72
+#: modules/forum/src/Application/Controllers/LatestTopicsController.php:28
+#: modules/forum/src/Application/Controllers/MarkAllTopicsReadController.php:66
+#: modules/forum/src/Application/Controllers/PollVotersController.php:64
+#: modules/forum/src/Application/Controllers/PollVotersController.php:70
+#: modules/forum/src/Application/Controllers/RestorePostController.php:49
+#: modules/forum/src/Application/Controllers/ShowPostController.php:47
+#: modules/forum/src/Application/Controllers/ShowPostController.php:64
+#: modules/forum/src/Application/Controllers/SubmitVoteController.php:53
+#: modules/forum/src/Application/Controllers/SubmitVoteController.php:54
+#: modules/forum/src/Application/Controllers/TopicsPeriodController.php:58
+#: modules/forum/src/Application/Controllers/UnreadTopicsController.php:54
+#: modules/forum/src/Application/Controllers/ViewForumVisitorsController.php:54
+#: modules/forum/src/Application/Controllers/ViewTopicVisitorsController.php:53
+#: modules/forum/src/Application/Controllers/ViewTopicVisitorsController.php:79
+#: modules/forum/src/Application/Controllers/ViewTopicVisitorsController.php:86
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:36
+#: modules/forum/src/Application/ForumUtils.php:69
+#: modules/forum/templates/files_list.phtml:158
+#: modules/forum/templates/forum_search.phtml:93
+#: modules/forum/templates/new_topics.phtml:124
+#: modules/forum/templates/show_post.phtml:152
+msgid "Forum"
+msgstr "Forumas"
+
+#: modules/forum/src/Application/Controllers/DeletePostController.php:75
+#: modules/forum/src/Application/Controllers/DeletePostController.php:93
+#: modules/forum/src/Application/Controllers/DeletePostController.php:94
+msgid "Delete Message"
+msgstr "Ištrinti žinutė"
+
+#: modules/forum/src/Application/Controllers/DeletePostFileController.php:78
+#: modules/forum/src/Application/Controllers/DeletePostFileController.php:94
+#: modules/forum/src/Application/Controllers/DeletePostFileController.php:95
+msgid "Delete file"
+msgstr "Ištrinti failą"
+
+#: modules/forum/src/Application/Controllers/DeleteTopicController.php:80
+#: modules/forum/src/Application/Controllers/DeleteTopicController.php:81
+#: modules/forum/templates/topic.phtml:415
+msgid "Delete Topic"
+msgstr "Ištrinti temą"
+
+#: modules/forum/src/Application/Controllers/DeleteVoteController.php:49
+#: modules/forum/src/Application/Controllers/DeleteVoteController.php:62
+#: modules/forum/src/Application/Controllers/DeleteVoteController.php:74
+#: modules/forum/src/Application/Controllers/DeleteVoteController.php:75
+#: modules/forum/templates/topic.phtml:394
+msgid "Delete Poll"
+msgstr "Ištrinti apklausą"
+
+#: modules/forum/src/Application/Controllers/DeleteVoteController.php:64
+msgid "Poll deleted"
+msgstr "Apklausa ištrinta"
+
+#: modules/forum/src/Application/Controllers/DownloadFileController.php:46
+msgid "Download file"
+msgstr "Atsisiųsti failą"
+
+#: modules/forum/src/Application/Controllers/DownloadFileController.php:48
+msgid "File does not exist"
+msgstr "Failas neegzistuoja"
+
+#: modules/forum/src/Application/Controllers/EditPostController.php:81
+#: modules/forum/src/Application/Controllers/EditPostController.php:98
+#: modules/forum/src/Application/Controllers/EditPostController.php:122
+#: modules/forum/src/Application/Controllers/EditPostController.php:123
+msgid "Edit Message"
+msgstr "Redaguoti pranešimą"
+
+#: modules/forum/src/Application/Controllers/EditPostController.php:83
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:125
+msgid "You have not entered the message"
+msgstr "Jus neįvedėte pranešimo"
+
+#: modules/forum/src/Application/Controllers/EditVoteController.php:51
+#: modules/forum/src/Application/Controllers/EditVoteController.php:52
+#: modules/forum/src/Application/Controllers/EditVoteController.php:103
+#: modules/forum/src/Application/Controllers/EditVoteController.php:104
+#: modules/forum/src/Application/Controllers/EditVoteController.php:157
+#: modules/forum/src/Application/Controllers/EditVoteController.php:158
+#: modules/forum/templates/topic.phtml:393
+msgid "Edit Poll"
+msgstr "Redaguoti apklausą"
+
+#: modules/forum/src/Application/Controllers/EditVoteController.php:71
+#: modules/forum/src/Application/Controllers/EditVoteController.php:72
+msgid "Delete Answer"
+msgstr "Ištrinti Atsakyti"
+
+#: modules/forum/src/Application/Controllers/EditVoteController.php:106
+msgid "Poll changed"
+msgstr "Apklausa pasikeitė"
+
+#: modules/forum/src/Application/Controllers/ForumFilesController.php:54
+#: modules/forum/src/Application/Controllers/ForumFilesController.php:55
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:117
+msgid "Forum Files"
+msgstr "Forumo failai"
+
+#: modules/forum/src/Application/Controllers/ForumSearchController.php:56
+msgid "Invalid length"
+msgstr "Neleistinas ilgis"
+
+#: modules/forum/src/Application/Controllers/ForumSearchController.php:67
+#, php-format
+msgid "Search results for: %s"
+msgstr ""
+
+#: modules/forum/src/Application/Controllers/LatestTopicsController.php:27
+msgid "Last 10"
+msgstr "Paskutinios 10 temu"
+
+#: modules/forum/src/Application/Controllers/LatestTopicsController.php:37
+#: modules/forum/src/Application/Controllers/UnreadTopicsController.php:65
+#: modules/forum/src/Application/Controllers/ViewForumVisitorsController.php:64
+#: modules/forum/src/Application/Controllers/ViewTopicVisitorsController.php:96
+#: modules/forum/templates/curators.phtml:36
+#: modules/forum/templates/files_list.phtml:40
+#: modules/forum/templates/files_sections.phtml:53
+#: modules/forum/templates/filter_by_author.phtml:40
+msgid "The list is empty"
+msgstr "Sąrašas tuščias"
+
+#: modules/forum/src/Application/Controllers/MarkAllTopicsReadController.php:46
+#: modules/forum/src/Application/Controllers/MarkAllTopicsReadController.php:47
+#: modules/forum/src/Application/Controllers/MarkAllTopicsReadController.php:61
+#: modules/forum/src/Application/Controllers/MarkAllTopicsReadController.php:62
+#: modules/forum/src/Application/Controllers/UnreadTopicsController.php:53
+#: modules/forum/templates/header.phtml:31
+msgid "Unread"
+msgstr "Neperskaityti"
+
+#: modules/forum/src/Application/Controllers/MarkAllTopicsReadController.php:64
+msgid "All topics marked as read"
+msgstr "Visos temos pažymėtos kaip perskaitytos"
+
+#: modules/forum/src/Application/Controllers/MoveTopicController.php:95
+#: modules/forum/src/Application/Controllers/MoveTopicController.php:96
+msgid "Move topic"
+msgstr "Perkelti tema"
+
+#: modules/forum/src/Application/Controllers/NewMessageController.php:57
+#: modules/forum/src/Application/Controllers/NewMessageController.php:71
+#: modules/forum/src/Application/Controllers/NewMessageController.php:85
+#: modules/forum/src/Application/Controllers/NewMessageController.php:108
+#: modules/forum/src/Application/Controllers/NewMessageController.php:122
+#: modules/forum/src/Application/Controllers/NewMessageController.php:164
+#: modules/forum/src/Application/Controllers/NewMessageController.php:165
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:57
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:74
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:87
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:101
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:123
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:136
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:150
+msgid "New message"
+msgstr "Naujos žinutės"
+
+#: modules/forum/src/Application/Controllers/NewMessageController.php:58
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:58
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:37
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:51
+msgid "Access forbidden"
+msgstr "Prieiga uždrausta"
+
+#: modules/forum/src/Application/Controllers/NewMessageController.php:73
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:76
+msgid "You cannot write in a closed topic"
+msgstr "Jūs negalite rašyti į uždarytą temą"
+
+#: modules/forum/src/Application/Controllers/NewMessageController.php:87
+#: modules/forum/src/Application/Controllers/NewTopicController.php:74
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:103
+#, php-format
+msgid "You cannot add the message so often<br>Please, wait %d sec."
+msgstr "Jūs negalite rašyti pranešimus taip dažnai. Prašome palaukti %d sek."
+
+#: modules/forum/src/Application/Controllers/NewMessageController.php:110
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:138
+msgid "Text is too short"
+msgstr "Tekstas per trumpas"
+
+#: modules/forum/src/Application/Controllers/NewMessageController.php:124
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:152
+msgid "Message already exists"
+msgstr "Tokia žinutė jau buvo"
+
+#: modules/forum/src/Application/Controllers/NewTopicController.php:60
+msgid "Go to Section"
+msgstr "Į skyrių"
+
+#: modules/forum/src/Application/Controllers/NewTopicController.php:72
+#: modules/forum/src/Application/Controllers/NewTopicController.php:153
+#: modules/forum/src/Application/Controllers/NewTopicController.php:157
+#: modules/forum/src/Application/Controllers/NewTopicController.php:158
+#: modules/forum/templates/topics.phtml:47
+msgid "New Topic"
+msgstr "Nauja tema"
+
+#: modules/forum/src/Application/Controllers/PollVotersController.php:61
+#: modules/forum/src/Application/Controllers/PollVotersController.php:69
+msgid "Who voted in the poll"
+msgstr "Vartotojai, kurie balsavo apklausoje"
+
+#: modules/forum/src/Application/Controllers/PollVotersController.php:80
+msgid "No one has voted in this poll yet"
+msgstr "Šitoj apklausoj dar niekas nebalsavo"
+
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:89
+msgid "You can not reply to your own message"
+msgstr "Jums jokių atsakymų į savo paties el. laišką"
+
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:202
+#: modules/forum/src/Application/Controllers/ReplyMessageController.php:203
+msgid "Reply to message"
+msgstr "Atsakyti į žinutę"
+
+#: modules/forum/src/Application/Controllers/RestorePostController.php:75
+#: modules/forum/src/Application/Controllers/RestorePostController.php:91
+#: modules/forum/src/Application/Controllers/RestorePostController.php:92
+msgid "Restore Message"
+msgstr ""
+
+#: modules/forum/src/Application/Controllers/SetFilterByAuthorController.php:76
+msgid "You have not selected any author"
+msgstr "Jūs neesate pasirinkę jokio autorio"
+
+#: modules/forum/src/Application/Controllers/ShowPostController.php:43
+#: modules/forum/src/Application/Controllers/ShowPostController.php:100
+#: modules/forum/src/Application/Controllers/ShowPostController.php:105
+msgid "Show post"
+msgstr "Rodyti po"
+
+#: modules/forum/src/Application/Controllers/SubmitVoteController.php:56
+msgid "Vote accepted"
+msgstr "Balsavimas priimtas"
+
+#: modules/forum/src/Application/Controllers/TopicsPeriodController.php:57
+#, php-format
+msgid "All for period %d hours"
+msgstr "Visi už laikotarpį %d val"
+
+#: modules/forum/src/Application/Controllers/TopicsPeriodController.php:69
+msgid "There is nothing new in this forum for selected period"
+msgstr "Per išrinkta perioda nieko naujo forume nėrą"
+
+#: modules/forum/src/Application/Controllers/UploadFileController.php:39
+#: modules/forum/src/Application/Controllers/UploadFileController.php:50
+msgid "Access denied"
+msgstr ""
+
+#: modules/forum/src/Application/Controllers/UploadFileController.php:62
+msgid "Only images are allowed"
+msgstr ""
+
+#: modules/forum/src/Application/Controllers/ViewForumVisitorsController.php:53
+#: modules/forum/templates/index.phtml:77
+#: modules/forum/templates/section.phtml:68
+#: modules/forum/templates/topics.phtml:123
+msgid "Who in Forum"
+msgstr "Kas Forume"
+
+#: modules/forum/src/Application/Controllers/ViewTopicVisitorsController.php:49
+#: modules/forum/src/Application/Controllers/ViewTopicVisitorsController.php:75
+#: modules/forum/src/Application/Controllers/ViewTopicVisitorsController.php:85
+#: modules/forum/templates/who.phtml:32
+msgid "Who in Topic"
+msgstr "Kas temoje"
+
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:49
+msgid "For registered users only"
+msgstr "Tik registruotiems Vartotojams"
+
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:50
+#: modules/forum/templates/header.phtml:20
+msgid "Forum is closed"
+msgstr "Forumas uždarytas"
+
+#: modules/forum/src/Application/Exceptions/ForumErrorCode.php:54
+msgid "Search query must be between 2 and 64 characters"
+msgstr ""
+
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:87
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:96
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:104
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:114
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:136
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:156
+msgid "In the forum Main"
+msgstr "Forumo Pagrindinis"
+
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:88
+msgid "Here, in the List"
+msgstr "Čia, sąraše"
+
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:89
+msgid "Looking forum files"
+msgstr "Žiuri forumo failus"
+
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:90
+msgid "In the unreads"
+msgstr "Žiuri neperskaitytus"
+
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:107
+msgid "In the Category"
+msgstr "Kategorijoje"
+
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:117
+msgid "In the Section"
+msgstr "Skyriuje"
+
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:142
+msgid "Answers in the Topic"
+msgstr "Atsako temoje"
+
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:146
+msgid "Writes in the Topic"
+msgstr "Rašo į Temą"
+
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:149
+#: modules/forum/src/Application/Services/ForumVisitorPlaceFormatter.php:159
+msgid "In the Topic"
+msgstr "Temoje"
+
+#: modules/forum/src/Application/Services/ForumVisitorRowMapper.php:43
+#: modules/forum/src/Application/Services/ForumVisitorRowMapper.php:71
+msgid "Guest"
+msgstr "Svečias"
+
+#: modules/forum/src/Application/Services/ForumVisitorRowMapper.php:92
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:298
+#: modules/forum/src/Application/UseCases/ViewPollVotersUseCase.php:90
+msgid "Forum moderator"
+msgstr "Forumo Moderatorius"
+
+#: modules/forum/src/Application/Services/ForumVisitorRowMapper.php:93
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:299
+#: modules/forum/src/Application/UseCases/ViewPollVotersUseCase.php:91
+msgid "Download moderator"
+msgstr "Siuntinių moderatorius"
+
+#: modules/forum/src/Application/Services/ForumVisitorRowMapper.php:94
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:300
+#: modules/forum/src/Application/UseCases/ViewPollVotersUseCase.php:92
+msgid "Library moderator"
+msgstr "Bibliotekos moderatorius"
+
+#: modules/forum/src/Application/Services/ForumVisitorRowMapper.php:95
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:301
+#: modules/forum/src/Application/UseCases/ViewPollVotersUseCase.php:93
+msgid "Super moderator"
+msgstr "Super Moderatorius"
+
+#: modules/forum/src/Application/Services/ForumVisitorRowMapper.php:96
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:302
+#: modules/forum/src/Application/UseCases/ViewPollVotersUseCase.php:94
+msgid "Administrator"
+msgstr "Administratorius"
+
+#: modules/forum/src/Application/Services/ForumVisitorRowMapper.php:97
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:303
+#: modules/forum/src/Application/UseCases/ViewPollVotersUseCase.php:95
+msgid "Supervisor"
+msgstr "SuperVaizorius"
+
+#: modules/forum/src/Application/UseCases/AttachFileToPostUseCase.php:55
+msgid "File size exceed"
+msgstr "Failo dydis viršiją"
+
+#: modules/forum/src/Application/UseCases/AttachFileToPostUseCase.php:61
+msgid "The forbidden file format.<br>You can upload files of the following extension"
+msgstr "Uždraustas failo tipo!<br> Jūs galite įkelti tik šio tipo failus"
+
+#: modules/forum/src/Application/UseCases/EnsureEditPostAccessUseCase.php:29
+msgid "You cannot edit posts of higher administration"
+msgstr "Jus negalite redaguoti vyresniojo už jus administracijos pranešimus"
+
+#: modules/forum/src/Application/UseCases/EnsureEditPostAccessUseCase.php:37
+msgid "You are trying to change another's post"
+msgstr "Jus bandote pakeisti kito asmens pranešimą"
+
+#: modules/forum/src/Application/UseCases/EnsureEditPostAccessUseCase.php:54
+msgid "Your message not already latest, you cannot change it"
+msgstr "Jūsų pranešimas jau nepaskutinis ir jau jūs negalite jo keisti"
+
+#: modules/forum/src/Application/UseCases/EnsureEditPostAccessUseCase.php:58
+msgid "You cannot edit your posts after 5 minutes"
+msgstr "Jūs negalite redaguoti žinutės jei po jo sukurimo praejo 5 min"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:69
+#: modules/forum/templates/topics.phtml:31
+msgid "Category Files"
+msgstr "Kategorijos failai"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:87
+msgid "Section files"
+msgstr "Skyriaus failai"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:105
+#: modules/forum/templates/topic.phtml:38
+msgid "Topic Files"
+msgstr "Temos failai"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:148
+#: modules/forum/templates/files_list.phtml:32
+#: modules/forum/templates/files_sections.phtml:32
+msgid "New Files"
+msgstr "Nauji failai"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:180
+msgid "List of sections"
+msgstr "Skyrių sąrašas"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:313
+msgid "Windows applications"
+msgstr "\"Windows\" programos"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:314
+msgid "Java applications"
+msgstr "\"Java\" programos"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:315
+msgid "SIS"
+msgstr ""
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:316
+msgid "txt"
+msgstr ""
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:317
+msgid "Pictures"
+msgstr "Nuotraukos"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:318
+msgid "Archive"
+msgstr "Archyvas"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:319
+msgid "Videos"
+msgstr "Vaizdo įrašai"
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:320
+msgid "MP3"
+msgstr ""
+
+#: modules/forum/src/Application/UseCases/ViewForumFilesUseCase.php:321
+msgid "Other"
+msgstr "Kiti"
+
+#: modules/forum/src/Install/Installer.php:43
+msgid "Communication"
+msgstr ""
+
+#: modules/forum/src/Install/Installer.php:43
+msgid "Free discussion on any topic"
+msgstr ""
+
+#: modules/forum/src/Install/Installer.php:44
+msgid "Off-topic"
+msgstr ""
+
+#: modules/forum/src/Install/Installer.php:45
+msgid "Dating"
+msgstr ""
+
+#: modules/forum/src/Install/Installer.php:46
+msgid "Site life"
+msgstr ""
+
+#: modules/forum/src/Install/Installer.php:47
+msgid "News"
+msgstr ""
+
+#: modules/forum/src/Install/Installer.php:48
+msgid "Suggestions and wishes"
+msgstr ""
+
+#: modules/forum/src/Install/Installer.php:49
+msgid "Miscellaneous"
+msgstr ""
+
+#: modules/forum/src/Install/Installer.php:70
+msgid "Hello everyone!"
+msgstr ""
+
+#: modules/forum/src/Install/Installer.php:106
+msgid "<p>We are glad to welcome you to our website :)</p><p>Let's get acquainted!</p>"
+msgstr ""
+
+#: modules/forum/templates/add_file.phtml:29
+msgid "File attached"
+msgstr "Prisegtas failas"
+
+#: modules/forum/templates/add_file.phtml:32
+msgid "Add more"
+msgstr "Įtraukti daugiau"
+
+#: modules/forum/templates/add_file.phtml:33
+#: modules/forum/templates/add_file.phtml:48
+#: modules/forum/templates/add_poll.phtml:57
+#: modules/forum/templates/change_topic.phtml:52
+#: modules/forum/templates/curators.phtml:53
+#: modules/forum/templates/edit_poll.phtml:67
+#: modules/forum/templates/filter_by_author.phtml:68
+#: modules/forum/templates/move_topic.phtml:52
+#: modules/forum/templates/show_post.phtml:151
+msgid "Back to topic"
+msgstr "Atgal į temą"
+
+#: modules/forum/templates/add_file.phtml:40
+msgid "Choose file"
+msgstr "Pasirinkite failą"
+
+#: modules/forum/templates/add_file.phtml:44
+msgid "Max. Size"
+msgstr "Maks. Dydis"
+
+#: modules/forum/templates/add_file.phtml:47
+msgid "Upload"
+msgstr "Įkelti"
+
+#: modules/forum/templates/add_poll.phtml:31
+#: modules/forum/templates/add_poll.phtml:32
+#: modules/forum/templates/edit_poll.phtml:34
+#: modules/forum/templates/edit_poll.phtml:35
+msgid "Poll"
+msgstr "Apklausa"
+
+#: modules/forum/templates/add_poll.phtml:34
+#: modules/forum/templates/edit_poll.phtml:37
+msgid "Maximum length: 200 characters"
+msgstr ""
+
+#: modules/forum/templates/add_poll.phtml:37
+#: modules/forum/templates/edit_poll.phtml:40
+msgid "Answers"
+msgstr "Atsakymas"
+
+#: modules/forum/templates/add_poll.phtml:43
+#: modules/forum/templates/edit_poll.phtml:53
+msgid "Maximum length: 150 characters"
+msgstr "Maksimalus ilgis: 150 simbolių"
+
+#: modules/forum/templates/add_poll.phtml:49
+#: modules/forum/templates/edit_poll.phtml:59
+msgid "Add Answer"
+msgstr "Pridėti atsakymą"
+
+#: modules/forum/templates/add_poll.phtml:52
+#: modules/forum/templates/edit_poll.phtml:62
+msgid "Delete last"
+msgstr "Ištrinti paskutini"
+
+#: modules/forum/templates/add_poll.phtml:56
+#: modules/forum/templates/change_topic.phtml:51
+#: modules/forum/templates/edit_poll.phtml:66
+#: modules/forum/templates/edit_post.phtml:46
+msgid "Save"
+msgstr "Išsaugoti"
+
+#: modules/forum/templates/change_topic.phtml:29
+#: modules/forum/templates/change_topic.phtml:30
+msgid "Topic name"
+msgstr "Temos pavadinimas"
+
+#: modules/forum/templates/change_topic.phtml:37
+#: modules/forum/templates/new_topic.phtml:96
+msgid "Meta keywords"
+msgstr ""
+
+#: modules/forum/templates/change_topic.phtml:44
+#: modules/forum/templates/new_topic.phtml:92
+msgid "Meta description"
+msgstr ""
+
+#: modules/forum/templates/clear_search_history.phtml:28
+msgid "Do you really want to clear the search history?"
+msgstr "Ar tikrai norite išvalyti paieškos istoriją?"
+
+#: modules/forum/templates/clear_search_history.phtml:31
+msgid "Clear"
+msgstr "Išvalyti"
+
+#: modules/forum/templates/clear_search_history.phtml:32
+#: modules/forum/templates/delete_answer.phtml:33
+#: modules/forum/templates/delete_file.phtml:37
+#: modules/forum/templates/delete_poll.phtml:33
+#: modules/forum/templates/delete_post.phtml:46
+#: modules/forum/templates/delete_topic.phtml:48
+#: modules/forum/templates/mass_delete.phtml:41
+#: modules/forum/templates/restore_post.phtml:36
+msgid "Cancel"
+msgstr "Atšaukti"
+
+#: modules/forum/templates/curators.phtml:31
+#: modules/forum/templates/filter_by_author.phtml:34
+msgid "Changes saved"
+msgstr "Išsaugoti pakeitimus"
+
+#: modules/forum/templates/curators.phtml:51
+msgid "Assign"
+msgstr "Paskirti"
+
+#: modules/forum/templates/delete_answer.phtml:29
+msgid "Do you really want to delete the answer?"
+msgstr "Ar jus tikrai norite ištrinti ši atsakyma?"
+
+#: modules/forum/templates/delete_answer.phtml:32
+#: modules/forum/templates/delete_file.phtml:36
+#: modules/forum/templates/delete_poll.phtml:32
+#: modules/forum/templates/delete_post.phtml:42
+#: modules/forum/templates/delete_topic.phtml:41
+#: modules/forum/templates/mass_delete.phtml:40
+#: modules/forum/templates/topic.phtml:326
+#: modules/forum/templates/topic.phtml:371
+msgid "Delete"
+msgstr "Ištrinti"
+
+#: modules/forum/templates/delete_file.phtml:31
+#: modules/forum/templates/delete_post.phtml:37
+#: modules/forum/templates/delete_topic.phtml:31
+#: modules/forum/templates/mass_delete.phtml:31
+msgid "Do you really want to delete?"
+msgstr "Ar tikrai norite ištrinti?"
+
+#: modules/forum/templates/delete_file.phtml:41
+#: modules/forum/templates/delete_post.phtml:50
+msgid "After deleting, one point will be subtracted from the counter of forum posts"
+msgstr "Jeigu ištrinate, iš forumo pranešimo skaitliuku bus pašalintas 1 taškas"
+
+#: modules/forum/templates/delete_poll.phtml:29
+msgid "Do you really want to delete a poll?"
+msgstr "Ar jus tikrai norite ištrinti šia apklausa?"
+
+#: modules/forum/templates/delete_post.phtml:33
+msgid "WARNING!<br>This is last post of topic. By deleting this post topic will be deleted (or hidden) too"
+msgstr "Dėmėsio!<br> Čia paskutinis temos pranešimas. Kartu su jo buvo pašalinta(arba paslėpta) ir pati tema"
+
+#: modules/forum/templates/delete_post.phtml:44
+#: modules/forum/templates/delete_topic.phtml:36
+msgid "Hide"
+msgstr "Paslėpti"
+
+#: modules/forum/templates/delete_topic.phtml:47
+msgid "Perform"
+msgstr "Atlikti"
+
+#: modules/forum/templates/edit_post.phtml:37
+#: modules/forum/templates/new_topic.phtml:81
+#: modules/forum/templates/reply_message.phtml:42
+#: modules/forum/templates/topic.phtml:126
+#: modules/forum/templates/topic.phtml:438
+msgid "Message"
+msgstr "Žinutė"
+
+#: modules/forum/templates/edit_post.phtml:49
+#: modules/forum/templates/new_topic.phtml:116
+#: modules/forum/templates/reply_message.phtml:58
+msgid "Smilies"
+msgstr "Šypsenėlės"
+
+#: modules/forum/templates/files_list.phtml:84
+#: modules/forum/templates/topic.phtml:244
+msgid "Link to post"
+msgstr "Nuorodą į postą"
+
+#: modules/forum/templates/files_list.phtml:135
+msgid "To message"
+msgstr "Prie pranešimo"
+
+#: modules/forum/templates/files_list.phtml:138
+msgid "To topic"
+msgstr "Į temą"
+
+#: modules/forum/templates/files_list.phtml:148
+#: modules/forum/templates/forum_search.phtml:72
+#: modules/forum/templates/new_topics.phtml:107
+#: modules/forum/templates/topic.phtml:460
+#: modules/forum/templates/topics.phtml:111
+#: modules/forum/templates/voted_users.phtml:44
+#: modules/forum/templates/who.phtml:52
+msgid "Total"
+msgstr "Viso"
+
+#: modules/forum/templates/filter_by_author.phtml:43
+msgid "Filter will be display posts from selected authors only"
+msgstr "Filtras rodys tik pranešimus su parinktų autorių"
+
+#: modules/forum/templates/filter_by_author.phtml:63
+msgid "Filter"
+msgstr "Filtruoti"
+
+#: modules/forum/templates/filter_by_author.phtml:65
+#: modules/forum/templates/topic.phtml:48
+#: modules/forum/templates/topic.phtml:476
+msgid "Cancel Filter"
+msgstr "Panaikinti filtrą"
+
+#: modules/forum/templates/footer.phtml:29
+msgid "Forum rules"
+msgstr "Forumo taisyklės"
+
+#: modules/forum/templates/forum_search.phtml:29
+#: modules/forum/templates/forum_search.phtml:30
+msgid "Search query"
+msgstr "Paieškos užklausa"
+
+#: modules/forum/templates/forum_search.phtml:32
+msgid "Length of query: 4min., 64maks.<br>Search is case insensitive <br>Results are sorted by relevance."
+msgstr "Ilgio užklausa: 4 min., 64 maks.<br> Paieška nejautri raidžių registrui.<br> Rezultatai rikiuojami pagal tinkamumą."
+
+#: modules/forum/templates/forum_search.phtml:37
+msgid "Search in the topic names"
+msgstr "Ieškoti temu pavadinimose"
+
+#: modules/forum/templates/forum_search.phtml:40
+#: modules/forum/templates/header.phtml:73
+msgid "Search"
+msgstr "Paieška"
+
+#: modules/forum/templates/forum_search.phtml:45
+msgid "Your search did not match any results"
+msgstr "Jūsų paieška nesutapo su jokiu rezultatu"
+
+#: modules/forum/templates/forum_search.phtml:57
+#: modules/forum/templates/new_topics.phtml:96
+#: modules/forum/templates/topics.phtml:105
+msgid "Author"
+msgstr "Autorius"
+
+#: modules/forum/templates/forum_search.phtml:60
+msgid "Go to Message"
+msgstr "Pereiti prie žinutės"
+
+#: modules/forum/templates/forum_search.phtml:81
+msgid "Search History"
+msgstr "Paieškos istorija"
+
+#: modules/forum/templates/forum_search.phtml:89
+msgid "Clear history"
+msgstr "Išvalyti istoriją"
+
+#: modules/forum/templates/header.phtml:22
+msgid "Read only"
+msgstr "Tik skaityti"
+
+#: modules/forum/templates/header.phtml:44
+msgid "Show for Period"
+msgstr "Rodyti Laikotarpis"
+
+#: modules/forum/templates/header.phtml:53
+msgid "Last activity"
+msgstr "Paskutinis aktyvumas"
+
+#: modules/forum/templates/index.phtml:37
+msgid "Files"
+msgstr "Failai"
+
+#: modules/forum/templates/move_topic.phtml:33
+msgid "Category"
+msgstr "Kategorija"
+
+#: modules/forum/templates/move_topic.phtml:38
+msgid "New section"
+msgstr "pagal skyriu"
+
+#: modules/forum/templates/move_topic.phtml:47
+msgid "Category is empty"
+msgstr "Kategorija tuščia"
+
+#: modules/forum/templates/move_topic.phtml:51
+msgid "Move"
+msgstr "Perkelti"
+
+#: modules/forum/templates/move_topic.phtml:56
+msgid "Other categories"
+msgstr "Kitos kategorijos"
+
+#: modules/forum/templates/new_topic.phtml:71
+msgid "Title"
+msgstr "Pavadinimas"
+
+#: modules/forum/templates/new_topic.phtml:105
+#: modules/forum/templates/reply_message.phtml:55
+#: modules/forum/templates/topic.phtml:140
+#: modules/forum/templates/topic.phtml:143
+#: modules/forum/templates/topic.phtml:452
+#: modules/forum/templates/topic.phtml:455
+msgid "Write"
+msgstr "Rašyti"
+
+#: modules/forum/templates/new_topic.phtml:107
+msgid "Preview"
+msgstr "Peržiūra"
+
+#: modules/forum/templates/new_topics.phtml:36
+msgid "Period"
+msgstr "Laikotarpis"
+
+#: modules/forum/templates/new_topics.phtml:38
+msgid "Show period"
+msgstr "Rodyti per laikotarpį"
+
+#: modules/forum/templates/new_topics.phtml:62
+#: modules/forum/templates/topics.phtml:59
+msgid "Pinned topic"
+msgstr "Tema prisegta"
+
+#: modules/forum/templates/new_topics.phtml:69
+#: modules/forum/templates/topics.phtml:66
+msgid "Topic has poll"
+msgstr "Tema turi apklausą"
+
+#: modules/forum/templates/new_topics.phtml:76
+#: modules/forum/templates/topics.phtml:73
+msgid "Closed topic"
+msgstr "Uždaryti Temą"
+
+#: modules/forum/templates/new_topics.phtml:83
+#: modules/forum/templates/topics.phtml:80
+#: modules/forum/templates/topics.phtml:91
+msgid "Deleted topic"
+msgstr "Ištrinti temą"
+
+#: modules/forum/templates/new_topics.phtml:97
+#: modules/forum/templates/topics.phtml:106
+msgid "Last post"
+msgstr "Paskutinis apsilankymas"
+
+#: modules/forum/templates/new_topics.phtml:119
+msgid "Mark as read"
+msgstr "Pažymėti kaip perskaitytą"
+
+#: modules/forum/templates/reply_message.phtml:37
+msgid "Topic"
+msgstr "Tema"
+
+#: modules/forum/templates/restore_post.phtml:30
+msgid "Do you really want to restore this post?"
+msgstr ""
+
+#: modules/forum/templates/restore_post.phtml:35
+#: modules/forum/templates/topic.phtml:373
+msgid "Restore"
+msgstr "Atkurti"
+
+#: modules/forum/templates/section.phtml:36
+msgid "Section Files"
+msgstr "Skyriaus failai"
+
+#: modules/forum/templates/section.phtml:45
+msgid "There are no sections in this category"
+msgstr "Šioje kategorijoje skyrių nėra"
+
+#: modules/forum/templates/show_post.phtml:65
+#: modules/forum/templates/topic.phtml:252
+msgid "Edited:"
+msgstr "Redaguoti:"
+
+#: modules/forum/templates/show_post.phtml:66
+#: modules/forum/templates/topic.phtml:253
+msgid "Edited"
+msgstr "Redaguoti:"
+
+#: modules/forum/templates/show_post.phtml:83
+#: modules/forum/templates/topic.phtml:294
+msgid "Attached files"
+msgstr "Prisėgtas failas"
+
+#: modules/forum/templates/show_post.phtml:138
+#: modules/forum/templates/topic.phtml:354
+msgid "Reply"
+msgstr "Atsakyti"
+
+#: modules/forum/templates/show_post.phtml:143
+#: modules/forum/templates/topic.phtml:359
+msgid "Quote"
+msgstr "Cituoti"
+
+#: modules/forum/templates/topic.phtml:44
+msgid "Filter by author is activated"
+msgstr "Filtravimas pagal autoriu aktyvuotas"
+
+#: modules/forum/templates/topic.phtml:55
+msgid "Topic closed"
+msgstr "Tema uždaryta"
+
+#: modules/forum/templates/topic.phtml:61
+msgid "Topic deleted by"
+msgstr "Tema ištrinte"
+
+#: modules/forum/templates/topic.phtml:65
+msgid "Undelete topic"
+msgstr "Atšauke temos trinimą"
+
+#: modules/forum/templates/topic.phtml:81
+#: modules/forum/templates/topic.phtml:111
+msgid "Vote"
+msgstr "Balsuoti"
+
+#: modules/forum/templates/topic.phtml:82
+msgid "Results"
+msgstr "Rezultatai"
+
+#: modules/forum/templates/topic.phtml:102
+msgid "Total votes"
+msgstr "Iš viso balsų"
+
+#: modules/forum/templates/topic.phtml:261
+msgid "Post deleted:"
+msgstr "Po išbraukta:"
+
+#: modules/forum/templates/topic.phtml:262
+msgid "Deleted"
+msgstr "Ištrinta"
+
+#: modules/forum/templates/topic.phtml:268
+msgid "Post restored by:"
+msgstr "Po atkurta:"
+
+#: modules/forum/templates/topic.phtml:269
+msgid "Restored"
+msgstr "Atkurta"
+
+#: modules/forum/templates/topic.phtml:370
+msgid "Edit"
+msgstr "Redaguoti"
+
+#: modules/forum/templates/topic.phtml:385
+msgid "Delete selected"
+msgstr "Trinti pažymėtus"
+
+#: modules/forum/templates/topic.phtml:389
+msgid "Actions with topic"
+msgstr "Veiksmai su tema"
+
+#: modules/forum/templates/topic.phtml:400
+msgid "Curators of the Topic"
+msgstr "Temos kuratorius"
+
+#: modules/forum/templates/topic.phtml:406
+msgid "Open Topic"
+msgstr "Atidaryti Temą"
+
+#: modules/forum/templates/topic.phtml:408
+msgid "Close Topic"
+msgstr "Uždaryti Temą"
+
+#: modules/forum/templates/topic.phtml:412
+msgid "Restore Topic"
+msgstr "Atkurti Tema"
+
+#: modules/forum/templates/topic.phtml:418
+msgid "Unfix Topic"
+msgstr "Atkalti Tema"
+
+#: modules/forum/templates/topic.phtml:420
+msgid "Pin Topic"
+msgstr "Pritvirtinti Tema"
+
+#: modules/forum/templates/topic.phtml:423
+msgid "Move Topic"
+msgstr "Perkelti tema"
+
+#: modules/forum/templates/topic.phtml:500
+msgid "Who is here"
+msgstr "Kas čia"
+
+#: modules/forum/templates/topics.phtml:40
+msgid "No topics in this section"
+msgstr "Šiame skyriuje nėra nei vienos temos"
+
+#: modules/forum/templates/topics.phtml:95
+msgid "Last page"
+msgstr "Paskutinis puslapis"
+
+#: modules/forum/templates/voted_users.phtml:54
+#: modules/forum/templates/who.phtml:62
+msgid "Go to Topic"
+msgstr "Eiti į temą"
+
+#: modules/forum/templates/who.phtml:38
+msgid "Users"
+msgstr "Vartotojai"
+
+#: modules/forum/templates/who.phtml:39
+msgid "Guests"
+msgstr "Svečiai"
+
