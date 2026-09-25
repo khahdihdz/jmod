@@ -1,17 +1,15 @@
 /**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
+ * Public theme bootstrap dependencies.
+ *
+ * Bootstrap 5 does not require jQuery. jQuery remains available because
+ * existing JohnCMS modules use it for AJAX and legacy UI integrations.
  */
 
 try {
-  window.Popper = require('popper.js').default;
   window.$ = window.jQuery = require('jquery');
   window.axios = require('axios');
   window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-  var _ = require('lodash');
   require('bootstrap');
 } catch (e) {
+  // Keep the existing application boot process tolerant of optional frontend dependencies.
 }
-
-
