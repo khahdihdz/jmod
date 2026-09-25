@@ -58,10 +58,10 @@ if (! $isHomePage && ! empty($baseTitle) && $baseTitle !== (string) $config['cop
     <?= $this->section('styles', '') ?>
     <title><?= $this->e($documentTitle) ?></title>
 </head>
-<body class="<?= $theme->getCurrentTheme() ?>">
-<div class="wrapper min-vh-100 d-flex flex-column justify-content-between" id="app">
-    <div class="page_layout justify-content-end d-flex w-100">
-        <div class="sidebar">
+<body class="jmod-body <?= $this->e($theme->getCurrentTheme()) ?>">
+<div class="wrapper jmod-shell min-vh-100 d-flex flex-column justify-content-between" id="app">
+    <div class="page_layout jmod-page justify-content-end d-flex w-100">
+        <div class="sidebar jmod-sidebar">
             <div class="sidebar__inner">
                 <div class="sidebar__logo">
                     <a href="/">
@@ -74,8 +74,8 @@ if (! $isHomePage && ! empty($baseTitle) && $baseTitle !== (string) $config['cop
                 </div>
             </div>
         </div>
-        <div class="content-container content-container-padding d-flex flex-column shadow">
-            <nav class="navbar navbar-expand-lg top_nav fixed-top border-bottom shadow">
+        <div class="content-container jmod-content content-container-padding d-flex flex-column">
+            <nav class="navbar navbar-expand-lg top_nav jmod-topbar fixed-top border-bottom">
                 <div class="container-fluid">
                     <div class="navbar-wrapper d-flex w-100 justify-content-between">
                         <div class="navbar-toggle">
@@ -111,7 +111,7 @@ if (! $isHomePage && ! empty($baseTitle) && $baseTitle !== (string) $config['cop
                     </div>
                 </div>
             </nav>
-            <div class="container-fluid flex-grow-1">
+            <main class="container-fluid jmod-main flex-grow-1">
                 <?php if (! empty($page_title)): ?>
                     <h1 class="mb-0"><?= $this->e($page_title) ?></h1>
                 <?php endif ?>
@@ -125,6 +125,7 @@ if (! $isHomePage && ! empty($baseTitle) && $baseTitle !== (string) $config['cop
                 <?php endif; ?>
                 <?= $this->section('content') ?>
 
+                </main>
                 <div class="to-top to-top_hidden">
                     <button class="btn btn__top">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
@@ -142,10 +143,10 @@ if (! $isHomePage && ! empty($baseTitle) && $baseTitle !== (string) $config['cop
             </div>
         </div>
     </div>
-    <div class="page_layout container">
+    <div class="page_layout jmod-page container">
         <?= $this->section('footer_content') ?>
     </div>
-    <div class="overlay"></div>
+    <div class="overlay jmod-overlay"></div>
     <div class="page_layout w-100">
         <?php
         $legalLinks = array_filter(
@@ -157,7 +158,7 @@ if (! $isHomePage && ! empty($baseTitle) && $baseTitle !== (string) $config['cop
             ]
         );
         ?>
-        <div class="content-container-padding footer-padding">
+        <div class="content-container-padding footer-padding jmod-footer">
             <div class="row justify-content-between align-items-center border-top py-3 page-footer">
                 <?php if (! empty($legalLinks)): ?>
                     <div class="col-12 col-md-4 mb-2 mb-md-0">
