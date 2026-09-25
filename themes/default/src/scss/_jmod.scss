@@ -595,6 +595,144 @@
   .jmod-main {
     overflow-wrap: anywhere;
   }
+
+  // Compatibility layer for legacy JohnCMS template hooks.
+  // It keeps existing module markup usable after the legacy presentation SCSS is removed.
+  .section,
+  .section-item,
+  .list-item,
+  .user-row,
+  .post-row,
+  .menu-item,
+  .content-box {
+    background: var(--jmod-surface);
+    border: 1px solid var(--jmod-border);
+    border-radius: var(--jmod-radius);
+    color: var(--jmod-text);
+  }
+
+  .section,
+  .content-box { margin-bottom: .875rem; padding: 1rem; }
+
+  .section-title,
+  .section-header,
+  .list-title,
+  .block-title {
+    color: var(--jmod-text);
+    font-weight: 700;
+  }
+
+  .section-title,
+  .list-title,
+  .block-title {
+    margin-bottom: .75rem;
+  }
+
+  .item,
+  .list-item,
+  .user-row,
+  .post-row {
+    padding: .75rem 1rem;
+    border-width: 0 0 1px;
+    border-radius: 0;
+
+    &:last-child { border-bottom-width: 0; }
+    &:hover { background: var(--jmod-surface-muted); }
+  }
+
+  .menu,
+  .nav-menu,
+  .link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      margin: 0;
+      padding: 0;
+
+      > a {
+        display: flex;
+        align-items: center;
+        gap: .65rem;
+        min-height: 42px;
+        padding: .6rem .75rem;
+        border-radius: var(--jmod-radius-sm);
+        color: var(--jmod-text-secondary);
+        font-weight: 600;
+
+        &:hover,
+        &:focus {
+          color: var(--jmod-primary);
+          background: #eff6ff;
+        }
+      }
+    }
+  }
+
+  .input,
+  .textarea,
+  .select,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="url"],
+  input[type="search"],
+  textarea,
+  select {
+    max-width: 100%;
+    border: 1px solid var(--jmod-border);
+    border-radius: var(--jmod-radius-sm);
+    background: var(--jmod-surface);
+    color: var(--jmod-text);
+  }
+
+  .input,
+  .textarea,
+  .select {
+    min-height: 42px;
+    padding: .55rem .75rem;
+  }
+
+  .table {
+    --bs-table-color: var(--jmod-text);
+    --bs-table-bg: var(--jmod-surface);
+    --bs-table-border-color: var(--jmod-border);
+    vertical-align: middle;
+
+    th { font-weight: 700; }
+    td, th { padding: .7rem .75rem; }
+  }
+
+  .tabs,
+  .nav-tabs {
+    border-bottom-color: var(--jmod-border);
+
+    a,
+    .nav-link {
+      color: var(--jmod-text-secondary);
+      border-color: transparent;
+
+      &:hover,
+      &:focus {
+        color: var(--jmod-primary);
+        background: var(--jmod-surface-muted);
+      }
+    }
+
+    .active,
+    .nav-link.active {
+      color: var(--jmod-primary);
+      background: var(--jmod-surface);
+      border-color: var(--jmod-border) var(--jmod-border) var(--jmod-surface);
+      font-weight: 700;
+    }
+  }
+
+  .pagination {
+    margin-top: .75rem;
+  }
 }
 
 @media (max-width: 991.98px) {
