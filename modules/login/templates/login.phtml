@@ -6,7 +6,7 @@
     ]
 ) ?>
 
-<form method="post">
+<form method="post" class="jmod-auth card p-4 p-md-5 shadow-sm">
     <h4><?= __('Authorization') ?></h4>
     <?php if (! empty($error)): ?>
         <?= $this->fetch('system::app/alert', ['alert_type' => 'alert-danger', 'alert' => $error]) ?>

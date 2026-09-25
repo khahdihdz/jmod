@@ -1,39 +1,19 @@
-// Variables
-@import 'variables';
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
-// Основные стили шаблона
-@import "base_styles";
-// Анимации
-@import "animations";
-// Левое меню
-@import "sidebar";
-// Шапка
-@import "header";
-// Иконки
-@import "icons";
-@import "posts";
-@import "sections";
-@import "lists";
-@import "inputs";
-@import "buttons";
-@import "user";
+// JMod theme entrypoint.
+// Bootstrap 5.3 is loaded exactly once here. Legacy JohnCMS presentation SCSS is intentionally
+// not imported; component behavior remains available through existing template/JS hooks.
+
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+
+// Feature-specific styles retained for existing widgets, without loading the legacy theme shell.
+@import "progress";
+@import "slider";
+@import "album";
+@import "jmod";
+
+// Functional third-party styles that are still required by existing features.
 @import "../css/prism.css";
 @import "../css/magnific-popup.css";
-
-@import '~swiper/swiper-bundle.css';
-
-@import "slider";
-
-@import "album";
-
-@import "progress";
-
-@import "homepage";
-
-@import "pagination";
-
-// Editor
+@import "~swiper/swiper-bundle.css";
 @import "wbbtheme";
-
-@import '~flatpickr/dist/flatpickr.css';
+@import "~flatpickr/dist/flatpickr.css";
