@@ -1,0 +1,73 @@
+name: Release ZIP
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g. 9.9.0)"
+        required: true
+        default: "9.9.0"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3.31"
+          extensions: dom, gd, mbstring, pdo, simplexml, zip
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install PHP production dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build production assets
+        run: npm run production
+
+      - name: Prepare release package
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -e
+          rm -rf node_modules
+          rm -rf .git .github
+          rm -rf tests
+          rm -rf storage/logs/*
+          rm -rf storage/cache/*
+          mkdir -p release
+          zip -r "release/jmod-${VERSION}.zip" . \
+            -x "release/*" \
+            -x "*.git*" \
+            -x "node_modules/*" \
+            -x "tests/*" \
+            -x "*.DS_Store"
+          sha256sum "release/jmod-${VERSION}.zip" > "release/jmod-${VERSION}.zip.sha256"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ inputs.version }}"
+          name: "JMod v${{ inputs.version }}"
+          generate_release_notes: true
+          files: |
+            release/jmod-${{ inputs.version }}.zip
+            release/jmod-${{ inputs.version }}.zip.sha256
