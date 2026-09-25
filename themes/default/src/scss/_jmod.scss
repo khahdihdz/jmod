@@ -477,7 +477,7 @@
       padding: .875rem;
     }
 
-    body.sidebar_opened & {
+    &.sidebar_opened {
       overflow: hidden;
 
       .jmod-sidebar { transform: translate3d(0, 0, 0); }
