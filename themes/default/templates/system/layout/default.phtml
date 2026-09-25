@@ -41,13 +41,13 @@ if (! $isHomePage && ! empty($baseTitle) && $baseTitle !== (string) $config['cop
     <?php if (! empty($canonical)): ?>
         <link rel="canonical" href="<?= $canonical ?>">
     <?php endif ?>
-    <meta name="theme-color" content="#586776">
+    <meta name="theme-color" content="#2563EB">
     <?php if ($locale === 'ar'): ?>
         <link rel="stylesheet" href="<?= $this->asset('css/app.rtl.css', true) ?>">
     <?php else: ?>
         <link rel="stylesheet" href="<?= $this->asset('css/app.css', true) ?>">
     <?php endif; ?>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
     <link rel="icon" type="image/svg+xml" href="<?= $this->asset('images/icon.svg') ?>">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= $this->asset('images/favicon-32x32.png') ?>">
     <link rel="icon" type="image/png" sizes="16x16" href="<?= $this->asset('images/favicon-16x16.png') ?>">
