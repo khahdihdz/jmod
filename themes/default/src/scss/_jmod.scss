@@ -160,6 +160,44 @@
     padding: 1.25rem clamp(.75rem, 2vw, 1.5rem) 2rem;
   }
 
+  .jmod-auth {
+    width: min(100%, 560px);
+    margin: 1rem auto 2rem;
+    background: var(--jmod-surface);
+    border: 1px solid var(--jmod-border);
+    border-radius: var(--jmod-radius-lg);
+    box-shadow: var(--jmod-shadow);
+  }
+
+  .jmod-auth-wide {
+    width: min(100%, 760px);
+  }
+
+  .jmod-auth h4 {
+    margin-bottom: 1.25rem;
+    font-weight: 750;
+    color: var(--jmod-text);
+  }
+
+  .jmod-hero {
+    border: 1px solid var(--jmod-border);
+    border-radius: var(--jmod-radius-xl);
+    box-shadow: var(--jmod-shadow);
+    background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%) !important;
+
+    h1 { letter-spacing: -.035em; }
+    .lead { color: var(--jmod-text-secondary); }
+  }
+
+  .jmod-profile-grid > [class*="col-"] > .d-flex.justify-content-center,
+  .jmod-profile-grid > [class*="col-"] > .mt-4.mt-md-0 {
+    background: var(--jmod-surface);
+    border: 1px solid var(--jmod-border);
+    border-radius: var(--jmod-radius-lg);
+    padding: 1.25rem;
+    box-shadow: var(--jmod-shadow-sm);
+  }
+
   .jmod-main > h1 {
     margin: 0 0 .75rem;
     color: var(--jmod-text);
