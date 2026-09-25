@@ -1,55 +1,19 @@
-// Body
-$body-bg: #f4f3ef;
+// JMod design tokens and Bootstrap 5.3 theme configuration.
 
-// Typography
-$font-family-sans-serif: "Roboto", sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+$body-bg: #f5f8fc;
+$body-color: #172033;
+$font-family-sans-serif: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-size-base: 0.9375rem;
+$line-height-base: 1.55;
 
-$font-size-lg: $font-size-base * 1.25 !default;
-$font-size-sm: $font-size-base * .875 !default;
-
-$enable-responsive-font-sizes: true;
-
-$input-font-size: 1rem;
-
-//$fa-font-path: '/assets/fonts';
-
-// Color system
-$blue: #2f75be;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66D9b;
-$red: #c81f4c;
-$orange: #EB5E28;
-$yellow: #F3BB45;
-$yellow_light: #fffbeb;
-$green: #42A084;
-$teal: #918d88;
-$cyan: #68B3C8;
-$brown: #66615B;
-$dark_brown: #7d4e3c;
-
-$white: #fff !default;
-$gray-100: #f4f3ef !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black: #000 !default;
-
-$primary: $brown !default;
-$secondary: $teal !default;
-$success: $green !default;
-$info: $cyan !default;
-$warning: $yellow !default;
-$danger: $orange !default;
-$light: $gray-100 !default;
-$dark: $gray-800 !default;
+$primary: #2563eb;
+$secondary: #64748b;
+$success: #16a34a;
+$info: #0ea5e9;
+$warning: #f59e0b;
+$danger: #dc2626;
+$light: #f8fafc;
+$dark: #172033;
 
 $theme-colors: (
   "primary": $primary,
@@ -59,182 +23,77 @@ $theme-colors: (
   "warning": $warning,
   "danger": $danger,
   "light": $light,
-  "dark": $dark,
-  "orange": $orange,
-  "dark-brown": $dark_brown,
-  "yellow-light": $yellow-light,
+  "dark": $dark
 );
 
-// Fonts
-$line-height-base: 1.5 !default;
+$white: #fff;
+$black: #000;
+$gray-100: #f8fafc;
+$gray-200: #f1f5f9;
+$gray-300: #e2e8f0;
+$gray-400: #cbd5e1;
+$gray-500: #94a3b8;
+$gray-600: #64748b;
+$gray-700: #475569;
+$gray-800: #334155;
+$gray-900: #172033;
 
-$h1-font-size: $font-size-base * 1.85;
-$h2-font-size: $font-size-base * 1.5;
-$h3-font-size: $font-size-base * 1.35;
-$h4-font-size: $font-size-base * 1.15;
-$h5-font-size: $font-size-base;
-$h6-font-size: $font-size-base;
+$border-color: #e2e8f0;
+$border-radius: 0.75rem;
+$border-radius-sm: 0.5rem;
+$border-radius-lg: 1rem;
+$border-radius-xl: 1.25rem;
 
+$box-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+$box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+$box-shadow-lg: 0 18px 48px rgba(15, 23, 42, 0.10);
 
-$border-radius: .25rem !default;
-$border-radius-lg: .3rem !default;
-$border-radius-sm: .2rem !default;
+$input-bg: #fff;
+$input-border-color: #cbd5e1;
+$input-border-radius: 0.65rem;
+$input-focus-border-color: #2563eb;
+$input-btn-focus-box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.14);
 
+$btn-border-radius: 0.65rem;
+$btn-border-radius-sm: 0.5rem;
+$btn-border-radius-lg: 0.75rem;
 
-// Breadcrumbs
-$breadcrumb-padding-y: 0;
-$breadcrumb-padding-x: 0;
-$breadcrumb-item-padding: .5rem;
+$card-border-color: #e2e8f0;
+$card-border-radius: 1rem;
+$card-cap-bg: #fff;
+$card-bg: #fff;
 
-$breadcrumb-margin-bottom: 1rem;
-
-$breadcrumb-bg: none !default;
-$breadcrumb-divider-color: $gray-600;
-$breadcrumb-active-color: $gray-600;
-$breadcrumb-divider: quote("»");
-
-$breadcrumb-border-radius: $border-radius;
-
-
-$box-shadow-sm: 0 .125rem .25rem rgba($black, .075) !default;
-$box-shadow: 0 6px 10px -4px rgba(0, 0, 0, .15);
-$box-shadow-lg: 0 1rem 3rem rgba($black, .175) !default;
-
-
-$btn-border-radius: .25rem;
-$btn-border-radius-lg: .3rem;
-$btn-border-radius-sm: .2rem;
-
-// Forms
-$form-label-margin-bottom: 0.1rem;
-$input-bg: #f9f9f9;
-
+$breadcrumb-divider: quote("/");
+$breadcrumb-divider-color: #94a3b8;
+$breadcrumb-active-color: #64748b;
 
 :root {
-  --bs-primary: #66615B;
-  --bs-secondary: #918d88;
-  --bs-success: #42A084;
-  --bs-info: #68B3C8;
-  --bs-warning: #F3BB45;
-  --bs-danger: #EB5E28;
-
-  --primary-bg-text-color: #fff;
-
-  --border-color: #dee2e6;
-
-  --font-size-normal: 14px;
-  --font-size-small: 12px;
-  --font-size-x-small: 11px;
-}
-
-@mixin dark-theme-vars {
-  --bs-primary: #626262;
-  --bs-danger: #e74c3c;
-  --bs-dark-brown-rgb: #fff;
-
-  --bs-secondary-color: rgb(126 126 126) !important;
-
-  --bs-body-bg: #0c0c0c;
-  --bs-body-color: #fff;
-  --bs-white-rgb: rgba(33, 33, 33, 0.98);
-
-  --bs-link-color-rgb: 205, 205, 205;
-  --bs-link-hover-color-rgb: 225, 225, 225;
-
-  --bs-link-color: #fff;
-  --bs-link-hover-color: #d0d0d0;
-
-  --bs-border-color: rgba(255, 255, 255, 0.1);
-  --border-color: rgba(255, 255, 255, 0.1);
-
-  // CKEditor
-  --ck-custom-background: hsl(0, 0%, 16%);
-  --ck-custom-foreground: hsl(0, 0%, 10%);
-  --ck-custom-border: hsl(300, 1%, 22%);
-  --ck-custom-white: hsl(0, 0%, 52%);
-
-  --ck-color-base-background: hsl(0, 0%, 24%);
-
-  --ck-color-base-foreground: var(--ck-custom-background);
-  --ck-color-focus-border: hsl(208, 90%, 62%);
-  --ck-color-text: hsl(0, 0%, 98%);
-  --ck-color-shadow-drop: hsla(0, 0%, 0%, 0.2);
-  --ck-color-shadow-inner: hsla(0, 0%, 0%, 0.1);
-
-  --ck-color-button-default-background: var(--ck-custom-background);
-  --ck-color-button-default-hover-background: hsl(270, 1%, 22%);
-  --ck-color-button-default-active-background: hsl(270, 2%, 20%);
-  --ck-color-button-default-active-shadow: hsl(270, 2%, 23%);
-  --ck-color-button-default-disabled-background: var(--ck-custom-background);
-
-  --ck-color-button-on-background: var(--ck-custom-foreground);
-  --ck-color-button-on-hover-background: hsl(255, 4%, 16%);
-  --ck-color-button-on-active-background: hsl(255, 4%, 14%);
-  --ck-color-button-on-active-shadow: hsl(240, 3%, 19%);
-  --ck-color-button-on-disabled-background: var(--ck-custom-foreground);
-
-  --ck-color-button-action-background: hsl(168, 76%, 42%);
-  --ck-color-button-action-hover-background: hsl(168, 76%, 38%);
-  --ck-color-button-action-active-background: hsl(168, 76%, 36%);
-  --ck-color-button-action-active-shadow: hsl(168, 75%, 34%);
-  --ck-color-button-action-disabled-background: hsl(168, 76%, 42%);
-  --ck-color-button-action-text: var(--ck-custom-white);
-
-  --ck-color-button-save: hsl(120, 100%, 46%);
-  --ck-color-button-cancel: hsl(15, 100%, 56%);
-
-  --ck-color-dropdown-panel-background: var(--ck-custom-background);
-  --ck-color-dropdown-panel-border: var(--ck-custom-foreground);
-
-  --ck-color-split-button-hover-background: var(--ck-color-button-default-hover-background);
-  --ck-color-split-button-hover-border: var(--ck-custom-foreground);
-
-  --ck-color-input-background: var(--ck-custom-background);
-  --ck-color-input-border: hsl(257, 3%, 43%);
-  --ck-color-input-text: hsl(0, 0%, 98%);
-  --ck-color-input-disabled-background: hsl(255, 4%, 21%);
-  --ck-color-input-disabled-border: hsl(250, 3%, 38%);
-  --ck-color-input-disabled-text: hsl(0, 0%, 78%);
-
-  --ck-color-list-background: var(--ck-custom-background);
-  --ck-color-list-button-hover-background: var(--ck-color-base-foreground);
-  --ck-color-list-button-on-background: var(--ck-color-base-active);
-  --ck-color-list-button-on-background-focus: var(--ck-color-base-active-focus);
-  --ck-color-list-button-on-text: var(--ck-color-base-background);
-
-  --ck-color-panel-background: var(--ck-custom-background);
-  --ck-color-panel-border: var(--ck-custom-border);
-
-  --ck-color-toolbar-background: var(--ck-custom-background);
-  --ck-color-toolbar-border: var(--ck-custom-border);
-
-  --ck-color-tooltip-background: hsl(252, 7%, 14%);
-  --ck-color-tooltip-text: hsl(0, 0%, 93%);
-
-  --ck-color-image-caption-background: hsl(0, 0%, 97%);
-  --ck-color-image-caption-text: hsl(0, 0%, 20%);
-
-  --ck-color-widget-blurred-border: hsl(0, 0%, 87%);
-  --ck-color-widget-hover-border: hsl(43, 100%, 68%);
-  --ck-color-widget-editable-focus-background: var(--ck-custom-white);
-
-  --ck-color-link-default: hsl(190, 100%, 75%);
-
-  --ck-color-base-border: var(--bs-border-color);
-
-  --ck-color-labeled-field-label-background: var(--ck-custom-background);
-}
-
-body {
-  &.auto {
-    @media (prefers-color-scheme: dark) {
-      @include dark-theme-vars;
-      @import "dark";
-    }
-  }
-
-  &.dark {
-    @include dark-theme-vars;
-    @import "dark";
-  }
+  --jmod-primary: #2563eb;
+  --jmod-primary-hover: #1d4ed8;
+  --jmod-secondary: #64748b;
+  --jmod-success: #16a34a;
+  --jmod-warning: #f59e0b;
+  --jmod-danger: #dc2626;
+  --jmod-info: #0ea5e9;
+  --jmod-bg: #f5f8fc;
+  --jmod-surface: #ffffff;
+  --jmod-surface-muted: #f8fafc;
+  --jmod-border: #e2e8f0;
+  --jmod-text: #172033;
+  --jmod-text-secondary: #64748b;
+  --jmod-text-muted: #94a3b8;
+  --jmod-radius-sm: .5rem;
+  --jmod-radius: .75rem;
+  --jmod-radius-lg: 1rem;
+  --jmod-radius-xl: 1.25rem;
+  --jmod-shadow-sm: 0 1px 2px rgba(15, 23, 42, .04);
+  --jmod-shadow: 0 8px 24px rgba(15, 23, 42, .07);
+  --jmod-shadow-lg: 0 18px 48px rgba(15, 23, 42, .10);
+  --jmod-container: 1200px;
+  --jmod-sidebar: 260px;
+  --jmod-header: 64px;
+  --jmod-transition: 180ms ease;
+  --jmod-z-sidebar: 1030;
+  --jmod-z-header: 1040;
+  --jmod-z-overlay: 1020;
 }
