@@ -469,15 +469,10 @@ class Bbcode implements Api\BbcodeInterface
                 return $label;
             }
 
+            // Luôn giữ nguyên URL đích tuyệt đối; không chuyển qua go.php
+            // và không thay đổi domain thành URL nội bộ.
             $targetEsc = htmlspecialchars($target, ENT_QUOTES, 'UTF-8');
-            $home = parse_url($this->homeUrl);
-            if (!empty($home['host']) && isset($parsed['host']) && strcasecmp($home['host'], $parsed['host']) === 0) {
-                return '<a href="' . $targetEsc . '">' . $label . '</a>';
-            }
-            if ($this->userConfig->directUrl) {
-                return '<a href="' . $targetEsc . '" rel="noopener noreferrer">' . $label . '</a>';
-            }
-            return '<a href="' . $this->homeUrl . '/go.php?url=' . rawurlencode($target) . '">' . $label . '</a>';
+            return '<a href="' . $targetEsc . '" rel="noopener noreferrer">' . $label . '</a>';
         };
 
         $var = preg_replace_callback('~\[url=(https?://[^\s\]]+)](.+?)\[/url]~isu', $callback, $var);
@@ -500,19 +495,14 @@ class Bbcode implements Api\BbcodeInterface
         return preg_replace_callback(
             '~\[img(?:=(\d{1,4})x(\d{1,4}))?\]([^\[\\r\\n]+)\[/img\]~iu',
             function ($m) {
+                // Giữ nguyên URL tuyệt đối do người dùng cung cấp.
                 $url = trim(html_entity_decode($m[2], ENT_QUOTES, 'UTF-8'));
+                $isAbsolute = (bool) preg_match('~^https?://[^\s]+$~i', $url);
+                $isProtocolRelative = (bool) preg_match('~^//[^\s]+$~', $url);
 
-                // Hỗ trợ URL đầy đủ, protocol-relative và đường dẫn nội bộ.
-                if (strpos($url, '//') === 0) {
-                    $url = (parse_url($this->homeUrl, PHP_URL_SCHEME) ?: 'https') . ':' . $url;
-                } elseif (strpos($url, '/') === 0) {
-                    $url = rtrim($this->homeUrl, '/') . $url;
-                } elseif (!preg_match('~^https?://~i', $url)) {
-                    $url = rtrim($this->homeUrl, '/') . '/' . ltrim($url, '/');
-                }
-
-                $parsed = parse_url($url);
-                if (!$parsed || empty($parsed['scheme']) || !in_array(strtolower($parsed['scheme']), ['http', 'https'], true)) {
+                // Không tự ghép $homeUrl vào URL ảnh.
+                // URL tương đối bị bỏ qua để tránh biến đích thành URL nội bộ.
+                if (!$isAbsolute && !$isProtocolRelative) {
                     return '';
                 }
 
