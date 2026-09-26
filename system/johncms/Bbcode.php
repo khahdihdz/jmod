@@ -498,16 +498,37 @@ class Bbcode implements Api\BbcodeInterface
     protected function media($var)
     {
         return preg_replace_callback(
-            '~\[img(?:=(\d{1,4})x(\d{1,4}))?\](https?://[^\s\[]+)\[/img\]~iu',
+            '~\[img(?:=(\d{1,4})x(\d{1,4}))?\]([^\[\\r\\n]+)\[/img\]~iu',
             function ($m) {
-                $url = html_entity_decode(trim($m[2]), ENT_QUOTES, 'UTF-8');
+                $url = trim(html_entity_decode($m[2], ENT_QUOTES, 'UTF-8'));
+
+                // Hỗ trợ URL đầy đủ, protocol-relative và đường dẫn nội bộ.
+                if (strpos($url, '//') === 0) {
+                    $url = (parse_url($this->homeUrl, PHP_URL_SCHEME) ?: 'https') . ':' . $url;
+                } elseif (strpos($url, '/') === 0) {
+                    $url = rtrim($this->homeUrl, '/') . $url;
+                } elseif (!preg_match('~^https?://~i', $url)) {
+                    $url = rtrim($this->homeUrl, '/') . '/' . ltrim($url, '/');
+                }
+
+                $parsed = parse_url($url);
+                if (!$parsed || empty($parsed['scheme']) || !in_array(strtolower($parsed['scheme']), ['http', 'https'], true)) {
+                    return '';
+                }
+
                 $safe = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
                 $size = '';
                 if (!empty($m[1])) {
-                    [$w, $h] = array_map('intval', explode('x', $m[1]));
+                    [$w, $h] = array_map('intval', explode('x', strtolower($m[1])));
                     $size = ' width="' . min($w, 1600) . '" height="' . min($h, 1200) . '"';
                 }
-                return '<a class="bb-image-link" href="' . $safe . '" target="_blank" rel="noopener noreferrer"><img class="bb-image"' . $size . ' src="' . $safe . '" loading="lazy" alt="BBCode image"></a>';
+
+                return '<a class="bb-image-link" href="' . $safe . '" target="_blank" rel="noopener noreferrer">'
+                    . '<img class="bb-image"' . $size
+                    . ' src="' . $safe . '" loading="lazy" decoding="async"'
+                    . ' referrerpolicy="no-referrer" alt="BBCode image"'
+                    . ' onerror="this.closest(\'.bb-image-link\').classList.add(\'.bb-image-error\');this.remove();">'
+                    . '</a>';
             },
             $var
         );
