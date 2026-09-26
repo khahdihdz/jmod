@@ -50,6 +50,20 @@ function johncms_news_url($row)
     return '../news/' . johncms_news_slug($row['name'], (int) $row['id']);
 }
 
+
+/**
+ * Extract the first absolute image URL from BBCode article content.
+ * The original URL is kept unchanged; relative paths are ignored.
+ */
+function johncms_news_thumbnail($content)
+{
+    if (preg_match('~\[img(?:=\d{1,4}x\d{1,4})?\]\s*(https?://[^\s\[\]]+)\s*\[/img\]~iu', $content, $match)) {
+        return html_entity_decode(trim($match[1]), ENT_QUOTES, 'UTF-8');
+    }
+
+    return '';
+}
+
 /** @var Psr\Container\ContainerInterface $container */
 $container = App::getContainer();
 
@@ -379,12 +393,32 @@ switch ($do) {
         $i = 0;
 
         while ($res = $req->fetch()) {
-            echo $i % 2 ? '<div class="list2">' : '<div class="list1">';
+            echo $i % 2 ? '<article class="list2 blog-card">' : '<article class="list1 blog-card">';
+
             $text = $tools->checkout($res['text'], 1, 1);
             $text = $tools->smilies($text, 1);
-            echo '<h3>' . $res['name'] . '</h3>' .
-                '<span class="gray"><small>' . _t('Author') . ': ' . $res['avt'] . ' (' . $tools->displayDate($res['time']) . ')</small></span>' .
-                '<br />' . $text . '<div class="sub">';
+            $thumbnail = johncms_news_thumbnail($res['text']);
+            $safeTitle = htmlspecialchars($res['name'], ENT_QUOTES, 'UTF-8');
+            $articleUrl = johncms_news_url($res);
+
+            if ($thumbnail) {
+                $safeThumbnail = htmlspecialchars($thumbnail, ENT_QUOTES, 'UTF-8');
+                echo '<a class="blog-thumb" href="' . htmlspecialchars($articleUrl, ENT_QUOTES, 'UTF-8') . '" aria-label="' . $safeTitle . '">' .
+                    '<img src="' . $safeThumbnail . '" loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="' . $safeTitle . '">' .
+                    '</a>';
+            } else {
+                echo '<a class="blog-thumb blog-thumb-placeholder" href="' . htmlspecialchars($articleUrl, ENT_QUOTES, 'UTF-8') . '" aria-label="' . $safeTitle . '">' .
+                    '<span aria-hidden="true">📰</span></a>';
+            }
+
+            $plainText = trim(preg_replace('/\s+/u', ' ', strip_tags($text)));
+            $excerpt = htmlspecialchars(mb_substr($plainText, 0, 180, 'UTF-8'), ENT_QUOTES, 'UTF-8');
+
+            echo '<div class="blog-card-body">' .
+                '<div class="blog-meta">' . _t('Author') . ': ' . htmlspecialchars($res['avt'], ENT_QUOTES, 'UTF-8') . ' · ' . $tools->displayDate($res['time']) . '</div>' .
+                '<h2><a href="' . htmlspecialchars($articleUrl, ENT_QUOTES, 'UTF-8') . '">' . $safeTitle . '</a></h2>' .
+                '<p>' . $excerpt . '</p>' .
+                '<div class="sub"><a class="blog-read" href="' . htmlspecialchars($articleUrl, ENT_QUOTES, 'UTF-8') . '">' . _t('Read more') . ' <span>→</span></a></div>';
 
             if ($res['kom'] != 0 && $res['kom'] != "") {
                 $komm = $db->query("SELECT COUNT(*) FROM `forum` WHERE `type` = 'm' AND `refid` = '" . $res['kom'] . "'")->fetchColumn();
@@ -399,7 +433,7 @@ switch ($do) {
                     '<a href="index.php?do=del&amp;id=' . $res['id'] . '">' . _t('Delete') . '</a>';
             }
 
-            echo '</div></div>';
+            echo '</div></article>';
             ++$i;
         }
         echo '<div class="phdr">' . _t('Total') . ':&#160;' . $total . '</div>';
