@@ -1,0 +1,52 @@
+name: Release ZIP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release-zip:
+    name: Build release ZIP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(git describe --tags --always --dirty 2>/dev/null || echo "main")"
+          mkdir -p dist
+          zip -r "dist/jmod-${VERSION}.zip" . \
+            -x '.git/*' \
+            -x '.github/*' \
+            -x 'dist/*' \
+            -x 'vendor/*' \
+            -x '*.zip'
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmod-${{ github.sha }}
+          path: dist/jmod-*.zip
+          retention-days: 30
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: JMod Build ${{ github.run_number }}
+          body: |
+            Tự động phát hành từ commit `${{ github.sha }}`.
+          files: dist/jmod-*.zip
+          generate_release_notes: true
+          make_latest: true
