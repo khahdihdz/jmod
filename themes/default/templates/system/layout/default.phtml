@@ -60,7 +60,7 @@ if (! $isHomePage && ! empty($baseTitle) && $baseTitle !== (string) $config['cop
 </head>
 <body class="jmod-body <?= $this->e($theme->getCurrentTheme()) ?>">
 <div class="wrapper jmod-shell min-vh-100 d-flex flex-column justify-content-between" id="app">
-    <div class="page_layout jmod-page justify-content-end d-flex w-100">
+    <div class="page_layout jmod-page justify-content-end d-flex w-100 flex-grow-1">
         <div class="sidebar jmod-sidebar">
             <div class="sidebar__inner">
                 <div class="sidebar__logo">
@@ -74,7 +74,7 @@ if (! $isHomePage && ! empty($baseTitle) && $baseTitle !== (string) $config['cop
                 </div>
             </div>
         </div>
-        <div class="content-container jmod-content content-container-padding d-flex flex-column">
+        <div class="content-container jmod-content content-container-padding d-flex flex-column min-w-0">
             <nav class="navbar navbar-expand-lg top_nav jmod-topbar fixed-top border-bottom">
                 <div class="container-fluid">
                     <div class="navbar-wrapper d-flex w-100 justify-content-between">
@@ -143,7 +143,7 @@ if (! $isHomePage && ! empty($baseTitle) && $baseTitle !== (string) $config['cop
             </div>
         </div>
     </div>
-    <div class="page_layout jmod-page container">
+    <div class="page_layout jmod-page jmod-footer-wrap container-fluid">
         <?= $this->section('footer_content') ?>
     </div>
     <div class="overlay jmod-overlay"></div>
