@@ -105,13 +105,23 @@ body > *{
 .logo{
   width:100%;
   max-width:980px;
+  min-height:96px;
   margin:0 auto;
-  padding:.8rem 1rem;
+  padding:1rem 1.25rem;
+  display:flex;
+  align-items:center;
   background:linear-gradient(135deg,#fff,#f8fbff);
   border-bottom:1px solid var(--bs-border);
 }
 .logo td{padding:.25rem}
-.logo img{max-height:58px;width:auto}
+.logo img{
+  display:block;
+  width:auto;
+  max-width:100%;
+  height:auto;
+  max-height:82px;
+  object-fit:contain;
+}
 
 .header{
   max-width:980px;
@@ -350,8 +360,8 @@ table[style*="width: 100%"]{max-width:100%}
 }
 @media (max-width:767.98px){
   html{font-size:15px}
-  .logo{padding:.65rem .75rem}
-  .logo img{max-height:48px}
+  .logo{min-height:72px;padding:.65rem .75rem}
+  .logo img{max-height:60px;max-width:92%}
   .header{padding:.65rem .75rem}
   .tmn{padding:.55rem .65rem}
   .tmn a{padding:.4rem .55rem}
