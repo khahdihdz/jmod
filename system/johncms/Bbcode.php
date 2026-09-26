@@ -56,6 +56,7 @@ class Bbcode implements Api\BbcodeInterface
         $var = $this->highlightBb($var);             // Обработка ссылок
         $var = $this->highlightUrl($var);            // Обработка ссылок
         $var = $this->highlightBbcodeUrl($var);      // Обработка ссылок в BBcode
+        $var = $this->media($var);
         $var = $this->youtube($var);
 
         return $var;
@@ -69,34 +70,17 @@ class Bbcode implements Api\BbcodeInterface
         $var = preg_replace('!\[bg=(#[0-9a-f]{3}|#[0-9a-f]{6}|[a-z\-]+)](.+?)\[/bg]!is', '$2', $var);
         $var = preg_replace('#\[spoiler=(.+?)\]#si', '$2', $var);
         $replace = [
-            '[small]'    => '',
-            '[/small]'   => '',
-            '[big]'      => '',
-            '[/big]'     => '',
-            '[green]'    => '',
-            '[/green]'   => '',
-            '[red]'      => '',
-            '[/red]'     => '',
-            '[blue]'     => '',
-            '[/blue]'    => '',
-            '[b]'        => '',
-            '[/b]'       => '',
-            '[i]'        => '',
-            '[/i]'       => '',
-            '[u]'        => '',
-            '[/u]'       => '',
-            '[s]'        => '',
-            '[/s]'       => '',
-            '[quote]'    => '',
-            '[/quote]'   => '',
-            '[youtube]'  => '',
-            '[/youtube]' => '',
-            '[php]'      => '',
-            '[/php]'     => '',
-            '[c]'        => '',
-            '[/c]'       => '',
-            '[*]'        => '',
-            '[/*]'       => '',
+            '[small]' => '', '[/small]' => '', '[big]' => '', '[/big]' => '',
+            '[green]' => '', '[/green]' => '', '[red]' => '', '[/red]' => '',
+            '[blue]' => '', '[/blue]' => '', '[b]' => '', '[/b]' => '',
+            '[i]' => '', '[/i]' => '', '[u]' => '', '[/u]' => '',
+            '[s]' => '', '[/s]' => '', '[quote]' => '', '[/quote]' => '',
+            '[youtube]' => '', '[/youtube]' => '', '[php]' => '', '[/php]' => '',
+            '[c]' => '', '[/c]' => '', '[center]' => '', '[/center]' => '',
+            '[left]' => '', '[/left]' => '', '[right]' => '', '[/right]' => '',
+            '[justify]' => '', '[/justify]' => '', '[sup]' => '', '[/sup]' => '',
+            '[sub]' => '', '[/sub]' => '', '[br]' => '', '[hr]' => '',
+            '[list]' => '', '[/list]' => '', '[*]' => '', '[/*]' => '',
         ];
 
         return strtr($var, $replace);
@@ -472,18 +456,31 @@ class Bbcode implements Api\BbcodeInterface
      */
     protected function highlightBbcodeUrl($var)
     {
-        return preg_replace_callback('~\[url=(https?://.+?|//.+?)](.+?)\[/url]~iu',
-            function ($url) {
-                $home = parse_url($this->homeUrl);
-                $tmp = parse_url($url[1]);
+        $callback = function ($url) {
+            $target = html_entity_decode(trim($url[1]), ENT_QUOTES, 'UTF-8');
+            $label = isset($url[2]) ? $url[2] : $target;
+            $parsed = parse_url($target);
 
-                if ($home['host'] == $tmp['host'] || $this->userConfig->directUrl) {
-                    return '<a href="' . $url[1] . '">' . $url[2] . '</a>';
-                } else {
-                    return '<a href="' . $this->homeUrl . '/go.php?url=' . urlencode(htmlspecialchars_decode($url[1])) . '">' . $url[2] . '</a>';
-                }
-            },
-            $var);
+            if (!$parsed || empty($parsed['scheme']) || !in_array(strtolower($parsed['scheme']), ['http', 'https'], true)) {
+                return $label;
+            }
+
+            $targetEsc = htmlspecialchars($target, ENT_QUOTES, 'UTF-8');
+            $home = parse_url($this->homeUrl);
+            if (!empty($home['host']) && isset($parsed['host']) && strcasecmp($home['host'], $parsed['host']) === 0) {
+                return '<a href="' . $targetEsc . '">' . $label . '</a>';
+            }
+            if ($this->userConfig->directUrl) {
+                return '<a href="' . $targetEsc . '" rel="noopener noreferrer">' . $label . '</a>';
+            }
+            return '<a href="' . $this->homeUrl . '/go.php?url=' . rawurlencode($target) . '">' . $label . '</a>';
+        };
+
+        $var = preg_replace_callback('~\[url=(https?://[^\s\]]+)](.+?)\[/url]~isu', $callback, $var);
+        return preg_replace_callback('~\[url\](https?://[^\s\[]+)\[/url\]~isu',
+            function ($m) use ($callback) { return $callback([1 => $m[1], 2 => $m[1]]); },
+            $var
+        );
     }
 
     /**
@@ -491,6 +488,27 @@ class Bbcode implements Api\BbcodeInterface
      *
      * @return array
      */
+    /**
+     * Image BBCode. Only HTTP(S) is allowed.
+     */
+    protected function media($var)
+    {
+        return preg_replace_callback(
+            '~\[img(?:=(\d{1,4})x(\d{1,4}))?\](https?://[^\s\[]+)\[/img\]~iu',
+            function ($m) {
+                $url = html_entity_decode(trim($m[2]), ENT_QUOTES, 'UTF-8');
+                $safe = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+                $size = '';
+                if (!empty($m[1])) {
+                    [$w, $h] = array_map('intval', explode('x', $m[1]));
+                    $size = ' width="' . min($w, 1600) . '" height="' . min($h, 1200) . '"';
+                }
+                return '<a class="bb-image-link" href="' . $safe . '" target="_blank" rel="noopener noreferrer"><img class="bb-image"' . $size . ' src="' . $safe . '" loading="lazy" alt="BBCode image"></a>';
+            },
+            $var
+        );
+    }
+
     protected function replacements()
     {
         return [
@@ -564,6 +582,17 @@ class Bbcode implements Api\BbcodeInterface
                 'from' => '#\[spoiler=(.+?)](.+?)\[/spoiler]#is',
                 'to'   => '<div><div class="spoilerhead" style="cursor:pointer;" onclick="var _n=this.parentNode.getElementsByTagName(\'div\')[1];if(_n.style.display==\'none\'){_n.style.display=\'\';}else{_n.style.display=\'none\';}">$1 (+/-)</div><div class="spoilerbody" style="display:none">$2</div></div>',
             ],
+            // Căn chỉnh
+            'center' => ['from' => '#\[center\](.+?)\[/center]#is', 'to' => '<div class="bb-center">$1</div>'],
+            'left' => ['from' => '#\[left\](.+?)\[/left]#is', 'to' => '<div class="bb-left">$1</div>'],
+            'right' => ['from' => '#\[right\](.+?)\[/right]#is', 'to' => '<div class="bb-right">$1</div>'],
+            'justify' => ['from' => '#\[justify\](.+?)\[/justify]#is', 'to' => '<div class="bb-justify">$1</div>'],
+            // Chỉ số
+            'sup' => ['from' => '#\[sup\](.+?)\[/sup]#is', 'to' => '<sup>$1</sup>'],
+            'sub' => ['from' => '#\[sub\](.+?)\[/sub]#is', 'to' => '<sub>$1</sub>'],
+            'br' => ['from' => '#\[br\]#i', 'to' => '<br>'],
+            'hr' => ['from' => '#\[hr\]#i', 'to' => '<hr class="bb-hr">'],
+            'list' => ['from' => '#\[list\](.+?)\[/list]#is', 'to' => '<ul class="bb-list">$1</ul>'],
         ];
     }
 
