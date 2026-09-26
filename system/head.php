@@ -128,23 +128,6 @@ if ($config->mod_forum || $systemUser->rights >= 7) {
     $navItems[] = ['key' => 'forum', 'url' => $homeUrl . '/forum/', 'icon' => '☷', 'label' => 'Diễn đàn'];
 }
 
-$navItems[] = [
-    'key' => 'community', 'icon' => '◆', 'label' => 'Cộng đồng', 'dropdown' => [
-        ['url' => $homeUrl . '/forum/', 'icon' => '☷', 'label' => 'Diễn đàn'],
-        ['url' => $homeUrl . '/guestbook/', 'icon' => '✎', 'label' => 'Guestbook'],
-        ['url' => $homeUrl . '/users/', 'icon' => '◎', 'label' => 'Thành viên'],
-        ['url' => $homeUrl . '/album/', 'icon' => '▧', 'label' => 'Album ảnh'],
-    ]
-];
-
-$navItems[] = [
-    'key' => 'resources', 'icon' => '▦', 'label' => 'Tiện ích', 'dropdown' => [
-        ['url' => $homeUrl . '/download/', 'icon' => '↓', 'label' => 'Tải xuống'],
-        ['url' => $homeUrl . '/library/', 'icon' => '▤', 'label' => 'Thư viện'],
-        ['url' => $homeUrl . '/rss/rss.php', 'icon' => '◔', 'label' => 'RSS'],
-    ]
-];
-
 if ($systemUser->id) {
     $navItems[] = ['key' => 'profile', 'url' => $homeUrl . '/profile/?act=office', 'icon' => '◎', 'label' => _t('Personal', 'system')];
     $navItems[] = ['key' => 'account', 'url' => $homeUrl . '/profile/', 'icon' => '◉', 'label' => 'Tài khoản'];
