@@ -101,15 +101,37 @@ echo '<table style="width: 100%;" class="logo"><tr>' .
     '<td><a href="' . $config['homeurl'] . '">' . $tools->image('logo.gif', ['class' => '']) . '</a></td>' .
     '</tr></table>';
 
-// Выводим верхний блок с приветствием
-echo '<div class="header"> ' . _t('Hi', 'system') . ', ' . ($systemUser->id ? '<b>' . $systemUser->name . '</b>!' : _t('Guest', 'system') . '!') . '</div>';
+// Header thương hiệu
+echo '<header class="site-header">';
+echo '<div class="header-inner">';
+echo '<div class="header-brand">';
+echo '<a class="header-brand-link" href="' . $config['homeurl'] . '">';
+echo '<span class="header-brand-mark">J</span>';
+echo '<span class="header-brand-text"><strong>JMod</strong><small>JohnCMS Community</small></span>';
+echo '</a>';
+echo '</div>';
+echo '<div class="header-user">' .
+    ($systemUser->id ? '<span class="header-user-label">Xin chào, <b>' . htmlspecialchars($systemUser->name, ENT_QUOTES, 'UTF-8') . '</b></span>' : '<span class="header-user-label">Xin chào, <b>' . _t('Guest', 'system') . '</b></span>') .
+    '</div>';
+echo '</div>';
+echo '</header>';
 
-// Главное меню пользователя
-echo '<div class="tmn">' .
-    (isset($_GET['err']) || $headmod != "mainpage" || ($headmod == 'mainpage' && $act) ? '<a href=\'' . $config['homeurl'] . '\'>' . $tools->image('menu_home.png') . _t('Home', 'system') . '</a><br>' : '') .
-    ($systemUser->id && $headmod != 'office' ? '<a href="' . $config['homeurl'] . '/profile/?act=office">' . $tools->image('menu_cabinet.png') . _t('Personal', 'system') . '</a><br>' : '') .
-    (!$systemUser->id && $headmod != 'login' ? $tools->image('menu_login.png') . '<a href="' . $config['homeurl'] . '/login.php">' . _t('Login', 'system') . '</a>' : '') .
-    '</div><div class="maintxt">';
+// Điều hướng chính
+echo '<nav class="tmn site-nav" aria-label="Điều hướng chính">';
+echo '<div class="site-nav-inner">';
+echo '<a class="nav-item nav-home" href="' . $config['homeurl'] . '">' . $tools->image('menu_home.png') . '<span>' . _t('Home', 'system') . '</span></a>';
+echo '<a class="nav-item" href="' . $config['homeurl'] . '/news/"><span class="nav-icon">📰</span><span>Tin tức</span></a>';
+if ($config->mod_forum || $systemUser->rights >= 7) {
+    echo '<a class="nav-item" href="' . $config['homeurl'] . '/forum/"><span class="nav-icon">💬</span><span>Diễn đàn</span></a>';
+}
+if ($systemUser->id) {
+    echo '<a class="nav-item" href="' . $config['homeurl'] . '/profile/?act=office">' . $tools->image('menu_cabinet.png') . '<span>' . _t('Personal', 'system') . '</span></a>';
+    echo '<a class="nav-item nav-account" href="' . $config['homeurl'] . '/profile/"><span class="nav-icon">👤</span><span>Tài khoản</span></a>';
+} else {
+    echo '<a class="nav-item nav-account" href="' . $config['homeurl'] . '/login.php">' . $tools->image('menu_login.png') . '<span>' . _t('Login', 'system') . '</span></a>';
+}
+echo '</div>';
+echo '</nav><div class="maintxt">';
 
 // Рекламный блок сайта
 if (!empty($cms_ads[1])) {
