@@ -60,7 +60,7 @@ $cms_ads = [];
 if (!isset($_GET['err']) && $act != '404' && $headmod != 'admin') {
     $view = $systemUser->id ? 2 : 1;
     $layout = ($headmod == 'mainpage' && !$act) ? 1 : 2;
-    $req = $db->query("SELECT * FROM `cms_ads` WHERE `to` = '0' AND (`layout` = '$layout' or `layout` = '0') AND (`view` = '$view' or `view` = '0') ORDER BY  `mesto` ASC");
+    $req = $db->query("SELECT * FROM `cms_ads` WHERE `to` = '0' AND (`layout` = '$layout' or `layout` = '0') AND (`view` = '$view' or `view` = '0') ORDER BY `mesto` ASC");
 
     if ($req->rowCount()) {
         while ($res = $req->fetch()) {
@@ -71,7 +71,6 @@ if (!isset($_GET['err']) && $act != '404' && $headmod != 'admin') {
                 $name = '<span style="color:#' . $res['color'] . '">' . $name . '</span>';
             }
 
-            // Если было задано начертание шрифта, то применяем
             $font = $res['bold'] ? 'font-weight: bold;' : false;
             $font .= $res['italic'] ? ' font-style:italic;' : false;
             $font .= $res['underline'] ? ' text-decoration:underline;' : false;
@@ -85,53 +84,71 @@ if (!isset($_GET['err']) && $act != '404' && $headmod != 'admin') {
             if (($res['day'] != 0 && time() >= ($res['time'] + $res['day'] * 3600 * 24))
                 || ($res['count_link'] != 0 && $res['count'] >= $res['count_link'])
             ) {
-                $db->exec('UPDATE `cms_ads` SET `to` = 1  WHERE `id` = ' . $res['id']);
+                $db->exec('UPDATE `cms_ads` SET `to` = 1 WHERE `id` = ' . $res['id']);
             }
         }
     }
 }
 
-// Рекламный блок сайта
 if (isset($cms_ads[0])) {
     echo $cms_ads[0];
 }
 
-// Выводим логотип и переключатель языков
-echo '<table style="width: 100%;" class="logo"><tr>' .
-    '<td><a href="' . $config['homeurl'] . '">' . $tools->image('logo.gif', ['class' => '']) . '</a></td>' .
-    '</tr></table>';
+// Header thương hiệu + menu điều hướng
+$homeUrl = $config['homeurl'];
+$currentSection = $headmod;
 
-// Header thương hiệu
 echo '<header class="site-header">';
 echo '<div class="header-inner">';
-echo '<div class="header-brand">';
-echo '<a class="header-brand-link" href="' . $config['homeurl'] . '">';
+echo '<a class="header-brand-link" href="' . $homeUrl . '" aria-label="JMod">';
 echo '<span class="header-brand-mark">J</span>';
 echo '<span class="header-brand-text"><strong>JMod</strong><small>JohnCMS Community</small></span>';
 echo '</a>';
+
+echo '<div class="header-user">';
+if ($systemUser->id) {
+    echo '<span>Xin chào, <b>' . htmlspecialchars($systemUser->name, ENT_QUOTES, 'UTF-8') . '</b></span>';
+} else {
+    echo '<span>Chào mừng bạn</span>';
+}
 echo '</div>';
-echo '<div class="header-user">' .
-    ($systemUser->id ? '<span class="header-user-label">Xin chào, <b>' . htmlspecialchars($systemUser->name, ENT_QUOTES, 'UTF-8') . '</b></span>' : '<span class="header-user-label">Xin chào, <b>' . _t('Guest', 'system') . '</b></span>') .
-    '</div>';
 echo '</div>';
+
+echo '<nav class="site-nav" aria-label="Điều hướng chính">';
+echo '<div class="site-nav-inner">';
+
+$navItems = [
+    ['key' => 'mainpage', 'url' => $homeUrl, 'icon' => '⌂', 'label' => _t('Home', 'system')],
+    ['key' => 'news', 'url' => $homeUrl . '/news/', 'icon' => '▤', 'label' => 'Tin tức'],
+];
+
+if ($config->mod_forum || $systemUser->rights >= 7) {
+    $navItems[] = ['key' => 'forum', 'url' => $homeUrl . '/forum/', 'icon' => '☷', 'label' => 'Diễn đàn'];
+}
+
+if ($systemUser->id) {
+    $navItems[] = ['key' => 'profile', 'url' => $homeUrl . '/profile/?act=office', 'icon' => '◎', 'label' => _t('Personal', 'system')];
+    $navItems[] = ['key' => 'account', 'url' => $homeUrl . '/profile/', 'icon' => '◉', 'label' => 'Tài khoản'];
+} else {
+    $navItems[] = ['key' => 'login', 'url' => $homeUrl . '/login.php', 'icon' => '→', 'label' => _t('Login', 'system')];
+}
+
+foreach ($navItems as $item) {
+    $isActive = ($currentSection === $item['key']) ||
+        ($item['key'] === 'profile' && $currentSection === 'profile') ||
+        ($item['key'] === 'account' && $currentSection === 'profile');
+    $activeClass = $isActive ? ' is-active' : '';
+    echo '<a class="nav-item' . $activeClass . '" href="' . $item['url'] . '">';
+    echo '<span class="nav-icon" aria-hidden="true">' . $item['icon'] . '</span>';
+    echo '<span>' . $item['label'] . '</span>';
+    echo '</a>';
+}
+
+echo '</div>';
+echo '</nav>';
 echo '</header>';
 
-// Điều hướng chính
-echo '<nav class="tmn site-nav" aria-label="Điều hướng chính">';
-echo '<div class="site-nav-inner">';
-echo '<a class="nav-item nav-home" href="' . $config['homeurl'] . '">' . $tools->image('menu_home.png') . '<span>' . _t('Home', 'system') . '</span></a>';
-echo '<a class="nav-item" href="' . $config['homeurl'] . '/news/"><span class="nav-icon">📰</span><span>Tin tức</span></a>';
-if ($config->mod_forum || $systemUser->rights >= 7) {
-    echo '<a class="nav-item" href="' . $config['homeurl'] . '/forum/"><span class="nav-icon">💬</span><span>Diễn đàn</span></a>';
-}
-if ($systemUser->id) {
-    echo '<a class="nav-item" href="' . $config['homeurl'] . '/profile/?act=office">' . $tools->image('menu_cabinet.png') . '<span>' . _t('Personal', 'system') . '</span></a>';
-    echo '<a class="nav-item nav-account" href="' . $config['homeurl'] . '/profile/"><span class="nav-icon">👤</span><span>Tài khoản</span></a>';
-} else {
-    echo '<a class="nav-item nav-account" href="' . $config['homeurl'] . '/login.php">' . $tools->image('menu_login.png') . '<span>' . _t('Login', 'system') . '</span></a>';
-}
-echo '</div>';
-echo '</nav><div class="maintxt">';
+echo '<div class="maintxt">';
 
 // Рекламный блок сайта
 if (!empty($cms_ads[1])) {
@@ -143,7 +160,6 @@ $sql = '';
 $set_karma = $config['karma'];
 
 if ($systemUser->id) {
-    // Фиксируем местоположение авторизованных
     if (!$systemUser->karma_off && $set_karma['on'] && $systemUser->karma_time <= (time() - 86400)) {
         $sql .= " `karma_time` = " . time() . ", ";
     }
@@ -176,13 +192,11 @@ if ($systemUser->id) {
         `lastdate` = '" . time() . "'
         WHERE `id` = " . $systemUser->id);
 } else {
-    // Фиксируем местоположение гостей
     $movings = 0;
     $session = md5($env->getIp() . $env->getIpViaProxy() . $env->getUserAgent());
     $req = $db->query("SELECT * FROM `cms_sessions` WHERE `session_id` = " . $db->quote($session) . " LIMIT 1");
 
     if ($req->rowCount()) {
-        // Если есть в базе, то обновляем данные
         $res = $req->fetch();
         $movings = ++$res['movings'];
 
@@ -201,7 +215,6 @@ if ($systemUser->id) {
             WHERE `session_id` = " . $db->quote($session) . "
         ");
     } else {
-        // Если еще небыло в базе, то добавляем запись
         $db->exec("INSERT INTO `cms_sessions` SET
             `session_id` = '" . $session . "',
             `ip` = '" . $env->getIp() . "',
