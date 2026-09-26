@@ -79,6 +79,56 @@ td,th{padding:.55rem;border-color:var(--bs-border)}
 ::selection{background:rgba(13,110,253,.18)}
 
 body{display:block;padding:0}
+/* Mobile/homepage contrast reset */
+html,body{
+  background:#f4f7fb!important;
+  color:var(--bs-text);
+}
+body{
+  overflow-x:hidden;
+}
+body > *{
+  background-color:transparent;
+}
+.maintxt{
+  background:#f4f7fb!important;
+  color:var(--bs-text);
+}
+.blog-home,.forum-home{
+  background:transparent;
+  color:var(--bs-text);
+}
+.blog-heading{
+  background:#fff;
+  border:1px solid var(--bs-border);
+  border-left:4px solid var(--bs-primary);
+  border-radius:var(--bs-radius);
+  padding:1rem 1rem 1rem 1.05rem;
+  box-shadow:var(--bs-shadow);
+}
+.blog-heading h1,.blog-heading p,.blog-heading .blog-kicker{
+  color:inherit;
+}
+.blog-heading h1{color:var(--bs-dark)}
+.blog-heading p{color:var(--bs-muted)}
+.blog-heading .blog-kicker{color:var(--bs-primary)}
+.forum-home-heading{
+  background:#fff;
+  border:1px solid var(--bs-border);
+  border-left:4px solid #38bdf8;
+  border-radius:var(--bs-radius);
+  padding:.9rem 1rem .9rem 1.05rem;
+  box-shadow:var(--bs-shadow);
+}
+.forum-home-heading h2{color:var(--bs-dark)}
+.forum-home-heading p{color:var(--bs-muted)}
+.forum-home-kicker{color:#0284c7}
+.forum-blog-cover{
+  color:var(--bs-text);
+}
+.forum-blog-cover h2{color:var(--bs-dark)}
+.forum-blog-cover p{color:var(--bs-muted)}
+.forum-blog-badge{color:#0284c7}
 body > *{max-width:980px;margin-left:auto;margin-right:auto}
 .maintxt{max-width:980px;margin:1rem auto;padding:0 1rem 1rem;border:0;background:transparent}
 
@@ -395,7 +445,11 @@ table.desc td.caption{width:1%;padding-right:.75rem;text-align:right;color:var(-
   .site-nav .nav-account{margin-left:0}
   .maintxt{margin:.65rem auto;padding:0 .65rem .75rem}
   .phdr{min-height:44px;margin-top:1rem;padding:.65rem .8rem .65rem .9rem;border-radius:.7rem .7rem .25rem .25rem}
-  .blog-heading,.forum-home-heading{align-items:flex-start;flex-direction:column;padding:.75rem 0 .75rem .75rem}
+  .blog-heading,.forum-home-heading{
+    align-items:flex-start;flex-direction:column;
+    padding:.8rem .8rem .8rem .9rem;
+    margin-bottom:.85rem;
+}
   .blog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .forum-blog-feed .forum-home-list{grid-template-columns:1fr}
   .forum-blog-cover{padding:1.35rem;border-radius:18px}
