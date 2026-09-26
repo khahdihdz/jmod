@@ -101,7 +101,7 @@ URL cũ vẫn có thể được chuyển hướng sang URL mới thông qua HTT
 
 ## ⚙️ Yêu cầu hệ thống
 
-- PHP **5.6 trở lên**.
+- PHP **5.6–7.x** (PHP 8.x không được hỗ trợ bởi JohnCMS 7.1.0).
 - MySQL **5.5 trở lên**.
 - Máy chủ hỗ trợ `.htaccess`.
 - Apache cần hỗ trợ `mod_rewrite` nếu sử dụng URL thân thiện.
@@ -133,7 +133,7 @@ URL cũ vẫn có thể được chuyển hướng sang URL mới thông qua HTT
 ## 📦 Cài đặt từ gói phân phối
 
 1. Giải nén gói JohnCMS vào máy chủ.
-2. Tải toàn bộ mã nguồn lên hosting hoặc VPS.
+2. Tải toàn bộ mã nguồn lên hosting hoặc VPS. Gói phát hành đã bao gồm thư viện Composer trong `system/vendor/`, không cần chạy `composer install` lại.
 3. Mở trình duyệt và truy cập:
 
    ```text
