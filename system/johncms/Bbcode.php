@@ -54,13 +54,12 @@ class Bbcode implements Api\BbcodeInterface
         $var = $this->parseTime($var);               // Обработка тэга времени
         $var = $this->highlightCode($var);           // Подсветка кода
         $var = $this->highlightBb($var);             // Основные BBCode
-        // [img] должен обрабатываться до автоссылок:
-        // иначе highlightUrl() превращает URL внутри [img] в <a>,
-        // после чего media() уже не видит исходный BBCode.
-        $var = $this->media($var);                   // Изображения
         $var = $this->youtube($var);                 // YouTube
         $var = $this->highlightBbcodeUrl($var);      // Ссылки в BBCode
         $var = $this->highlightUrl($var);            // Обычные ссылки
+        // [img] phải được xử lý CUỐI cùng để URL ảnh tuyệt đối không bị
+        // các bộ xử lý liên kết biến đổi thành HTML bên trong thuộc tính src.
+        $var = $this->media($var);                   // Изображения
 
         return $var;
     }
@@ -496,31 +495,25 @@ class Bbcode implements Api\BbcodeInterface
     protected function media($var)
     {
         return preg_replace_callback(
-            '~\[img(?:=(\d{1,4})x(\d{1,4}))?\]([^\[\\r\\n]+)\[/img\]~iu',
+            '~\[img(?:=(\d{1,4})x(\d{1,4}))?\]\s*(https?://[^\s\[\]]+)\s*\[/img\]~iu',
             function ($m) {
-                // Giữ nguyên URL tuyệt đối do người dùng cung cấp.
+                // Giữ nguyên tuyệt đối URL HTTP(S) do người dùng cung cấp.
+                // Không proxy, không thêm homeUrl và không chuyển sang go.php.
                 $url = trim(html_entity_decode($m[2], ENT_QUOTES, 'UTF-8'));
-                $isAbsolute = (bool) preg_match('~^https?://[^\s]+$~i', $url);
-                $isProtocolRelative = (bool) preg_match('~^//[^\s]+$~', $url);
-
-                // Không tự ghép $homeUrl vào URL ảnh.
-                // URL tương đối bị bỏ qua để tránh biến đích thành URL nội bộ.
-                if (!$isAbsolute && !$isProtocolRelative) {
-                    return '';
-                }
-
                 $safe = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+
                 $size = '';
                 if (!empty($m[1])) {
                     [$w, $h] = array_map('intval', explode('x', strtolower($m[1])));
                     $size = ' width="' . min($w, 1600) . '" height="' . min($h, 1200) . '"';
                 }
 
+                // Không xóa ảnh bằng JavaScript khi tải lỗi; giữ nguyên <img>
+                // để trình duyệt xử lý ảnh từ máy chủ bên ngoài bình thường.
                 return '<a class="bb-image-link" href="' . $safe . '" target="_blank" rel="noopener noreferrer">'
                     . '<img class="bb-image"' . $size
                     . ' src="' . $safe . '" loading="lazy" decoding="async"'
-                    . ' referrerpolicy="no-referrer" alt="BBCode image"'
-                    . ' onerror="this.closest(\'.bb-image-link\').classList.add(\'bb-image-error\');this.remove();">'
+                    . ' alt="BBCode image">'
                     . '</a>';
             },
             $var
