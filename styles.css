@@ -418,3 +418,132 @@ table[style*="width: 100%"]{max-width:100%}
   .blog-card{border-radius:.85rem}
   .blog-card p{min-height:0}
 }
+
+
+/* ============================================================
+   Homepage forum feed
+   ============================================================ */
+.forum-home {
+  margin: 1rem 0 1.5rem;
+}
+
+.forum-home-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.forum-home-kicker {
+  display: block;
+  margin-bottom: .25rem;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .7;
+}
+
+.forum-home-heading h2 {
+  margin: 0;
+}
+
+.forum-home-heading p {
+  margin: .35rem 0 0;
+  opacity: .72;
+}
+
+.forum-home-all,
+.forum-home-read {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.forum-home-list {
+  display: grid;
+  gap: .75rem;
+}
+
+.forum-home-item {
+  display: flex;
+  gap: .9rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: var(--card-bg, #fff);
+  border: 1px solid rgba(0, 0, 0, .08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .04);
+}
+
+.forum-home-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(0, 123, 255, .1);
+  font-size: 1.2rem;
+}
+
+.forum-home-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.forum-home-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-bottom: .3rem;
+  font-size: .78rem;
+  opacity: .65;
+}
+
+.forum-home-item h3 {
+  margin: 0 0 .4rem;
+  font-size: 1rem;
+}
+
+.forum-home-item h3 a {
+  text-decoration: none;
+}
+
+.forum-home-excerpt {
+  margin-bottom: .55rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.forum-home-category {
+  margin-bottom: .6rem;
+  font-size: .78rem;
+  opacity: .68;
+}
+
+.forum-home-category a {
+  text-decoration: none;
+}
+
+.forum-home-read {
+  font-size: .82rem;
+}
+
+.forum-home-empty {
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--card-bg, #fff);
+  border: 1px solid rgba(0, 0, 0, .08);
+  opacity: .75;
+}
+
+@media (max-width: 600px) {
+  .forum-home-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .forum-home-item {
+    padding: .85rem;
+  }
+}
