@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php-lint:
+    name: PHP syntax check (${{ matrix.php-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.2', '8.3']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Show PHP version
+        run: php --version
+
+      - name: Lint PHP files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          failed=0
+          while IFS= read -r -d '' file; do
+            if ! php -l "$file" >/tmp/php-lint.log 2>&1; then
+              cat /tmp/php-lint.log
+              failed=1
+            fi
+          done < <(
+            find . \
+              -type f -name '*.php' \
+              -not -path './.git/*' \
+              -not -path './vendor/*' \
+              -print0
+          )
+
+          exit "$failed"
+
+  localization:
+    name: Validate localization files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install gettext
+        run: sudo apt-get update && sudo apt-get install -y gettext
+
+      - name: Validate PO files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          failed=0
+          while IFS= read -r -d '' file; do
+            if ! msgfmt --check --check-compatibility -o /dev/null "$file"; then
+              failed=1
+            fi
+          done < <(
+            find . \
+              -type f -name '*.po' \
+              -not -path './.git/*' \
+              -print0
+          )
+
+          exit "$failed"
+
+  repository-checks:
+    name: Repository checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check required project files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f README.md
+          test -f LICENSE.md
+          test -f .htaccess
+
+          echo "Repository structure checks passed."
