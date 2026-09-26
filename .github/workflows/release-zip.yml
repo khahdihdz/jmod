@@ -19,6 +19,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          tools: composer:v2
+
       - name: Install PHP dependencies
         run: composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
 
