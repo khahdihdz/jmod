@@ -547,3 +547,98 @@ table[style*="width: 100%"]{max-width:100%}
     padding: .85rem;
   }
 }
+
+
+/* Modern blog-style forum feed */
+.forum-blog-feed {
+  margin: 2rem 0;
+}
+.forum-blog-cover {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  padding: 2rem;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #f7f9ff 0%, #eef4ff 55%, #f9f7ff 100%);
+  border: 1px solid rgba(80, 100, 180, .12);
+}
+.forum-blog-cover::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -55px;
+  top: -70px;
+  border-radius: 50%;
+  background: rgba(100, 120, 255, .12);
+}
+.forum-blog-badge {
+  display: inline-block;
+  margin-bottom: .6rem;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  opacity: .65;
+}
+.forum-blog-cover h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 .45rem;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+}
+.forum-blog-cover p {
+  position: relative;
+  z-index: 1;
+  max-width: 650px;
+  margin: 0 0 1rem;
+  line-height: 1.6;
+  opacity: .72;
+}
+.forum-blog-cover-link {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  font-weight: 700;
+  text-decoration: none;
+}
+.forum-blog-feed .forum-home-heading {
+  padding: 0 .15rem;
+}
+.forum-blog-feed .forum-home-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.forum-blog-feed .forum-home-item {
+  height: 100%;
+  padding: 1.2rem;
+  border-radius: 18px;
+  flex-direction: column;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.forum-blog-feed .forum-home-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .08);
+}
+.forum-blog-feed .forum-home-icon {
+  flex-basis: 46px;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+}
+.forum-blog-feed .forum-home-meta {
+  margin-top: .8rem;
+}
+.forum-blog-feed .forum-home-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 700px) {
+  .forum-blog-feed .forum-home-list {
+    grid-template-columns: 1fr;
+  }
+  .forum-blog-cover {
+    padding: 1.35rem;
+    border-radius: 18px;
+  }
+}
