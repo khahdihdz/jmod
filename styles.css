@@ -609,10 +609,52 @@ table[style*="width: 100%"]{max-width:100%}
 }
 .forum-blog-feed .forum-home-item {
   height: 100%;
-  padding: 1.2rem;
+  padding: 0;
+  overflow: hidden;
   border-radius: 18px;
   flex-direction: column;
   transition: transform .18s ease, box-shadow .18s ease;
+}
+.forum-blog-feed .forum-home-thumb {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: linear-gradient(135deg, #eaf2ff, #f8fbff);
+}
+.forum-blog-feed .forum-home-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .35s ease;
+}
+.forum-blog-feed .forum-home-item:hover .forum-home-thumb img {
+  transform: scale(1.04);
+}
+.forum-home-thumb-placeholder {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 25% 20%, #dbeafe, transparent 42%), linear-gradient(135deg, #eef5ff, #f8fafc);
+}
+.forum-home-thumb-placeholder span {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 1.35rem;
+  box-shadow: var(--bs-shadow);
+}
+.forum-blog-feed .forum-home-content {
+  padding: 1.2rem;
+}
+.forum-blog-feed .forum-home-item .forum-home-icon {
+  display: none;
 }
 .forum-blog-feed .forum-home-item:hover {
   transform: translateY(-2px);
