@@ -9,7 +9,7 @@
 @import "progress";
 @import "slider";
 @import "album";
-@import "jmod";
+// JMod visual layer is loaded separately from themes/default/assets/css/jmod.css.
 
 // Functional third-party styles that are still required by existing features.
 @import "../css/prism.css";
