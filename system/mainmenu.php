@@ -112,6 +112,93 @@ if ($blogCount > 0) {
 }
 echo '</section>';
 
+// ============================================================
+// Bài viết mới từ diễn đàn trên trang chủ.
+// ============================================================
+if ($config->mod_forum || $systemUser->rights >= 7) {
+    $forumLimit = 6;
+    $forumPosts = $db->query(
+        "SELECT id, refid, time, user_id, from, text
+         FROM forum
+         WHERE type = 'm' AND close != '1'
+         ORDER BY time DESC, id DESC
+         LIMIT " . $forumLimit
+    );
+
+    echo '<section class="forum-home">';
+    echo '<div class="forum-home-heading">';
+    echo '<div><span class="forum-home-kicker">Diễn đàn</span><h2>Bài viết mới</h2><p>Các thảo luận mới nhất từ cộng đồng</p></div>';
+    echo '<a class="forum-home-all" href="forum/">Xem diễn đàn <span>→</span></a>';
+    echo '</div>';
+
+    if ($forumPosts->rowCount()) {
+        echo '<div class="forum-home-list">';
+
+        while ($post = $forumPosts->fetch()) {
+            $topic = $db->query(
+                "SELECT id, refid, text
+                 FROM forum
+                 WHERE id = '" . (int) $post['refid'] . "' AND type = 't'
+                 LIMIT 1"
+            )->fetch();
+
+            if (!$topic) {
+                continue;
+            }
+
+            $section = $db->query(
+                "SELECT id, refid, text
+                 FROM forum
+                 WHERE id = '" . (int) $topic['refid'] . "' AND type = 'r'
+                 LIMIT 1"
+            )->fetch();
+
+            $category = $section ? $db->query(
+                "SELECT id, text
+                 FROM forum
+                 WHERE id = '" . (int) $section['refid'] . "' AND type = 'f'
+                 LIMIT 1"
+            )->fetch() : false;
+
+            $topicTitle = htmlspecialchars($topic['text'], ENT_QUOTES, 'UTF-8');
+            $author = htmlspecialchars($post['from'], ENT_QUOTES, 'UTF-8');
+            $excerpt = mb_substr($post['text'], 0, 180, 'UTF-8');
+            $excerpt = $tools->checkout($excerpt, 2, 1);
+            $excerpt = preg_replace('#\[c\](.*?)\[/c\]#si', '<div class="quote">\1</div>', $excerpt);
+
+            echo '<article class="forum-home-item">';
+            echo '<div class="forum-home-icon" aria-hidden="true">💬</div>';
+            echo '<div class="forum-home-content">';
+            echo '<div class="forum-home-meta"><span>' . $author . '</span><span>•</span><span>' . $tools->displayDate($post['time']) . '</span></div>';
+            echo '<h3><a href="forum/index.php?id=' . (int) $topic['id'] . '">' . $topicTitle . '</a></h3>';
+            echo '<div class="forum-home-excerpt">' . $excerpt . '</div>';
+
+            if ($category || $section) {
+                echo '<div class="forum-home-category">';
+                if ($category) {
+                    echo '<a href="forum/index.php?id=' . (int) $category['id'] . '">' . htmlspecialchars($category['text'], ENT_QUOTES, 'UTF-8') . '</a>';
+                }
+                if ($category && $section) {
+                    echo ' / ';
+                }
+                if ($section) {
+                    echo '<a href="forum/index.php?id=' . (int) $section['id'] . '">' . htmlspecialchars($section['text'], ENT_QUOTES, 'UTF-8') . '</a>';
+                }
+                echo '</div>';
+            }
+
+            echo '<a class="forum-home-read" href="forum/index.php?act=post&amp;id=' . (int) $post['id'] . '">Đọc bài viết →</a>';
+            echo '</div></article>';
+        }
+
+        echo '</div>';
+    } else {
+        echo '<div class="forum-home-empty">Chưa có bài viết mới trong diễn đàn.</div>';
+    }
+
+    echo '</section>';
+}
+
 // Các khu vực chức năng JohnCMS vẫn giữ nguyên bên dưới blog.
 echo '<div class="phdr"><b>' . _t('Communication', 'system') . '</b></div>';
 
