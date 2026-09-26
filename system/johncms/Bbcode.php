@@ -224,6 +224,10 @@ class Bbcode implements Api\BbcodeInterface
             <a href="javascript:tag(\'[spoiler=]\', \'[/spoiler]\');"><img style="border: 0;" src="' . $this->homeUrl . '/images/bb/sp.gif" alt="spoiler" title="' . _t('Spoiler', 'system') . '" /></a>
             <a href="javascript:tag(\'[c]\', \'[/c]\')"><img style="border: 0;" src="' . $this->homeUrl . '/images/bb/quote.gif" alt="quote" title="' . _t('Quote', 'system') . '" /></a>
             <a href="javascript:tag(\'[url=]\', \'[/url]\')"><img style="border: 0;" src="' . $this->homeUrl . '/images/bb/link.gif" alt="url" title="' . _t('URL', 'system') . '" /></a>
+            <a class="bb-extra-btn" href="javascript:tag(\'[img]\', \'[/img]\')">IMG</a>
+            <a class="bb-extra-btn" href="javascript:tag(\'[center]\', \'[/center]\')">CENTER</a>
+            <a class="bb-extra-btn" href="javascript:tag(\'[list]\', \'[/list]\')">LIST</a>
+            <a class="bb-extra-btn" href="javascript:tag(\'[hr]\', \'\')">HR</a>
             <a href="javascript:show_hide(\'code\');"><img style="border: 0;" src="' . $this->homeUrl . '/images/bb/php.gif" title="' . _t('Code', 'system') . '" alt="Code" /></a>
             <a href="javascript:tag(\'[youtube]\', \'[/youtube]\')"><img style="border: 0;" src="' . $this->homeUrl . '/images/bb/youtube.gif" title="Youtube" alt="bg youtube" /></a>';
 
