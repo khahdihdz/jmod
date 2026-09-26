@@ -473,3 +473,13 @@ table.desc td.caption{width:1%;padding-right:.75rem;text-align:right;color:var(-
 
 /* Legacy compatibility: logo.gif is no longer rendered by head.php. */
 .logo{display:none!important}
+
+
+/* BBCode rich content */
+.bb-image-link{display:block;max-width:100%;margin:.6rem 0}
+.bb-image{display:block;max-width:100%;height:auto;border-radius:12px;border:1px solid var(--bs-border);box-shadow:var(--bs-shadow)}
+.bb-center{text-align:center}.bb-left{text-align:left}.bb-right{text-align:right}.bb-justify{text-align:justify}
+.bb-hr{border:0;border-top:1px solid var(--bs-border);margin:1rem 0}
+.bb-list{margin:.5rem 0;padding-left:1.5rem}
+.bb-extra-btn{display:inline-block;margin:2px;padding:3px 6px;border:1px solid var(--bs-border);border-radius:5px;background:var(--bs-light);color:var(--bs-dark);font-size:11px;font-weight:700;text-decoration:none}
+.bb-extra-btn:hover{background:var(--bs-primary);color:#fff}
