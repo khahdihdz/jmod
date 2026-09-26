@@ -1,17 +1,10 @@
-* text=auto eol=lf
-
-*.css   text eol=lf
-*.html  text eol=lf
-*.js    text eol=lf
-*.json  text eol=lf
-*.lng   text eol=lf
-*.md    text eol=lf
-*.php   text eol=lf
-*.po    text eol=lf
-*.pot   text eol=lf
-*.svg   text eol=lf
-*.txt   text eol=lf
-*.yml   text eol=lf
-
-composer.lock text eol=lf merge=ours
-package-lock.json text eol=lf merge=ours
+* text=auto
+*.php text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.htaccess text eol=lf
+*.po text eol=lf
+*.pot text eol=lf
+*.ini text eol=lf
+*.sql text eol=lf
