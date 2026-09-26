@@ -115,6 +115,8 @@ echo '</div>';
 echo '</div>';
 
 echo '<nav class="site-nav" aria-label="Điều hướng chính">';
+echo '<input class="nav-menu-check" type="checkbox" id="jmod-nav-toggle">';
+echo '<label class="nav-menu-toggle" for="jmod-nav-toggle"><span class="nav-menu-icon">☰</span><span>Menu</span><span class="nav-menu-chevron">⌄</span></label>';
 echo '<div class="site-nav-inner">';
 
 $navItems = [
