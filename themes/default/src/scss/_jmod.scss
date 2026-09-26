@@ -27,8 +27,22 @@
 
   .jmod-page {
     width: 100%;
-    max-width: var(--jmod-container);
-    margin: 0 auto;
+    max-width: none;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .jmod-shell,
+  .jmod-shell *,
+  .jmod-shell *::before,
+  .jmod-shell *::after {
+    box-sizing: border-box;
+  }
+
+  .jmod-shell {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
   }
 
   .icon {
@@ -198,7 +212,9 @@
   }
 
   .jmod-content {
+    flex: 1 1 auto;
     width: calc(100% - var(--jmod-sidebar));
+    max-width: calc(100% - var(--jmod-sidebar));
     min-width: 0;
     background: transparent;
     box-shadow: none !important;
@@ -226,8 +242,71 @@
   .jmod-main {
     width: 100%;
     max-width: var(--jmod-container);
+    min-width: 0;
     margin: 0 auto;
     padding: 1.25rem clamp(.75rem, 2vw, 1.5rem) 2rem;
+  }
+
+  .jmod-main > *,
+  .jmod-content > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .jmod-main .row {
+    --bs-gutter-x: 1.25rem;
+    --bs-gutter-y: 1.25rem;
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .jmod-main .row > * {
+    min-width: 0;
+  }
+
+  .jmod-main .table-responsive {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .jmod-main table {
+    max-width: 100%;
+  }
+
+  .jmod-main pre,
+  .jmod-main .pre,
+  .jmod-main .code {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .jmod-main iframe,
+  .jmod-main video,
+  .jmod-main embed,
+  .jmod-main object {
+    max-width: 100%;
+  }
+
+  .jmod-main .form-control,
+  .jmod-main .form-select,
+  .jmod-main input,
+  .jmod-main textarea,
+  .jmod-main select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .jmod-main .btn-group,
+  .jmod-main .btn-toolbar {
+    max-width: 100%;
+    flex-wrap: wrap;
   }
 
   .jmod-auth {
@@ -748,6 +827,7 @@
 
     .jmod-content {
       width: 100%;
+      max-width: 100%;
       transition: transform .25s ease;
     }
 
@@ -763,8 +843,8 @@
       padding-top: calc(var(--jmod-header) + 1rem);
     }
 
-    .jmod-body .new_post-item,
-    .jmod-body .post-item {
+    .new_post-item,
+    .post-item {
       padding: .875rem;
     }
 
@@ -794,7 +874,38 @@
 
 @media (max-width: 575.98px) {
   .jmod-body {
-    .jmod-main { padding-left: .75rem; padding-right: .75rem; }
+    .jmod-main {
+      width: 100%;
+      max-width: 100%;
+      padding-left: .75rem;
+      padding-right: .75rem;
+    }
+
+    .jmod-content {
+      max-width: 100%;
+    }
+
+    .jmod-main .row {
+      --bs-gutter-x: .75rem;
+      --bs-gutter-y: .75rem;
+    }
+
+    .jmod-main .card,
+    .jmod-main .forum-section,
+    .jmod-main .new_post-item,
+    .jmod-main .post-item,
+    .jmod-main .section,
+    .jmod-main .content-box {
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+
+    .jmod-main .pagination {
+      max-width: 100%;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: .25rem;
+    }
     .breadcrumb { font-size: .8rem; }
     .jmod-topbar .navbar-wrapper { padding: 0 .25rem; }
     .new_post-item .post-user .avatar {
@@ -834,3 +945,72 @@
   }
 }
 
+
+
+/* Final layout/overflow safeguards */
+.jmod-body {
+  overflow-x: hidden;
+
+  .jmod-page,
+  .content-container,
+  .jmod-content,
+  .jmod-main {
+    min-width: 0;
+  }
+
+  .jmod-main {
+    overflow-x: hidden;
+  }
+
+  .jmod-main .alert,
+  .jmod-main .card,
+  .jmod-main .list-group,
+  .jmod-main .forum-section,
+  .jmod-main .post-item,
+  .jmod-main .new_post-item,
+  .jmod-main .section,
+  .jmod-main .content-box {
+    max-width: 100%;
+  }
+
+  .jmod-footer-wrap {
+    max-width: 100%;
+  }
+
+  .jmod-footer {
+    width: 100%;
+    max-width: var(--jmod-container);
+    margin: 0 auto;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .jmod-body {
+    .jmod-page {
+      display: block !important;
+    }
+
+    .jmod-content {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .jmod-sidebar {
+      max-width: min(var(--jmod-sidebar), 86vw);
+    }
+
+    &.sidebar_opened .jmod-content {
+      transform: none;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .jmod-body {
+    .jmod-page {
+      display: flex;
+      align-items: stretch;
+    }
+  }
+}
