@@ -322,21 +322,36 @@ class Tools implements Api\ToolsInterface
                 $out .= $this->image('del.png');
             }
 
-            $out .= !$this->user->isValid() || $this->user->id == $user['id'] ? '<b>' . $user['name'] . '</b>' : '<a href="' . $homeurl . '/profile/?user=' . $user['id'] . '"><b>' . $user['name'] . '</b></a>';
+            // Màu nick và cấp bậc được xác định tập trung theo quyền của tài khoản.
+            // Dùng class CSS thay vì inline-style để dễ tùy biến theo từng giao diện.
             $rank = [
-                0 => '',
-                1 => '(GMod)',
-                2 => '(CMod)',
-                3 => '(FMod)',
-                4 => '(DMod)',
-                5 => '(LMod)',
-                6 => '(Smd)',
-                7 => '(Adm)',
-                9 => '(SV!)',
+                0 => ['label' => '', 'class' => 'member'],
+                1 => ['label' => 'GMod', 'class' => 'gmod'],
+                2 => ['label' => 'CMod', 'class' => 'cmod'],
+                3 => ['label' => 'FMod', 'class' => 'fmod'],
+                4 => ['label' => 'DMod', 'class' => 'dmod'],
+                5 => ['label' => 'LMod', 'class' => 'lmod'],
+                6 => ['label' => 'SMod', 'class' => 'smod'],
+                7 => ['label' => 'Admin', 'class' => 'admin'],
+                9 => ['label' => 'Super Admin', 'class' => 'superadmin'],
             ];
-            $rights = isset($user['rights']) ? $user['rights'] : 0;
-            $out .= ' ' . $rank[$rights];
-            $out .= (time() > $user['lastdate'] + 300 ? '<span class="red"> [Off]</span>' : '<span class="green"> [ON]</span>');
+            $rights = isset($user['rights']) && isset($rank[(int)$user['rights']]) ? (int)$user['rights'] : 0;
+            $rankInfo = $rank[$rights];
+
+            $userName = htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8');
+            $userLink = !$this->user->isValid() || $this->user->id == $user['id']
+                ? '<b class="jmod-user-name rank-' . $rankInfo['class'] . '">' . $userName . '</b>'
+                : '<a class="jmod-user-link rank-' . $rankInfo['class'] . '" href="' . $homeurl . '/profile/?user=' . $user['id'] . '"><b class="jmod-user-name">' . $userName . '</b></a>';
+
+            $out .= $userLink;
+
+            if ($rankInfo['label'] !== '') {
+                $out .= ' <span class="jmod-rank rank-' . $rankInfo['class'] . '">' . $rankInfo['label'] . '</span>';
+            }
+
+            $out .= time() > $user['lastdate'] + 300
+                ? '<span class="red"> [Off]</span>'
+                : '<span class="green"> [ON]</span>';
 
             if (!empty($arg['header'])) {
                 $out .= ' ' . $arg['header'];
