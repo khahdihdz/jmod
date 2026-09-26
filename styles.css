@@ -911,3 +911,147 @@ table[style*="width: 100%"]{max-width:100%}
   .fmenu{border-radius:.7rem .7rem .25rem .25rem}
   .footer{border-radius:0 0 .7rem .7rem}
 }
+
+/* ==========================================================
+   Professional JMod Header + Navigation
+   ========================================================== */
+.site-header{
+  max-width:980px;
+  margin:0 auto;
+  color:#fff;
+  background:linear-gradient(135deg,#0b5ed7 0%,#2563eb 58%,#0284c7 100%);
+  border-radius:0 0 1rem 1rem;
+  box-shadow:0 10px 28px rgba(15,23,42,.14);
+  overflow:hidden;
+}
+.header-inner{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  min-height:72px;
+  padding:.8rem 1.25rem;
+}
+.header-inner::before{
+  content:"";
+  position:absolute;
+  width:190px;height:190px;
+  right:-70px;top:-125px;
+  border-radius:50%;
+  background:rgba(255,255,255,.1);
+}
+.header-brand,.header-user{position:relative;z-index:1}
+.header-brand-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.7rem;
+  color:#fff!important;
+}
+.header-brand-mark{
+  display:grid;
+  place-items:center;
+  width:42px;height:42px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:12px;
+  background:rgba(255,255,255,.14);
+  box-shadow:0 4px 12px rgba(0,0,0,.12);
+  font-size:1.2rem;
+  font-weight:900;
+}
+.header-brand-text{display:flex;flex-direction:column;line-height:1.15}
+.header-brand-text strong{font-size:1.2rem;letter-spacing:.01em}
+.header-brand-text small{margin-top:.15rem;color:rgba(255,255,255,.76);font-size:.68rem}
+.header-user{
+  padding:.4rem .7rem;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:999px;
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  font-size:.8rem;
+}
+.header-user b{color:#fff}
+
+/* Primary navigation */
+.site-nav{
+  max-width:980px;
+  margin:0 auto;
+  padding:.55rem .75rem;
+  background:#fff;
+  border:0;
+  border-bottom:1px solid #dbe5f2;
+  box-shadow:0 4px 14px rgba(15,23,42,.055);
+}
+.site-nav-inner{
+  display:flex;
+  align-items:center;
+  gap:.3rem;
+  flex-wrap:wrap;
+}
+.site-nav .nav-item{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.42rem;
+  min-height:38px;
+  padding:.42rem .72rem;
+  border:1px solid transparent;
+  border-radius:.65rem;
+  color:#334155!important;
+  font-size:.84rem;
+  font-weight:700;
+  transition:all .16s ease;
+}
+.site-nav .nav-item img{width:18px;height:18px;object-fit:contain}
+.site-nav .nav-icon{display:inline-grid;place-items:center;font-size:1rem;line-height:1}
+.site-nav .nav-item:hover{
+  color:#0d6efd!important;
+  background:#eff6ff;
+  border-color:#dbeafe;
+  transform:translateY(-1px);
+}
+.site-nav .nav-home{
+  color:#fff!important;
+  background:#0d6efd;
+  border-color:#0d6efd;
+}
+.site-nav .nav-home:hover{
+  color:#fff!important;
+  background:#0b5ed7;
+  border-color:#0b5ed7;
+}
+.site-nav .nav-account{margin-left:auto}
+
+/* Keep old .header markup compatible on other pages */
+.header:not(.site-header){
+  border-radius:0 0 .9rem .9rem;
+}
+
+@media (max-width:767.98px){
+  .header-inner{
+    min-height:64px;
+    padding:.65rem .8rem;
+  }
+  .header-brand-mark{width:38px;height:38px;border-radius:10px}
+  .header-brand-text strong{font-size:1.05rem}
+  .header-brand-text small{font-size:.6rem}
+  .header-user{
+    max-width:45%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:.72rem;
+  }
+  .site-nav{padding:.45rem .55rem}
+  .site-nav-inner{gap:.2rem}
+  .site-nav .nav-item{
+    min-height:36px;
+    padding:.38rem .55rem;
+    font-size:.78rem;
+  }
+  .site-nav .nav-account{margin-left:0}
+}
+@media (max-width:420px){
+  .header-user{display:none}
+  .site-nav .nav-item{flex:1 1 auto}
+}
