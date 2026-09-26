@@ -118,9 +118,9 @@ echo '</section>';
 if ($config->mod_forum || $systemUser->rights >= 7) {
     $forumLimit = 6;
     $forumPosts = $db->query(
-        "SELECT id, refid, time, user_id, from, text
-         FROM forum
-         WHERE type = 'm' AND close != '1'
+        "SELECT `id`, `refid`, `time`, `user_id`, `from`, `text`
+         FROM `forum`
+         WHERE `type` = 'm' AND `close` != '1'
          ORDER BY time DESC, id DESC
          LIMIT " . $forumLimit
     );
@@ -137,10 +137,16 @@ if ($config->mod_forum || $systemUser->rights >= 7) {
     echo '<a class="forum-home-all" href="forum/">Xem diễn đàn <span>→</span></a>';
     echo '</div>';
 
-    if ($forumPosts->rowCount()) {
+    $hasForumPosts = false;
+    if ($forumPosts) {
+        $forumPosts = $forumPosts->fetchAll(PDO::FETCH_ASSOC);
+        $hasForumPosts = !empty($forumPosts);
+    }
+
+    if ($hasForumPosts) {
         echo '<div class="forum-home-list">';
 
-        while ($post = $forumPosts->fetch()) {
+        foreach ($forumPosts as $post) {
             $topic = $db->query(
                 "SELECT id, refid, text
                  FROM forum
