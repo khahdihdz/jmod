@@ -53,11 +53,14 @@ class Bbcode implements Api\BbcodeInterface
     {
         $var = $this->parseTime($var);               // Обработка тэга времени
         $var = $this->highlightCode($var);           // Подсветка кода
-        $var = $this->highlightBb($var);             // Обработка ссылок
-        $var = $this->highlightUrl($var);            // Обработка ссылок
-        $var = $this->highlightBbcodeUrl($var);      // Обработка ссылок в BBcode
-        $var = $this->media($var);
-        $var = $this->youtube($var);
+        $var = $this->highlightBb($var);             // Основные BBCode
+        // [img] должен обрабатываться до автоссылок:
+        // иначе highlightUrl() превращает URL внутри [img] в <a>,
+        // после чего media() уже не видит исходный BBCode.
+        $var = $this->media($var);                   // Изображения
+        $var = $this->youtube($var);                 // YouTube
+        $var = $this->highlightBbcodeUrl($var);      // Ссылки в BBCode
+        $var = $this->highlightUrl($var);            // Обычные ссылки
 
         return $var;
     }
@@ -517,7 +520,7 @@ class Bbcode implements Api\BbcodeInterface
                     . '<img class="bb-image"' . $size
                     . ' src="' . $safe . '" loading="lazy" decoding="async"'
                     . ' referrerpolicy="no-referrer" alt="BBCode image"'
-                    . ' onerror="this.closest(\'.bb-image-link\').classList.add(\'.bb-image-error\');this.remove();">'
+                    . ' onerror="this.closest(\'.bb-image-link\').classList.add(\'bb-image-error\');this.remove();">'
                     . '</a>';
             },
             $var
