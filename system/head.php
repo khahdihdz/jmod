@@ -48,7 +48,7 @@ echo '<!DOCTYPE html>' .
     "\n" . '<meta name="Generator" content="JohnCMS, http://johncms.com">' .
     "\n" . '<meta name="keywords" content="' . $keywords . '">' .
     "\n" . '<meta name="description" content="' . $descriptions . '">' .
-    "\n" . '<link rel="stylesheet" href="' . $config->homeurl . '/styles.css">' .
+    "\n" . '<link rel="stylesheet" href="' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/styles.css?v=' . @filemtime(ROOT_PATH . 'styles.css') . '">' .
     "\n" . '<link rel="shortcut icon" href="' . $config->homeurl . '/favicon.ico">' .
     "\n" . '<link rel="alternate" type="application/rss+xml" title="RSS | ' . _t('Site News', 'system') . '" href="' . $config->homeurl . '/rss/rss.php">' .
     "\n" . '<title>' . $textl . '</title>' .
