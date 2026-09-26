@@ -48,6 +48,21 @@ function johncms_blog_thumbnail($text)
     return '';
 }
 
+function johncms_post_thumbnail($text)
+{
+    // HTML: <img src="...">
+    if (preg_match('/<img[^>]+src=["\\\']([^"\\\']+)["\\\']/i', $text, $m)) {
+        return trim(html_entity_decode($m[1], ENT_QUOTES, 'UTF-8'));
+    }
+
+    // JohnCMS/BBCode: [img]URL[/img] or [img=WIDTHxHEIGHT]URL[/img]
+    if (preg_match('/\\[img(?:=[^\\]]+)?\\]([^\\[]+)\\[\\\/img\\]/i', $text, $m)) {
+        return trim(html_entity_decode($m[1], ENT_QUOTES, 'UTF-8'));
+    }
+
+    return '';
+}
+
 function johncms_blog_slug($title, $id = 0)
 {
     $title = trim(html_entity_decode(strip_tags($title), ENT_QUOTES, 'UTF-8'));
@@ -174,13 +189,18 @@ if ($config->mod_forum || $systemUser->rights >= 7) {
 
             $topicTitle = htmlspecialchars($topic['text'], ENT_QUOTES, 'UTF-8');
             $author = htmlspecialchars($post['from'], ENT_QUOTES, 'UTF-8');
+            $postThumb = johncms_post_thumbnail($post['text']);
+            $postThumbHtml = $postThumb !== ''
+                ? '<img src="' . htmlspecialchars($postThumb, ENT_QUOTES, 'UTF-8') . '" alt="' . $topicTitle . '" loading="lazy">'
+                : '<span class="forum-home-thumb-placeholder" aria-hidden="true"><span>💬</span></span>';
             $excerpt = mb_substr($post['text'], 0, 180, 'UTF-8');
             $excerpt = $tools->checkout($excerpt, 2, 1);
             $excerpt = preg_replace('#\[c\](.*?)\[/c\]#si', '<div class="quote">\1</div>', $excerpt);
 
             echo '<article class="forum-home-item">';
-            echo '<div class="forum-home-icon" aria-hidden="true">💬</div>';
+            echo '<a class="forum-home-thumb" href="forum/index.php?id=' . (int) $topic['id'] . '" aria-label="' . $topicTitle . '">' . $postThumbHtml . '</a>';
             echo '<div class="forum-home-content">';
+
             echo '<div class="forum-home-meta"><span>' . $author . '</span><span>•</span><span>' . $tools->displayDate($post['time']) . '</span></div>';
             echo '<h3><a href="forum/index.php?id=' . (int) $topic['id'] . '">' . $topicTitle . '</a></h3>';
             echo '<div class="forum-home-excerpt">' . $excerpt . '</div>';
