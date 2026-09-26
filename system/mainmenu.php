@@ -125,7 +125,13 @@ if ($config->mod_forum || $systemUser->rights >= 7) {
          LIMIT " . $forumLimit
     );
 
-    echo '<section class="forum-home">';
+    echo '<section class="forum-home forum-blog-feed">';
+    echo '<div class="forum-blog-cover">';
+    echo '<span class="forum-blog-badge">COMMUNITY</span>';
+    echo '<h2>Khám phá thảo luận mới nhất</h2>';
+    echo '<p>Cập nhật những câu chuyện, câu hỏi và chia sẻ mới từ diễn đàn.</p>';
+    echo '<a class="forum-blog-cover-link" href="forum/">Tham gia cộng đồng →</a>';
+    echo '</div>';
     echo '<div class="forum-home-heading">';
     echo '<div><span class="forum-home-kicker">Diễn đàn</span><h2>Bài viết mới</h2><p>Các thảo luận mới nhất từ cộng đồng</p></div>';
     echo '<a class="forum-home-all" href="forum/">Xem diễn đàn <span>→</span></a>';
@@ -223,4 +229,3 @@ if ($systemUser->isValid() || $config->active) {
         '<div class="menu"><a href="album/index.php">' . _t('Photo Albums', 'system') . '</a> (' . $counters->album() . ')</div>';
 }
 
-echo '<div class="phdr"><a href="http://gazenwagen.com">Gazenwagen</a></div>';
