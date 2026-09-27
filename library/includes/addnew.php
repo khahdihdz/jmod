@@ -89,7 +89,7 @@ if (($adm || ($db->query("SELECT `user_add` FROM `library_cats` WHERE `id`=" . $
             $err[] = _t('You have not entered text');
         }
 
-        if (empty($announce)) {
+        // Tự động lấy tiêu đề làm tag nếu người dùng chưa nhập tag riêng.\n        if ($tag === '' && $name !== '') {\n            $tag = $name;\n        }\n\n        if (empty($announce)) {
             $announce = mb_substr($text, 0, 500);
         }
 
