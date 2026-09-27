@@ -519,4 +519,4 @@ table.desc td.caption{width:1%;padding-right:.75rem;text-align:right;color:var(-
 .jmod-related-item a{font-weight:700;line-height:1.35}
 .jmod-related-item p{margin:.25rem 0 0;color:var(--bs-muted);font-size:.78rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .jmod-article-main-body{min-width:0}
-@media (max-width: 900px){.jmod-article-layout{display:block}.jmod-article-sidebar{display:none}}
+@media (max-width: 900px){.jmod-article-layout{display:block}.jmod-article-sidebar{display:block;position:static;margin-top:1rem}.jmod-related-item{padding:.65rem}}
