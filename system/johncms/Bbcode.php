@@ -359,38 +359,26 @@ class Bbcode implements Api\BbcodeInterface
             return '<a href="' . $targetEsc . '" rel="noopener noreferrer">' . $label . '</a>';
         };
 
-        // Repair malformed nested links commonly pasted from image-hosting pages.
-        // Also accept a missing closing bracket after the URL attribute.
-        for ($i = 0; $i < 4; $i++) {
+        // Collapse duplicated URL wrappers from pasted image-hosting BBCode.
+        for ($i = 0; $i < 5; $i++) {
             $var = preg_replace(
-                '~\[url\]\s*\[url=(https?://[^\s\]]+)(?:\])?(.*?)\[/url\]\s*\[/url\]~isu',
+                '~\[url\]\s*\[url=(https?://[^\]\s]+)\](.*?)\[/url\]\s*\[/url\]~isu',
                 '[url=$1]$2[/url]',
                 $var
             );
             $var = preg_replace(
-                '~\[url\]\s*\[url=(https?://[^\s\]]+)\]\s*(https?://[^\s\[]+)\[/url\]\s*\[/url\]~isu',
-                '[url=$1]$2[/url]',
-                $var
-            );
-        }
-
-        // Repair common malformed/nested URL BBCode produced by copy-paste.
-        // Examples: [url][url=https://example.test]...[/url][/url]
-        // and [url]url=https://example.test[/url].
-        for ($i = 0; $i < 3; $i++) {
-            $var = preg_replace(
-                '~\[url\]\s*\[url=(https?://[^\s\]]+)\](.*?)\[/url\]\s*\[/url\]~isu',
-                '[url=$1]$2[/url]',
+                '~\[url=(https?://[^\]\s]+)\]\s*\[url=(https?://[^\]\s]+)\](.*?)\[/url\]\s*\[/url\]~isu',
+                '[url=$1]$3[/url]',
                 $var
             );
             $var = preg_replace(
-                '~\[url\]\s*url=(https?://[^\s\]]+)\[/url\]~isu',
+                '~\[url\]\s*url=(https?://[^\]\s]+)\[/url\]~isu',
                 '[url=$1]$1[/url]',
                 $var
             );
             $var = preg_replace(
-                '~\[url=(https?://[^\s\]]+)\]\s*\[url=(https?://[^\s\]]+)\](.*?)\[/url\]\s*\[/url\]~isu',
-                '[url=$1]$3[/url]',
+                '~\[url=(https?://[^\]\s]+)\]\s*\[url\](https?://[^\[\]\s]+)\[/url\]\s*\[/url\]~isu',
+                '[url=$1]$2[/url]',
                 $var
             );
         }
