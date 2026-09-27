@@ -87,7 +87,7 @@ class Bbcode implements Api\BbcodeInterface
         $var = preg_replace('#\[timestamp\](.+?)\[/timestamp]#si', '$2', $var);
         $var = preg_replace('#\[code=(.+?)\](.+?)\[/code]#si', '$2', $var);
         $var = preg_replace('!\[bg=(#[0-9a-f]{3}|#[0-9a-f]{6}|[a-z\-]+)](.+?)\[/bg]!is', '$2', $var);
-        $var = preg_replace('#\[spoiler=(.+?)\]#si', '$2', $var);
+        $var = preg_replace('#\[spoiler(?:=(.+?))?\](.+?)\[/spoiler\]#si', '$2', $var);
         $replace = [
             '[small]' => '', '[/small]' => '', '[big]' => '', '[/big]' => '',
             '[green]' => '', '[/green]' => '', '[red]' => '', '[/red]' => '',
@@ -616,8 +616,9 @@ class Bbcode implements Api\BbcodeInterface
             ],
             // Спойлер
             'spoiler' => [
-                'from' => '#\[spoiler=(.+?)](.+?)\[/spoiler]#is',
-                'to'   => '<div><div class="spoilerhead" style="cursor:pointer;" onclick="var _n=this.parentNode.getElementsByTagName(\'div\')[1];if(_n.style.display==\'none\'){_n.style.display=\'\';}else{_n.style.display=\'none\';}">$1 (+/-)</div><div class="spoilerbody" style="display:none">$2</div></div>',
+                // Hỗ trợ cả [spoiler]...[/spoiler] và [spoiler=Tiêu đề]...[/spoiler].
+                'from' => '#\[spoiler(?:=(.*?))?\](.+?)\[/spoiler]#is',
+                'to'   => '<div class="bb-spoiler"><button type="button" class="spoilerhead" onclick="var b=this.nextElementSibling;if(b){b.hidden=!b.hidden;this.setAttribute(\'aria-expanded\',b.hidden?\'false\':\'true\');}">$1<span class="spoiler-toggle">(+/-)</span></button><div class="spoilerbody" hidden>$2</div></div>',
             ],
             // Căn chỉnh
             'center' => ['from' => '#\[center\](.+?)\[/center]#is', 'to' => '<div class="bb-center">$1</div>'],
