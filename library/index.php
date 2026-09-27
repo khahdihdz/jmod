@@ -365,7 +365,17 @@ if (in_array($act, $array_includes)) {
 
                     $nav = $count_pages > 1 ? '<div class="topmenu">' . $tools->displayPagination('index.php?id=' . $id . '&amp;',
                             $page == 1 ? 0 : ($page - 1) * 1, $count_pages, 1) . '</div>' : '';
-                    // Tự bổ sung tag cho bài cũ nếu chưa có tag.\n                    $obj = new Hashtags($row['id']);\n                    if (!$obj->getAllStatTags()) {\n                        $autoTags = $obj->generateAutoTags($row['name'], $row['announce'], $row['text'], 8);\n                        if ($autoTags) {\n                            $obj->addTags($autoTags);\n                            $obj->delCache();\n                        }\n                    }\n\n                    $catalog = $db->query("SELECT `id`, `name` FROM `library_cats` WHERE `id` = " . $row['cat_id'] . " LIMIT 1")->fetch();
+                    // Tự bổ sung tag cho bài cũ nếu chưa có tag.
+                    $obj = new Hashtags($row['id']);
+                    if (!$obj->getAllStatTags()) {
+                        $autoTags = $obj->generateAutoTags($row['name'], $row['announce'], $row['text'], 8);
+                        if ($autoTags) {
+                            $obj->addTags($autoTags);
+                            $obj->delCache();
+                        }
+                    }
+
+                    $catalog = $db->query("SELECT `id`, `name` FROM `library_cats` WHERE `id` = " . $row['cat_id'] . " LIMIT 1")->fetch();
                     echo '<div class="phdr"><a href="?"><strong>' . _t('Library') . '</strong></a>'
                         . ' | <a href="?do=dir&amp;id=' . $catalog['id'] . '">' . $tools->checkout($catalog['name']) . '</a>'
                         . ($page > 1 ? ' | ' . $tools->checkout($row['name']) : '') . '</div>';
