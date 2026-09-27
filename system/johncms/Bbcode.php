@@ -56,7 +56,7 @@ class Bbcode implements Api\BbcodeInterface
         // khiến media() không còn nhận diện được cú pháp [img].
         $images = [];
         $var = preg_replace_callback(
-            '~\\[img(?:=\\d{1,4}x\\d{1,4})?\\]\\s*https?://[^\\s\\[\\]]+\\s*\\[/img\\]~iu',
+            '~\\\\[img(?:=\\\\d{1,4}x\\\\d{1,4})?\\\\].*?\\\\[/img\\\\]~isu',
             function ($match) use (&$images) {
                 $key = '__JMOD_IMG_' . count($images) . '__';
                 $images[$key] = $match[0];
@@ -512,25 +512,34 @@ class Bbcode implements Api\BbcodeInterface
     protected function media($var)
     {
         return preg_replace_callback(
-            '~\[img(?:=(\d{1,4})x(\d{1,4}))?\]\s*(https?://[^\s\[\]]+)\s*\[/img\]~iu',
+            '~\\[img(?:=(\\d{1,4})x(\\d{1,4}))?\\](.*?)\\[/img\\]~isu',
             function ($m) {
-                // Giữ nguyên tuyệt đối URL HTTP(S) do người dùng cung cấp.
-                // Không proxy, không thêm homeUrl và không chuyển sang go.php.
-                $url = trim(html_entity_decode($m[2], ENT_QUOTES, 'UTF-8'));
-                $safe = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+                // checkout() HTML-escapes stored text before BBCode parsing.
+                $url = trim(html_entity_decode($m[3], ENT_QUOTES, 'UTF-8'));
+                $parsed = parse_url($url);
 
-                $size = '';
-                if (!empty($m[1])) {
-                    [$w, $h] = array_map('intval', explode('x', strtolower($m[1])));
-                    $size = ' width="' . min($w, 1600) . '" height="' . min($h, 1200) . '"';
+                // Only allow absolute HTTP(S) URLs.
+                if (!$parsed || empty($parsed['host']) || empty($parsed['scheme'])
+                    || !in_array(strtolower($parsed['scheme']), ['http', 'https'], true)
+                    || preg_match('/[\\r\\n"<>]/', $url)
+                ) {
+                    return $m[0];
                 }
 
-                // Không xóa ảnh bằng JavaScript khi tải lỗi; giữ nguyên <img>
-                // để trình duyệt xử lý ảnh từ máy chủ bên ngoài bình thường.
+                $safe = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+                $size = '';
+
+                if (!empty($m[1]) && !empty($m[2])) {
+                    $w = (int) $m[1];
+                    $h = (int) $m[2];
+                    if ($w > 0 && $h > 0) {
+                        $size = ' width="' . min($w, 1600) . '" height="' . min($h, 1200) . '"';
+                    }
+                }
+
                 return '<a class="bb-image-link" href="' . $safe . '" target="_blank" rel="noopener noreferrer">'
                     . '<img class="bb-image"' . $size
-                    . ' src="' . $safe . '" loading="lazy" decoding="async"'
-                    . ' alt="BBCode image">'
+                    . ' src="' . $safe . '" loading="lazy" decoding="async" alt="BBCode image">'
                     . '</a>';
             },
             $var
