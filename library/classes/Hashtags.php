@@ -82,6 +82,74 @@ class Hashtags
     }
 
     /**
+     * Tự động tạo tag từ tiêu đề, giới thiệu và nội dung bài viết.
+     * @param string $title
+     * @param string $announce
+     * @param string $text
+     * @param int $limit
+     * @return array
+     */
+    public function generateAutoTags($title, $announce = '', $text = '', $limit = 8)
+    {
+        $stopWords = [
+            'và','hoặc','của','cho','với','trên','trong','ngoài','từ','đến','một','những','các',
+            'này','đó','là','có','được','theo','khi','hướng','dẫn','mới','nhất','như','về','tại',
+            'sau','trước','cách','để','bằng','thành','phần','giữa','sử dụng','giúp','nhé','này'
+        ];
+
+        $source = mb_strtolower(trim($title . ' ' . $announce . ' ' . $text), 'UTF-8');
+        $source = preg_replace('/[“”"‘’]/u', '', $source);
+        $source = preg_replace('/[^[:alnum:]À-ỹ+#.\- ]/ui', ' ', $source);
+        $words = preg_split('/\\s+/u', trim($source), -1, PREG_SPLIT_NO_EMPTY);
+        if (!$words) return [];
+
+        $titleWords = preg_split('/\\s+/u', mb_strtolower(trim($title), 'UTF-8'), -1, PREG_SPLIT_NO_EMPTY);
+        $titleText = mb_strtolower(trim($title), 'UTF-8');
+        $candidates = [];
+        $count = count($words);
+
+        for ($i = 0; $i < $count; $i++) {
+            $word = trim($words[$i], " .-");
+            if ($word === '' || mb_strlen($word, 'UTF-8') < 2 || in_array($word, $stopWords, true)) continue;
+            $inTitle = in_array($word, $titleWords, true) || mb_strpos($titleText, $word) !== false;
+            $technical = preg_match('/(?:\\d|[+#.\\-])/', $word) || mb_strlen($word, 'UTF-8') <= 4;
+            $score = ($inTitle ? 8 : 2) + ($technical ? 2 : 0);
+            $candidates[$word] = ($candidates[$word] ?? 0) + $score;
+
+            for ($n = 2; $n <= 3; $n++) {
+                if ($i + $n > $count) break;
+                $parts = array_slice($words, $i, $n);
+                $valid = true;
+                foreach ($parts as $part) {
+                    $part = trim($part, " .-");
+                    if ($part === '' || mb_strlen($part, 'UTF-8') < 2 || in_array($part, $stopWords, true)) { $valid = false; break; }
+                }
+                if (!$valid) continue;
+                $phrase = trim(implode(' ', array_map(static fn($v) => trim($v, " .-"), $parts)));
+                if (mb_strlen($phrase, 'UTF-8') < 4 || mb_strlen($phrase, 'UTF-8') > 45) continue;
+                $score = ($inTitle ? 10 : 2) + ($n === 3 ? 5 : 3) + (preg_match('/(?:\\d|[+#.\\-])/', $phrase) ? 3 : 0);
+                $candidates[$phrase] = ($candidates[$phrase] ?? 0) + $score;
+            }
+        }
+
+        arsort($candidates, SORT_NUMERIC);
+        $result = [];
+        foreach ($candidates as $candidate => $score) {
+            $candidate = trim($candidate);
+            $duplicate = false;
+            foreach ($result as $existing) {
+                if ($existing === $candidate || mb_strpos($existing, $candidate, 0, 'UTF-8') !== false || mb_strpos($candidate, $existing, 0, 'UTF-8') !== false) {
+                    $duplicate = true;
+                    break;
+                }
+            }
+            if (!$duplicate) $result[] = $candidate;
+            if (count($result) >= $limit) break;
+        }
+        return $result;
+    }
+
+    /**
      * Добавление тега
      * @param $tags
      * @return int|null
