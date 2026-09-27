@@ -58,7 +58,7 @@ foreach (glob(ROOT_PATH . 'images/smileys/simply/*') ?: [] as $filePath) {
     $url = $homeurl . '/images/smileys/simply/' . rawurlencode($file);
 
     // This follows JohnCMS' own smiley code convention.
-    $add(':' . $name . ':', $url);
+    $add(':' . $name, $url);
 }
 
 // User smiley catalog used by JohnCMS.
