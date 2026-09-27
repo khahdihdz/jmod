@@ -41,7 +41,7 @@ function johncms_blog_thumbnail($text)
         return trim(html_entity_decode($m[1], ENT_QUOTES, 'UTF-8'));
     }
 
-    if (preg_match('~<img[^>]+src=["']([^"']+)["']~iu', $text, $m)) {
+    if (preg_match("~<img[^>]+src=['"]([^'"]+)['"]~iu", $text, $m)) {
         return trim(html_entity_decode($m[1], ENT_QUOTES, 'UTF-8'));
     }
 
@@ -54,7 +54,7 @@ function johncms_post_thumbnail($text)
         return trim(html_entity_decode($m[1], ENT_QUOTES, 'UTF-8'));
     }
 
-    if (preg_match('~<img[^>]+src=["']([^"']+)["']~iu', $text, $m)) {
+    if (preg_match("~<img[^>]+src=['"]([^'"]+)['"]~iu", $text, $m)) {
         return trim(html_entity_decode($m[1], ENT_QUOTES, 'UTF-8'));
     }
 
