@@ -298,23 +298,41 @@
         alignGroup.className = 'jmod-align-group';
         alignGroup.setAttribute('aria-label', 'Căn lề');
         [
-            ['⇤', 'Căn trái', 'left', 'justifyLeft'],
-            ['↔', 'Căn giữa', 'center', 'justifyCenter'],
-            ['⇥', 'Căn phải', 'right', 'justifyRight'],
-            ['☷', 'Căn đều', 'justify', 'justifyFull']
+            ['⇤', 'Căn trái', 'left'],
+            ['↔', 'Căn giữa', 'center'],
+            ['⇥', 'Căn phải', 'right'],
+            ['☷', 'Căn đều', 'justify']
         ].forEach(function(item) {
             var alignButton = button(item[0], item[1], function() {
                 restoreSelection(editor);
-                try {
-                    document.execCommand(item[3], false, null);
-                } catch (e) {}
-                // Normalize the active block so alignment is retained on mobile
-                // browsers even when execCommand emits legacy align attributes.
                 var selection = window.getSelection();
-                var node = selection && selection.rangeCount ? selection.getRangeAt(0).startContainer : null;
-                var block = node && (node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement);
+                if (!selection || !selection.rangeCount) return;
+                var range = selection.getRangeAt(0);
+                if (!editor.body.contains(range.commonAncestorContainer)) return;
+
+                var node = range.startContainer;
+                var block = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
                 while (block && block !== editor.body && !/^(DIV|P|LI|BLOCKQUOTE)$/.test(block.tagName)) block = block.parentElement;
-                if (block && block !== editor.body) block.style.textAlign = item[2];
+
+                if (block && block !== editor.body && editor.body.contains(block)) {
+                    block.style.textAlign = item[2];
+                } else if (!range.collapsed) {
+                    var wrapper = document.createElement('div');
+                    wrapper.style.textAlign = item[2];
+                    wrapper.appendChild(range.extractContents());
+                    range.insertNode(wrapper);
+                    range.selectNodeContents(wrapper);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                } else {
+                    var wrapper = document.createElement('div');
+                    wrapper.style.textAlign = item[2];
+                    wrapper.appendChild(document.createElement('br'));
+                    range.insertNode(wrapper);
+                    range.selectNodeContents(wrapper);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
                 saveSelection(editor);
                 sync(editor);
             });
