@@ -156,6 +156,7 @@ foreach ($navItems as $item) {
 }
 
 echo '</div></nav>';
+echo '</header>';
 
 echo '<div class="maintxt">';
 
