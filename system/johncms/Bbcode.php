@@ -51,14 +51,31 @@ class Bbcode implements Api\BbcodeInterface
     // Обработка тэгов и ссылок
     public function tags($var)
     {
+        // Bảo vệ [img]...[/img] trong lúc xử lý URL.
+        // Nếu để URL parser chạy trước, URL ảnh sẽ bị biến thành <a ...>,
+        // khiến media() không còn nhận diện được cú pháp [img].
+        $images = [];
+        $var = preg_replace_callback(
+            '~\\[img(?:=\\d{1,4}x\\d{1,4})?\\]\\s*https?://[^\\s\\[\\]]+\\s*\\[/img\\]~iu',
+            function ($match) use (&$images) {
+                $key = '__JMOD_IMG_' . count($images) . '__';
+                $images[$key] = $match[0];
+                return $key;
+            },
+            $var
+        );
+
         $var = $this->parseTime($var);               // Обработка тэга времени
         $var = $this->highlightCode($var);           // Подсветка кода
         $var = $this->highlightBb($var);             // Основные BBCode
         $var = $this->youtube($var);                 // YouTube
         $var = $this->highlightBbcodeUrl($var);      // Ссылки в BBCode
         $var = $this->highlightUrl($var);            // Обычные ссылки
-        // [img] phải được xử lý CUỐI cùng để URL ảnh tuyệt đối không bị
-        // các bộ xử lý liên kết biến đổi thành HTML bên trong thuộc tính src.
+
+        // Khôi phục BBCode ảnh rồi render ở bước cuối.
+        if ($images) {
+            $var = strtr($var, $images);
+        }
         $var = $this->media($var);                   // Изображения
 
         return $var;
