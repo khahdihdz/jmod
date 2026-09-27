@@ -137,9 +137,9 @@
             if (tag === 'ul' || tag === 'ol') return '[list]' + inner + '[/list]\n';
             if (tag === 'pre') return '[code=php]' + inner + '[/code]\n';
             if (tag === 'div' || tag === 'p') {
-                var align = node.style.textAlign;
-                var prefix = align === 'justify' ? '[justify]' : align === 'center' ? '[center]' : align === 'right' ? '[right]' : '';
-                var suffix = align === 'justify' ? '[/justify]' : align === 'center' ? '[/center]' : align === 'right' ? '[/right]' : '';
+                var align = node.style.textAlign || node.getAttribute('align') || '';
+                var prefix = align === 'justify' ? '[justify]' : align === 'center' ? '[center]' : align === 'right' ? '[right]' : align === 'left' ? '[left]' : '';
+                var suffix = align === 'justify' ? '[/justify]' : align === 'center' ? '[/center]' : align === 'right' ? '[/right]' : align === 'left' ? '[/left]' : '';
                 return prefix + inner + suffix + '\n';
             }
             if (tag === 'span') {
@@ -294,16 +294,35 @@
         toolbar.appendChild(bg);
         toolbar.appendChild(separator());
 
-        var align = document.createElement('select');
-        align.title = 'Căn lề';
-        [['','Căn lề'],['left','Căn trái'],['center','Căn giữa'],['right','Căn phải'],['justify','Căn đều']].forEach(function(x){
-            var o=document.createElement('option'); o.value=x[0]; o.textContent=x[1]; align.appendChild(o);
+        var alignGroup = document.createElement('span');
+        alignGroup.className = 'jmod-align-group';
+        alignGroup.setAttribute('aria-label', 'Căn lề');
+        [
+            ['⇤', 'Căn trái', 'left', 'justifyLeft'],
+            ['↔', 'Căn giữa', 'center', 'justifyCenter'],
+            ['⇥', 'Căn phải', 'right', 'justifyRight'],
+            ['☷', 'Căn đều', 'justify', 'justifyFull']
+        ].forEach(function(item) {
+            var alignButton = button(item[0], item[1], function() {
+                restoreSelection(editor);
+                try {
+                    document.execCommand(item[3], false, null);
+                } catch (e) {}
+                // Normalize the active block so alignment is retained on mobile
+                // browsers even when execCommand emits legacy align attributes.
+                var selection = window.getSelection();
+                var node = selection && selection.rangeCount ? selection.getRangeAt(0).startContainer : null;
+                var block = node && (node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement);
+                while (block && block !== editor.body && !/^(DIV|P|LI|BLOCKQUOTE)$/.test(block.tagName)) block = block.parentElement;
+                if (block && block !== editor.body) block.style.textAlign = item[2];
+                saveSelection(editor);
+                sync(editor);
+            });
+            alignButton.addEventListener('mousedown', function(e) { e.preventDefault(); });
+            alignButton.addEventListener('touchstart', function() { saveSelection(editor); }, {passive:true});
+            alignGroup.appendChild(alignButton);
         });
-        align.addEventListener('change', function(){
-            if (align.value) exec(editor,'justify' + align.value.charAt(0).toUpperCase()+align.value.slice(1));
-            align.value='';
-        });
-        toolbar.appendChild(align);
+        toolbar.appendChild(alignGroup);
         toolbar.appendChild(button('• Danh sách', 'Danh sách', function(){exec(editor,'insertUnorderedList');}));
         toolbar.appendChild(button('1. Danh sách', 'Danh sách đánh số', function(){exec(editor,'insertOrderedList');}));
         toolbar.appendChild(separator());
