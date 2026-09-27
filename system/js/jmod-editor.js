@@ -26,6 +26,7 @@
         '.jmod-editor-source{display:none;width:100%;min-height:190px;border:0;resize:vertical;padding:12px;font:14px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;outline:0;box-sizing:border-box}',
         '.jmod-editor.source-mode .jmod-editor-body{display:none}.jmod-editor.source-mode .jmod-editor-source{display:block}',
         '.jmod-editor .jmod-color{width:36px;padding:4px}.jmod-editor .jmod-size{min-width:90px}',
+        '.jmod-emoji{position:relative;display:inline-flex}.jmod-emoji-toggle{font-size:19px;line-height:1}.jmod-emoji-panel{display:none;position:absolute;z-index:1000;top:calc(100% + 5px);left:0;width:min(330px,calc(100vw - 24px));max-height:260px;overflow:auto;padding:8px;grid-template-columns:repeat(8,1fr);gap:3px;background:#fff;border:1px solid #cbd5e1;border-radius:10px;box-shadow:0 10px 30px rgba(15,23,42,.16)}.jmod-emoji.open .jmod-emoji-panel{display:grid}.jmod-emoji-item{border:0!important;background:transparent!important;border-radius:7px!important;min-height:34px!important;padding:2px!important;font-size:21px!important;cursor:pointer}.jmod-emoji-item:hover{background:#f1f5f9!important}.jmod-emoji-item:focus{outline:2px solid rgba(37,99,235,.25)!important;outline-offset:-1px}@media(max-width:600px){.jmod-emoji-panel{position:fixed;left:10px;right:10px;bottom:10px;top:auto;width:auto;max-height:45vh}}',
         '@media(max-width:600px){.jmod-editor-toolbar button,.jmod-editor-toolbar select{min-height:36px}.jmod-editor-body{min-height:220px;padding:10px}}'
     ].join('');
 
@@ -217,6 +218,69 @@
         return s;
     }
 
+    function insertText(editor, text) {
+        restoreSelection(editor);
+        editor.body.focus();
+        try { document.execCommand('insertText', false, text); } catch (e) {
+            var sel = window.getSelection();
+            if (sel && sel.rangeCount) {
+                var range = sel.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(document.createTextNode(text));
+                range.collapse(false);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+        }
+        saveSelection(editor);
+        sync(editor);
+    }
+
+    function createEmojiPicker(editor) {
+        var faces = [
+            '😀','😃','😄','😁','😆','😅','😂','🤣',
+            '😊','😇','🙂','🙃','😉','😌','😍','🥰',
+            '😘','😗','😙','😚','😋','😛','😝','😜',
+            '🤪','🤨','🧐','🤓','😎','🤩','🥳','😏',
+            '😒','😞','😔','😟','😕','🙁','☹️','😣',
+            '😖','😫','😩','🥺','😢','😭','😤','😠',
+            '😡','🤬','🤗','🤔','🤭','🤫','🤥','😶',
+            '😐','😑','😬','🙄','😯','😦','😧','😮',
+            '😲','🥱','😴','🤤','😪','😵','🤐','🥴',
+            '🤢','🤮','🤧','😷','🤒','🤕','🤑','🤠',
+            '😈','👿','👹','👺','🤡','💩','👻','💀',
+            '☠️','👽','🤖','🎃','😺','😸','😹','😻',
+            '😼','😽','🙀','😿','😾','🙈','🙉','🙊'
+        ];
+        var root = document.createElement('span');
+        root.className = 'jmod-emoji';
+        var toggle = button('😊', 'Chèn biểu tượng cảm xúc', function(e) {
+            e.stopPropagation();
+            saveSelection(editor);
+            root.classList.toggle('open');
+        }, 'jmod-emoji-toggle');
+        var panel = document.createElement('span');
+        panel.className = 'jmod-emoji-panel';
+        panel.setAttribute('role', 'menu');
+        faces.forEach(function(face) {
+            var item = button(face, 'Chèn ' + face, function(e) {
+                e.stopPropagation();
+                insertText(editor, face);
+                root.classList.remove('open');
+            }, 'jmod-emoji-item');
+            item.setAttribute('role', 'menuitem');
+            panel.appendChild(item);
+        });
+        root.appendChild(toggle);
+        root.appendChild(panel);
+        document.addEventListener('click', function(e) {
+            if (!root.contains(e.target)) root.classList.remove('open');
+        });
+        panel.addEventListener('mousedown', function(e) { e.preventDefault(); });
+        panel.addEventListener('touchstart', function(e) { e.stopPropagation(); }, {passive:true});
+        return root;
+    }
+
     function promptUrl(title, initial, allowMail) {
         var value = window.prompt(title, initial || 'https://');
         if (value == null) return '';
@@ -292,6 +356,8 @@
         bg.value = '#fff59d';
         bg.addEventListener('input', function(){exec(editor,'hiliteColor',bg.value);});
         toolbar.appendChild(bg);
+        toolbar.appendChild(separator());
+        toolbar.appendChild(createEmojiPicker(editor));
         toolbar.appendChild(separator());
 
         var alignGroup = document.createElement('span');
