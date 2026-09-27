@@ -115,7 +115,7 @@ class Bbcode implements Api\BbcodeInterface
     public function buttons($form, $field)
     {
         $field = preg_replace('/[^a-zA-Z0-9_-]/', '', (string) $field);
-        $scriptUrl = htmlspecialchars($this->homeUrl . '/system/js/jmod-editor.js?v=20260927-align-url-fix', ENT_QUOTES, 'UTF-8');
+        $scriptUrl = htmlspecialchars($this->homeUrl . '/system/js/jmod-editor.js?v=20260927-smiley-fix', ENT_QUOTES, 'UTF-8');
 
         return '<div class="jmod-editor-mount" data-jmod-editor="' . $field . '"></div>'
             . '<script src="' . $scriptUrl . '"></script>'
