@@ -89,40 +89,108 @@ if (($adm || ($db->query("SELECT `user_add` FROM `library_cats` WHERE `id`=" . $
             $err[] = _t('You have not entered text');
         }
 
-        // Tự động tạo tag từ tiêu đề khi người dùng chưa nhập tag riêng.
+        // Tự động tạo tag thông minh từ tiêu đề khi người dùng chưa nhập tag.
         if ($tag === '' && $name !== '') {
             $stopWords = [
                 'và', 'hoặc', 'của', 'cho', 'với', 'trên', 'trong', 'ngoài', 'từ', 'đến',
                 'một', 'những', 'các', 'này', 'đó', 'là', 'có', 'được', 'theo', 'khi',
-                'hướng', 'dẫn', 'mới', 'nhất', 'như', 'về', 'tại', 'sau', 'trước'
+                'hướng', 'dẫn', 'mới', 'nhất', 'như', 'về', 'tại', 'sau', 'trước',
+                'cách', 'để', 'bằng', 'thành', 'phần', 'giữa', 'sử dụng', 'giúp', 'nhé'
             ];
 
-            $normalizedTitle = preg_replace('/[“”"‘’]/u', '', $name);
-            $normalizedTitle = preg_replace('/[,:;!?()[\\]{}|\/\\]+/u', ' ', $normalizedTitle);
-            $words = preg_split('/\\s+/u', trim($normalizedTitle), -1, PREG_SPLIT_NO_EMPTY);
+            // Phân tích cả tiêu đề + phần giới thiệu để nhận diện chủ đề thay vì tách từ máy móc.
+            $sourceText = mb_strtolower($name . ' ' . $announce);
+            $sourceText = preg_replace('/[“”"‘’]/u', '', $sourceText);
+            $sourceText = preg_replace('/[^[:alnum:]À-ỹ+#.\- ]/ui', ' ', $sourceText);
+            $words = preg_split('/\s+/u', trim($sourceText), -1, PREG_SPLIT_NO_EMPTY);
 
-            $autoTags = [];
-            $count = count($words);
+            $candidates = [];
+            $wordCount = count($words);
 
-            // Ưu tiên cụm 2 từ, sau đó bổ sung từ khóa đơn.
-            for ($i = 0; $i < $count; $i++) {
-                $word = mb_strtolower(trim($words[$i]));
-                if ($word === '' || in_array($word, $stopWords, true) || mb_strlen($word) < 2) {
+            for ($i = 0; $i < $wordCount; $i++) {
+                $word = trim($words[$i], " .-");
+                if ($word === '' || mb_strlen($word) < 2 || in_array($word, $stopWords, true)) {
                     continue;
                 }
 
-                if ($i + 1 < $count) {
-                    $next = mb_strtolower(trim($words[$i + 1]));
-                    if ($next !== '' && !in_array($next, $stopWords, true) && mb_strlen($next) >= 2) {
-                        $phrase = $word . ' ' . $next;
-                        if (!in_array($phrase, $autoTags, true)) {
-                            $autoTags[] = $phrase;
+                // Giữ nguyên từ khóa kỹ thuật, phiên bản, model và viết tắt.
+                $isTechnical = preg_match('/(?:\\d|[+#.-])/', $word) || mb_strlen($word) <= 4;
+                $weight = ($i < count(preg_split('/\s+/u', mb_strtolower($name), -1, PREG_SPLIT_NO_EMPTY))) ? 5 : 2;
+
+                if (!isset($candidates[$word])) {
+                    $candidates[$word] = ['score' => 0, 'text' => $word];
+                }
+                $candidates[$word]['score'] += $weight + ($isTechnical ? 2 : 0);
+
+                // Cụm 2-3 từ được ưu tiên vì thường là khái niệm hoàn chỉnh.
+                for ($n = 2; $n <= 3; $n++) {
+                    if ($i + $n > $wordCount) {
+                        break;
+                    }
+
+                    $parts = array_slice($words, $i, $n);
+                    $valid = true;
+                    foreach ($parts as $part) {
+                        $part = trim($part, " .-");
+                        if ($part === '' || mb_strlen($part) < 2 || in_array($part, $stopWords, true)) {
+                            $valid = false;
+                            break;
                         }
+                    }
+
+                    if (!$valid) {
+                        continue;
+                    }
+
+                    $phrase = implode(' ', array_map(static fn($part) => trim($part, " .-"), $parts));
+                    $phrase = trim($phrase);
+
+                    if (mb_strlen($phrase) < 4 || mb_strlen($phrase) > 45) {
+                        continue;
+                    }
+
+                    $phraseScore = $weight + ($n === 3 ? 5 : 3);
+                    if (preg_match('/(?:\\d|[+#.-])/', $phrase)) {
+                        $phraseScore += 3;
+                    }
+
+                    if (!isset($candidates[$phrase])) {
+                        $candidates[$phrase] = ['score' => 0, 'text' => $phrase];
+                    }
+                    $candidates[$phrase]['score'] += $phraseScore;
+                }
+            }
+
+            // Tăng điểm cho các cụm xuất hiện ngay trong tiêu đề.
+            $titleLower = mb_strtolower($name);
+            foreach ($candidates as &$candidate) {
+                if (mb_strpos($titleLower, $candidate['text']) !== false) {
+                    $candidate['score'] += 8;
+                }
+            }
+            unset($candidate);
+
+            uasort($candidates, static function ($a, $b) {
+                if ($a['score'] === $b['score']) {
+                    return mb_strlen($b['text']) <=> mb_strlen($a['text']);
+                }
+                return $b['score'] <=> $a['score'];
+            });
+
+            $autoTags = [];
+            foreach ($candidates as $candidate) {
+                $candidateText = trim($candidate['text']);
+                $duplicate = false;
+
+                foreach ($autoTags as $existing) {
+                    if ($existing === $candidateText || mb_strpos($existing, $candidateText) !== false) {
+                        $duplicate = true;
+                        break;
                     }
                 }
 
-                if (!in_array($word, $autoTags, true)) {
-                    $autoTags[] = $word;
+                if (!$duplicate) {
+                    $autoTags[] = $candidateText;
                 }
 
                 if (count($autoTags) >= 8) {
@@ -130,7 +198,7 @@ if (($adm || ($db->query("SELECT `user_add` FROM `library_cats` WHERE `id`=" . $
                 }
             }
 
-            $tag = implode(', ', array_slice($autoTags, 0, 8));
+            $tag = implode(', ', $autoTags);
         }
 
         if (empty($announce)) {
@@ -208,7 +276,7 @@ if (($adm || ($db->query("SELECT `user_add` FROM `library_cats` WHERE `id`=" . $
 
                 if ($tag !== '') {
                     $tags = array_filter(array_map('trim', explode(',', $tag)), static fn($value) => $value !== '');
-                    if (sizeof($tags > 0)) {
+                    if (count($tags) > 0) {
                         $obj = new Hashtags($cid);
                         $obj->addTags($tags);
                         $obj->delCache();
