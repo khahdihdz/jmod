@@ -130,7 +130,12 @@ body > *{
 .forum-blog-cover p{color:var(--bs-muted)}
 .forum-blog-badge{color:#0284c7}
 body > *{max-width:980px;margin-left:auto;margin-right:auto}
-.maintxt{max-width:980px;margin:1rem auto;padding:0 1rem 1rem;border:0;background:transparent}
+.maintxt{max-width:980px;margin:1rem auto;padding:0 1rem 1rem;border:0;background:transparent;text-align:justify}
+/* Tự động căn đều hai bên cho nội dung văn bản */
+.maintxt p,.maintxt li,.maintxt .news,.maintxt .menu,.maintxt .list1,.maintxt .list2,.maintxt .user,.maintxt .gmenu,.maintxt .bmenu,.maintxt .rmenu,.maintxt .quote,.maintxt .spoilerbody{ text-align:justify; text-justify:inter-word }
+/* Không kéo giãn chữ ở các thành phần giao diện */
+.maintxt h1,.maintxt h2,.maintxt h3,.maintxt h4,.maintxt h5,.maintxt h6,.maintxt button,.maintxt input,.maintxt textarea,.maintxt select,.maintxt pre,.maintxt code,.maintxt .phdr,.maintxt .func,.maintxt .topmenu,.maintxt .currentpage{ text-align:left }
+
 
 /* Professional JMod header */
 .site-header{
