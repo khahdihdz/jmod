@@ -94,6 +94,10 @@
                 return src ? '[img]' + src + '[/img]' : '';
             }
             if (tag === 'blockquote') return '[quote]' + inner + '[/quote]';
+            if (node.classList && node.classList.contains('jmod-editor-spoiler')) {
+                var content = node.querySelector('div');
+                return '[spoiler]' + (content ? walk(content) : '') + '[/spoiler]';
+            }
             if (tag === 'hr') return '[hr]';
             if (tag === 'br') return '\n';
             if (tag === 'li') return '[*]' + inner + '[/ *]'.replace(' ', '');
@@ -240,7 +244,7 @@
     }
 
     function init(field) {
-        var nodes = document.querySelectorAll('textarea[name="' + CSS.escape(field) + '"]');
+        var nodes = document.querySelectorAll('textarea[name="' + String(field).replace(/"/g, '\\\"') + '"]');
         Array.prototype.forEach.call(nodes, build);
     }
 
