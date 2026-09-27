@@ -92,7 +92,13 @@ if (($adm || ($db->query("SELECT `user_add` FROM `library_cats` WHERE `id`=" . $
         if (empty($announce)) {
             $announce = mb_substr($text, 0, 500);
         }
-\n        // Tự động tạo tag sau khi đã có đủ tiêu đề, giới thiệu và nội dung.\n        if ($tag === '' && $name !== '') {\n            $autoTags = (new Hashtags(0))->generateAutoTags($name, $announce, $text, 8);\n            $tag = implode(', ', $autoTags);\n        }\n
+
+        // Tự động tạo tag sau khi đã có đủ tiêu đề, giới thiệu và nội dung.
+        if ($tag === '' && $name !== '') {
+            $autoTags = (new Hashtags(0))->generateAutoTags($name, $announce, $text, 8);
+            $tag = implode(', ', $autoTags);
+        }
+
         $md = $adm ? 1 : 0;
 
         if (sizeof($err) > 0) {
