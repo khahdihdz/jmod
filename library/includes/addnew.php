@@ -89,7 +89,51 @@ if (($adm || ($db->query("SELECT `user_add` FROM `library_cats` WHERE `id`=" . $
             $err[] = _t('You have not entered text');
         }
 
-        // Tự động lấy tiêu đề làm tag nếu người dùng chưa nhập tag riêng.\n        if ($tag === '' && $name !== '') {\n            $tag = $name;\n        }\n\n        if (empty($announce)) {
+        // Tự động tạo tag từ tiêu đề khi người dùng chưa nhập tag riêng.
+        if ($tag === '' && $name !== '') {
+            $stopWords = [
+                'và', 'hoặc', 'của', 'cho', 'với', 'trên', 'trong', 'ngoài', 'từ', 'đến',
+                'một', 'những', 'các', 'này', 'đó', 'là', 'có', 'được', 'theo', 'khi',
+                'hướng', 'dẫn', 'mới', 'nhất', 'như', 'về', 'tại', 'sau', 'trước'
+            ];
+
+            $normalizedTitle = preg_replace('/[“”"‘’]/u', '', $name);
+            $normalizedTitle = preg_replace('/[,:;!?()[\\]{}|\/\\]+/u', ' ', $normalizedTitle);
+            $words = preg_split('/\\s+/u', trim($normalizedTitle), -1, PREG_SPLIT_NO_EMPTY);
+
+            $autoTags = [];
+            $count = count($words);
+
+            // Ưu tiên cụm 2 từ, sau đó bổ sung từ khóa đơn.
+            for ($i = 0; $i < $count; $i++) {
+                $word = mb_strtolower(trim($words[$i]));
+                if ($word === '' || in_array($word, $stopWords, true) || mb_strlen($word) < 2) {
+                    continue;
+                }
+
+                if ($i + 1 < $count) {
+                    $next = mb_strtolower(trim($words[$i + 1]));
+                    if ($next !== '' && !in_array($next, $stopWords, true) && mb_strlen($next) >= 2) {
+                        $phrase = $word . ' ' . $next;
+                        if (!in_array($phrase, $autoTags, true)) {
+                            $autoTags[] = $phrase;
+                        }
+                    }
+                }
+
+                if (!in_array($word, $autoTags, true)) {
+                    $autoTags[] = $word;
+                }
+
+                if (count($autoTags) >= 8) {
+                    break;
+                }
+            }
+
+            $tag = implode(', ', array_slice($autoTags, 0, 8));
+        }
+
+        if (empty($announce)) {
             $announce = mb_substr($text, 0, 500);
         }
 
@@ -162,8 +206,8 @@ if (($adm || ($db->query("SELECT `user_add` FROM `library_cats` WHERE `id`=" . $
                     $handle->clean();
                 }
 
-                if (!empty($_POST['tags'])) {
-                    $tags = array_map('trim', explode(',', $_POST['tags']));
+                if ($tag !== '') {
+                    $tags = array_filter(array_map('trim', explode(',', $tag)), static fn($value) => $value !== '');
                     if (sizeof($tags > 0)) {
                         $obj = new Hashtags($cid);
                         $obj->addTags($tags);
@@ -198,7 +242,7 @@ if (($adm || ($db->query("SELECT `user_add` FROM `library_cats` WHERE `id`=" . $
         . '<p><h3>' . _t('Select the text file') . '</h3>'
         . '<input type="file" name="textfile" accept="text/plain" /><br><small>' . _t('Text entry field will be ignored') . '</small></p>'
         . '<p><h3>' . _t('Tags') . '</h3>'
-        . '<input name="tags" type="text" value="' . $tag . '" /><br><small>' . _t('Specify the Tag to the Article, separated by commas') . '</small></p>'
+        . '<input name="tags" type="text" value="' . htmlspecialchars($tag, ENT_QUOTES, 'UTF-8') . '" /><br><small>' . _t('Leave empty to automatically generate tags from the title. Multiple tags can be separated by commas.') . '</small></p>'
         . '<p><input type="submit" name="submit" value="' . _t('Save') . '" /></p>'
         . '</div></form>'
         . '<div class="phdr"><a href="?do=dir&amp;id=' . $id . '">' . _t('Back') . '</a></div>';
