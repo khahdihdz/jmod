@@ -37,12 +37,12 @@ $blog = $db->query("SELECT `id`, `time`, `avt`, `name`, `text`, `kom` FROM `news
 
 function johncms_blog_thumbnail($text)
 {
-    if (preg_match('/<img[^>]+src=["\\\']([^"\\\']+)["\\\']/i', $text, $m)) {
-        return trim($m[1]);
+    if (preg_match('~\[img(?:=\d{1,4}x\d{1,4})?\]\s*(https?://[^\s\[\]]+)\s*\[/img\]~iu', $text, $m)) {
+        return trim(html_entity_decode($m[1], ENT_QUOTES, 'UTF-8'));
     }
 
-    if (preg_match('/\\[img(?:=[^\\]]+)?\\]([^\\[]+)\\[\\\/img\\]/i', $text, $m)) {
-        return trim($m[1]);
+    if (preg_match('~<img[^>]+src=["\\']([^"\\']+)["\\']~iu', $text, $m)) {
+        return trim(html_entity_decode($m[1], ENT_QUOTES, 'UTF-8'));
     }
 
     return '';
@@ -50,13 +50,11 @@ function johncms_blog_thumbnail($text)
 
 function johncms_post_thumbnail($text)
 {
-    // HTML: <img src="...">
-    if (preg_match('/<img[^>]+src=["\\\']([^"\\\']+)["\\\']/i', $text, $m)) {
+    if (preg_match('~\[img(?:=\d{1,4}x\d{1,4})?\]\s*(https?://[^\s\[\]]+)\s*\[/img\]~iu', $text, $m)) {
         return trim(html_entity_decode($m[1], ENT_QUOTES, 'UTF-8'));
     }
 
-    // JohnCMS/BBCode: [img]URL[/img] or [img=WIDTHxHEIGHT]URL[/img]
-    if (preg_match('/\\[img(?:=[^\\]]+)?\\]([^\\[]+)\\[\\\/img\\]/i', $text, $m)) {
+    if (preg_match('~<img[^>]+src=["\\']([^"\\']+)["\\']~iu', $text, $m)) {
         return trim(html_entity_decode($m[1], ENT_QUOTES, 'UTF-8'));
     }
 
@@ -193,7 +191,10 @@ if ($config->mod_forum || $systemUser->rights >= 7) {
             $postThumbHtml = $postThumb !== ''
                 ? '<img src="' . htmlspecialchars($postThumb, ENT_QUOTES, 'UTF-8') . '" alt="' . $topicTitle . '" loading="lazy">'
                 : '<span class="forum-home-thumb-placeholder" aria-hidden="true"><span>💬</span></span>';
-            $excerpt = mb_substr($post['text'], 0, 180, 'UTF-8');
+            // Ảnh bài viết chỉ dùng làm thumbnail, không render lại trong excerpt.
+            $excerptSource = preg_replace('~\[img(?:=\d{1,4}x\d{1,4})?\].*?\[/img\]~isu', ' ', $post['text']);
+            $excerptSource = preg_replace('~<img\b[^>]*>~isu', ' ', $excerptSource);
+            $excerpt = mb_substr($excerptSource, 0, 180, 'UTF-8');
             $excerpt = $tools->checkout($excerpt, 2, 1);
             $excerpt = preg_replace('#\[c\](.*?)\[/c\]#si', '<div class="quote">\1</div>', $excerpt);
 
