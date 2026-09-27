@@ -359,6 +359,27 @@ class Bbcode implements Api\BbcodeInterface
             return '<a href="' . $targetEsc . '" rel="noopener noreferrer">' . $label . '</a>';
         };
 
+        // Repair common malformed/nested URL BBCode produced by copy-paste.
+        // Examples: [url][url=https://example.test]...[/url][/url]
+        // and [url]url=https://example.test[/url].
+        for ($i = 0; $i < 3; $i++) {
+            $var = preg_replace(
+                '~\[url\]\s*\[url=(https?://[^\s\]]+)\](.*?)\[/url\]\s*\[/url\]~isu',
+                '[url=$1]$2[/url]',
+                $var
+            );
+            $var = preg_replace(
+                '~\[url\]\s*url=(https?://[^\s\]]+)\[/url\]~isu',
+                '[url=$1]$1[/url]',
+                $var
+            );
+            $var = preg_replace(
+                '~\[url=(https?://[^\s\]]+)\]\s*\[url=(https?://[^\s\]]+)\](.*?)\[/url\]\s*\[/url\]~isu',
+                '[url=$1]$3[/url]',
+                $var
+            );
+        }
+
         $var = preg_replace_callback('~\[url=(https?://[^\s\]]+)](.+?)\[/url]~isu', $callback, $var);
         return preg_replace_callback('~\[url\](https?://[^\s\[]+)\[/url\]~isu',
             function ($m) use ($callback) { return $callback([1 => $m[1], 2 => $m[1]]); },
