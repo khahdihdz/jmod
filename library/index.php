@@ -365,7 +365,7 @@ if (in_array($act, $array_includes)) {
 
                     $nav = $count_pages > 1 ? '<div class="topmenu">' . $tools->displayPagination('index.php?id=' . $id . '&amp;',
                             $page == 1 ? 0 : ($page - 1) * 1, $count_pages, 1) . '</div>' : '';
-                    $catalog = $db->query("SELECT `id`, `name` FROM `library_cats` WHERE `id` = " . $row['cat_id'] . " LIMIT 1")->fetch();
+                    // Tự bổ sung tag cho bài cũ nếu chưa có tag.\n                    $obj = new Hashtags($row['id']);\n                    if (!$obj->getAllStatTags()) {\n                        $autoTags = $obj->generateAutoTags($row['name'], $row['announce'], $row['text'], 8);\n                        if ($autoTags) {\n                            $obj->addTags($autoTags);\n                            $obj->delCache();\n                        }\n                    }\n\n                    $catalog = $db->query("SELECT `id`, `name` FROM `library_cats` WHERE `id` = " . $row['cat_id'] . " LIMIT 1")->fetch();
                     echo '<div class="phdr"><a href="?"><strong>' . _t('Library') . '</strong></a>'
                         . ' | <a href="?do=dir&amp;id=' . $catalog['id'] . '">' . $tools->checkout($catalog['name']) . '</a>'
                         . ($page > 1 ? ' | ' . $tools->checkout($row['name']) : '') . '</div>';
@@ -377,6 +377,7 @@ if (in_array($act, $array_includes)) {
                     }
 
                     if ($page == 1) {
+                        echo '<div class="jmod-article-layout"><main class="jmod-article-main">';
                         echo '<div class="list2">';
                         // Заголовок статьи
                         echo '<h2>' . $tools->checkout($row['name']) . '</h2>';
@@ -423,6 +424,9 @@ if (in_array($act, $array_includes)) {
                         echo '</div>';
                     }
 
+                    // Nội dung bài viết.
+                    echo '<div class="jmod-article-main-body">';
+
                     $text = $tools->checkout(mb_substr($text,
                         ($page == 1 ? 0 : min(Utils::position($text, PHP_EOL), Utils::position($text, ' '))),
                         (($count_pages == 1 || $page == $count_pages) ? $symbols : $symbols + min(Utils::position($tmp,
@@ -447,6 +451,8 @@ if (in_array($act, $array_includes)) {
                         '<div style="clear: both"></div>' .
                         '</div>';
 
+                    echo '</div>'; // jmod-article-main-body
+
                     echo '<div class="phdr">' . _t('Download file') . ' <a href="?act=download&amp;type=txt&amp;id=' . $id . '">txt</a>'
                         . ' | <a href="?act=download&amp;type=fb2&amp;id=' . $id . '">fb2</a></div>';
 
@@ -456,6 +462,22 @@ if (in_array($act, $array_includes)) {
                         echo '<p><a href="?act=moder&amp;type=article&amp;id=' . $id . '">' . _t('Edit') . '</a><br>'
                             . '<a href="?act=del&amp;type=article&amp;id=' . $id . '">' . _t('Delete') . '</a></p>';
                     }
+
+                    // Sidebar: các bài viết cùng chuyên mục, chỉ hiển thị ở màn hình lớn.
+                    $related = $db->prepare("SELECT id, name, announce FROM library_texts WHERE cat_id = ? AND id <> ? AND premod = 1 ORDER BY time DESC LIMIT 6");
+                    $related->execute([$row['cat_id'], $id]);
+                    echo '<aside class="jmod-article-sidebar"><div class="phdr">Bài viết cùng chuyên mục</div>';
+                    if ($related->rowCount()) {
+                        echo '<div class="jmod-related-list">';
+                        while ($rel = $related->fetch()) {
+                            $thumb = file_exists('../files/library/images/small/' . $rel['id'] . '.png') ? '<img src="../files/library/images/small/' . (int)$rel['id'] . '.png" alt="" loading="lazy">' : '';
+                            echo '<article class="jmod-related-item">' . $thumb . '<div><a href="index.php?id=' . (int)$rel['id'] . '">' . $tools->checkout($rel['name']) . '</a>' . (!empty($rel['announce']) ? '<p>' . $tools->checkout(mb_substr($rel['announce'], 0, 90)) . '</p>' : '') . '</div></article>';
+                        }
+                        echo '</div>';
+                    } else {
+                        echo '<div class="menu">Chưa có bài viết khác.</div>';
+                    }
+                    echo '</aside></div>'; // jmod-article-layout
                 } else {
                     Utils::redir404();
                 }
