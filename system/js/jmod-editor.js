@@ -157,9 +157,26 @@
         return walk(root).replace(/\n{3,}/g, '\n\n').replace(/^\n+|\n+$/g, '');
     }
 
-    function exec(editor, command, value) {
+    function saveSelection(editor) {
+        var selection = window.getSelection();
+        if (!selection || !selection.rangeCount) return;
+        var range = selection.getRangeAt(0);
+        if (editor.body.contains(range.commonAncestorContainer)) editor.savedRange = range.cloneRange();
+    }
+
+    function restoreSelection(editor) {
+        if (!editor.savedRange) return;
         editor.body.focus();
+        var selection = window.getSelection();
+        if (!selection) return;
+        selection.removeAllRanges();
+        selection.addRange(editor.savedRange);
+    }
+
+    function exec(editor, command, value) {
+        restoreSelection(editor);
         try { document.execCommand(command, false, value == null ? null : value); } catch (e) {}
+        saveSelection(editor);
         sync(editor);
     }
 
@@ -238,7 +255,7 @@
         status.appendChild(count);
         status.appendChild(mode);
 
-        var editor = {wrap:wrap, toolbar:toolbar, body:body, source:source, textarea:textarea, count:count, mode:mode, dirty:false};
+        var editor = {wrap:wrap, toolbar:toolbar, body:body, source:source, textarea:textarea, count:count, mode:mode, dirty:false, savedRange:null};
 
         body.innerHTML = bbToHtml(textarea.value || '');
 
@@ -323,8 +340,12 @@
         });
         toolbar.appendChild(sourceBtn);
 
-        body.addEventListener('input', function(){editor.dirty=true; sync(editor);});
-        body.addEventListener('blur', function(){sync(editor);});
+        body.addEventListener('mouseup', function(){saveSelection(editor);});
+        body.addEventListener('keyup', function(){saveSelection(editor);});
+        body.addEventListener('input', function(){saveSelection(editor); editor.dirty=true; sync(editor);});
+        body.addEventListener('blur', function(){saveSelection(editor); sync(editor);});
+        toolbar.addEventListener('mousedown', function(){saveSelection(editor);});
+        toolbar.addEventListener('touchstart', function(){saveSelection(editor);}, {passive:true});
         source.addEventListener('input', function(){
             textarea.value=source.value;
             var text=source.value.replace(/\[\/?.+?\]/g,'');
