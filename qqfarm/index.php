@@ -26,9 +26,9 @@ $notice = '';
 $player = null;
 $plots = [];
 $crops = [
-    'carrot' => ['name' => 'Cà rốt', 'cost' => 10, 'reward' => 18, 'seconds' => 60, 'icon' => '🥕'],
-    'wheat' => ['name' => 'Lúa mì', 'cost' => 20, 'reward' => 35, 'seconds' => 120, 'icon' => '🌾'],
-    'corn' => ['name' => 'Ngô', 'cost' => 35, 'reward' => 60, 'seconds' => 240, 'icon' => '🌽'],
+    'carrot' => ['name' => 'Cà rốt', 'cost' => 10, 'reward' => 18, 'xp' => 5, 'seconds' => 60, 'icon' => '🥕'],
+    'wheat' => ['name' => 'Lúa mì', 'cost' => 20, 'reward' => 35, 'xp' => 10, 'seconds' => 120, 'icon' => '🌾'],
+    'corn' => ['name' => 'Ngô', 'cost' => 35, 'reward' => 60, 'xp' => 15, 'seconds' => 240, 'icon' => '🌽'],
 ];
 
 if (empty($_SESSION['qqfarm_csrf'])) {
@@ -115,9 +115,10 @@ try {
                         $ready->execute([':uid' => $userId, ':plot' => $plotNo, ':crop' => $row['crop_key']]);
                         if ($ready->rowCount() === 1) {
                             $reward = $crops[$row['crop_key']]['reward'];
-                            $pay = $db->prepare('UPDATE qqfarm_players SET coins = coins + :reward WHERE user_id = :uid');
-                            $pay->execute([':reward' => $reward, ':uid' => $userId]);
-                            $notice = 'Thu hoạch thành công! Bạn nhận được ' . $reward . ' xu.';
+                            $xp = $crops[$row['crop_key']]['xp'];
+                            $pay = $db->prepare('UPDATE qqfarm_players SET coins = coins + :reward, experience = experience + :xp WHERE user_id = :uid');
+                            $pay->execute([':reward' => $reward, ':xp' => $xp, ':uid' => $userId]);
+                            $notice = 'Thu hoạch thành công! +' . $reward . ' xu, +' . $xp . ' XP.';
                         } else {
                             $notice = 'Cây chưa chín. Hãy quay lại sau.';
                         }
@@ -133,7 +134,7 @@ try {
         }
     }
 
-    $stmt = $db->prepare('SELECT user_id, coins, last_daily FROM qqfarm_players WHERE user_id = :uid LIMIT 1');
+    $stmt = $db->prepare('SELECT user_id, coins, experience, last_daily FROM qqfarm_players WHERE user_id = :uid LIMIT 1');
     $stmt->execute([':uid' => $userId]);
     $player = $stmt->fetch(PDO::FETCH_ASSOC);
     $plotStmt = $db->prepare('SELECT plot_no, crop_key, planted_at, ready_at, (ready_at IS NOT NULL AND ready_at <= CURRENT_TIMESTAMP) AS is_ready FROM qqfarm_plots WHERE user_id = :uid ORDER BY plot_no');
@@ -158,7 +159,10 @@ if ($notice !== '') {
     echo '<div class="rmenu">' . $esc($notice) . '</div>';
 }
 if ($player) {
-    echo '<div class="farm-stats"><div class="farm-stat"><span>💰 Ví xu</span><strong>' . number_format((int) $player['coins']) . '</strong><span class="farm-muted">xu hiện có</span></div><div class="farm-stat"><span>🟫 Nông trại</span><strong>' . count($plots) . ' ô đất</strong><span class="farm-muted">mỗi tài khoản một ruộng</span></div></div>';
+    $experience = (int) $player['experience'];
+    $level = (int) floor($experience / 100) + 1;
+    $levelProgress = $experience % 100;
+    echo '<div class="farm-stats"><div class="farm-stat"><span>💰 Ví xu</span><strong>' . number_format((int) $player['coins']) . '</strong><span class="farm-muted">xu hiện có</span></div><div class="farm-stat"><span>⭐ Cấp độ ' . $level . '</span><strong>' . number_format($experience) . ' XP</strong><div class="farm-xp-track"><span style="width:' . $levelProgress . '%"></span></div><span class="farm-muted">' . $levelProgress . '/100 XP đến cấp tiếp theo</span></div><div class="farm-stat"><span>🟫 Nông trại</span><strong>' . count($plots) . ' ô đất</strong><span class="farm-muted">mỗi tài khoản một ruộng</span></div></div>';
     echo '<div class="menu farm-daily"><div><b>🎁 Thưởng hằng ngày</b><br><small class="farm-muted">Nhận 20 xu, tối đa một lần mỗi ngày.</small></div><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><button type="submit" name="claim_daily" value="1">Nhận thưởng</button></form>';
     echo !empty($player['last_daily']) && $player['last_daily'] >= gmdate('Y-m-d') ? '<small>Đã nhận thưởng hôm nay.</small>' : '<small>Thưởng đăng nhập mỗi ngày: 20 xu.</small>';
     echo '</div>';
@@ -170,7 +174,7 @@ if ($player) {
         if (empty($key)) {
             echo '<span class="farm-state">Đất trống</span></div><div class="farm-crop">🟫<small>Chưa gieo trồng</small></div><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><input type="hidden" name="plot" value="' . $no . '"><select name="crop">';
             foreach ($crops as $cropId => $crop) {
-                echo '<option value="' . $esc($cropId) . '">' . $esc($crop['icon'] . ' ' . $crop['name'] . ' — ' . $crop['cost'] . ' xu, thu ' . $crop['reward'] . ' xu, ' . $crop['seconds'] . ' giây') . '</option>';
+                echo '<option value="' . $esc($cropId) . '">' . $esc($crop['icon'] . ' ' . $crop['name'] . ' — ' . $crop['cost'] . ' xu, thu ' . $crop['reward'] . ' xu, +' . $crop['xp'] . ' XP, ' . $crop['seconds'] . ' giây') . '</option>';
             }
             echo '</select> <button type="submit" name="plant" value="1">Gieo hạt</button></form>';
         } elseif (!isset($crops[$key])) {
@@ -188,7 +192,7 @@ if ($player) {
     }
     echo '</div><div class="farm-market"><b>🛒 Chợ hạt giống</b><br>';
     foreach ($crops as $crop) {
-        echo $esc($crop['icon'] . ' ' . $crop['name'] . ': ' . $crop['cost'] . ' xu → ' . $crop['reward'] . ' xu; ' . $crop['seconds'] . ' giây') . '<br>';
+        echo $esc($crop['icon'] . ' ' . $crop['name'] . ': ' . $crop['cost'] . ' xu → ' . $crop['reward'] . ' xu, +' . $crop['xp'] . ' XP; ' . $crop['seconds'] . ' giây') . '<br>';
     }
     echo '</div>';
     echo '<p class="farm-muted">Bản thử nghiệm PHP/HTML; chưa phải bản chuyển đổi đầy đủ QQFarm 6.2 gốc.</p>';
