@@ -191,6 +191,10 @@ Thay vì chỉnh sửa trực tiếp CSS của từng module, giúp giao diện 
 
 Đối với thay đổi PHP, nên giữ nguyên cấu trúc dữ liệu và API nội bộ của JohnCMS khi có thể để hạn chế ảnh hưởng đến các module hiện có.
 
+## 🎮 Tích hợp QQFarm Việt hóa
+
+Repository có tài liệu đánh giá và hướng dẫn chuẩn bị tích hợp QQFarm đời cũ với JohnCMS 7.1.0 tại [`docs/QQFARM_JOHNCMS7.md`](docs/QQFARM_JOHNCMS7.md). Game gốc dùng API dành cho Discuz X/vBulletin và client Flash, nên cần adapter đăng nhập JohnCMS, rà soát bảo mật/schema database và kiểm thử client trước khi triển khai. Tài liệu hiện không đồng nghĩa với việc runtime game đã được tích hợp hoặc kiểm thử thành công.
+
 ## 📄 Giấy phép
 
 JohnCMS là phần mềm mã nguồn mở. Vui lòng xem file [`LICENSE.md`](LICENSE.md) để biết thông tin đầy đủ về giấy phép và điều kiện sử dụng.
