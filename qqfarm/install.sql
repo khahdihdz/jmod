@@ -1,9 +1,21 @@
--- QQFarm starter schema for JMod / JohnCMS 7.1
--- Back up your database before applying. This file creates only the QQFarm table.
+-- QQFarm native PHP/HTML starter schema for JMod / JohnCMS 7.1
+-- Back up the database before applying. These are module-owned tables only.
 CREATE TABLE IF NOT EXISTS `qqfarm_players` (
   `user_id` INT UNSIGNED NOT NULL,
   `coins` BIGINT UNSIGNED NOT NULL DEFAULT 100,
   `last_daily` DATE DEFAULT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `qqfarm_plots` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL,
+  `plot_no` TINYINT UNSIGNED NOT NULL,
+  `crop_key` VARCHAR(24) DEFAULT NULL,
+  `planted_at` DATETIME DEFAULT NULL,
+  `ready_at` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_qqfarm_user_plot` (`user_id`, `plot_no`),
+  KEY `idx_qqfarm_ready` (`user_id`, `ready_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
