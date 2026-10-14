@@ -1,31 +1,32 @@
-# QQFarm module for JMod / JohnCMS 7.1
+# QQFarm Việt hóa cho JMod / JohnCMS 7.1
 
-This directory provides an initial JohnCMS-native integration scaffold. It does **not** claim to port the original QQFarm Flash client or all its game mechanics.
+Đây là bản tích hợp PHP/HTML chạy trực tiếp trong phiên đăng nhập JohnCMS. Hiện đã có vòng lặp chơi thử trồng cây/thu hoạch; **chưa phải bản chuyển đổi đầy đủ QQFarm 6.2 gốc** và không dùng lại client Flash.
 
-## Install
+## Cài đặt
 
-1. Back up the site files and database.
-2. Upload this `qqfarm/` directory to the JohnCMS web root.
-3. Import `install.sql` into the same database used by JohnCMS (for example via phpMyAdmin).
-4. Visit `/qqfarm/` while logged in to JohnCMS.
-5. Verify the player row is created once and that daily reward can only be claimed once per server date.
+1. Sao lưu mã nguồn và cơ sở dữ liệu website.
+2. Đưa thư mục `qqfarm/` vào thư mục gốc cài đặt JohnCMS.
+3. Mở phpMyAdmin, chọn đúng database của JohnCMS, chạy toàn bộ `qqfarm/install.sql`. Script chỉ tạo hai bảng riêng của module: `qqfarm_players` và `qqfarm_plots`.
+4. Đăng nhập website rồi mở `https://ten-mien-cua-ban/qqfarm/`.
+5. Thử nhận thưởng ngày, gieo cây, chờ cây chín rồi thu hoạch.
 
-## What is implemented
+## Chức năng hiện có
 
-- Uses the JMod bootstrap and the JohnCMS `UserInterface` session.
-- Requires an authenticated member.
-- Creates a player row on first visit (after schema installation).
-- Uses prepared statements and an anti-CSRF session token.
-- Includes a minimal daily-reward example with a conditional database update.
+- Dùng bootstrap, session và tài khoản đăng nhập của JohnCMS 7.1.
+- Tự tạo hồ sơ người chơi với 100 xu và sáu ô đất.
+- Thưởng đăng nhập mỗi ngày: 20 xu, giới hạn bằng cập nhật có điều kiện ở database.
+- Ba loại cây thử nghiệm: cà rốt (10 xu / 60 giây / thu 18 xu), lúa mì (20 xu / 120 giây / thu 35 xu), ngô (35 xu / 240 giây / thu 60 xu).
+- Gieo cây trừ xu trong transaction; thu hoạch kiểm tra thời gian chín và quyền sở hữu ô đất phía máy chủ.
+- Prepared statements, token chống CSRF, và ràng buộc unique cho mỗi ô đất của từng người dùng.
 
-## Limitations and next steps
+## Lưu ý quan trọng
 
-- Original QQFarm API adapters (Discuz X / vBulletin) are not ported.
-- The original SWF client will not run in most modern browsers. A modern HTML5 client or separately tested Flash-compatible environment is required.
-- The original game's SQL schema has not been imported; this scaffold uses only `qqfarm_players`.
-- Before production use, test on a staging copy and review authorization, rate limits, economy logic and database migrations.
-- The project bootstrap requires PHP 5.6–7.x; do not change the site's PHP version just for this module without testing the entire JMod installation.
+- Các loại cây, thời gian và giá hiện là dữ liệu chơi thử được định nghĩa trong `index.php`, chưa được nhập từ dữ liệu game gốc.
+- Chưa chuyển đổi hệ thống vật nuôi, cửa hàng đầy đủ, vật phẩm, nhiệm vụ, bạn bè, quà tặng, kinh nghiệm/cấp độ hoặc API Discuz!/vBulletin.
+- SWF gốc không được sử dụng; giao diện hiện là HTML thuần tương thích trình duyệt hiện đại.
+- Nên thử trên bản staging trước khi đưa lên website thật. Chưa thể xác nhận tương thích runtime cho đến khi chạy thử trên môi trường PHP/database thực tế của site.
+- Bản JMod này yêu cầu PHP 5.6–7.x theo bootstrap hiện có; không nâng PHP của toàn website chỉ để chạy module.
 
-## Uninstall
+## Gỡ cài đặt
 
-Back up/export data first. Remove the module directory and, if you are sure the data is no longer needed, drop only the `qqfarm_players` table manually.
+Sao lưu dữ liệu trước. Xóa thư mục `qqfarm/`; chỉ khi chắc chắn không cần dữ liệu nữa mới xóa thủ công hai bảng `qqfarm_players` và `qqfarm_plots`.
