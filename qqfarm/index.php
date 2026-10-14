@@ -26,9 +26,11 @@ $notice = '';
 $player = null;
 $plots = [];
 $crops = [
-    'carrot' => ['name' => 'Cà rốt', 'cost' => 10, 'reward' => 18, 'xp' => 5, 'seconds' => 60, 'icon' => '🥕'],
-    'wheat' => ['name' => 'Lúa mì', 'cost' => 20, 'reward' => 35, 'xp' => 10, 'seconds' => 120, 'icon' => '🌾'],
-    'corn' => ['name' => 'Ngô', 'cost' => 35, 'reward' => 60, 'xp' => 15, 'seconds' => 240, 'icon' => '🌽'],
+    'carrot' => ['name' => 'Cà rốt', 'cost' => 10, 'reward' => 18, 'xp' => 5, 'seconds' => 60, 'level' => 1, 'icon' => '🥕'],
+    'wheat' => ['name' => 'Lúa mì', 'cost' => 20, 'reward' => 35, 'xp' => 10, 'seconds' => 120, 'level' => 1, 'icon' => '🌾'],
+    'corn' => ['name' => 'Ngô', 'cost' => 35, 'reward' => 60, 'xp' => 15, 'seconds' => 240, 'level' => 1, 'icon' => '🌽'],
+    'strawberry' => ['name' => 'Dâu tây', 'cost' => 60, 'reward' => 105, 'xp' => 25, 'seconds' => 360, 'level' => 2, 'icon' => '🍓'],
+    'pumpkin' => ['name' => 'Bí đỏ', 'cost' => 100, 'reward' => 175, 'xp' => 40, 'seconds' => 600, 'level' => 4, 'icon' => '🎃'],
 ];
 
 if (empty($_SESSION['qqfarm_csrf'])) {
@@ -63,14 +65,18 @@ try {
                 $crop = $crops[$cropKey];
                 $db->beginTransaction();
                 try {
-                    $lockPlayer = $db->prepare('SELECT coins FROM qqfarm_players WHERE user_id = :uid FOR UPDATE');
+                    $lockPlayer = $db->prepare('SELECT coins, experience FROM qqfarm_players WHERE user_id = :uid FOR UPDATE');
                     $lockPlayer->execute([':uid' => $userId]);
-                    $balance = $lockPlayer->fetchColumn();
+                    $playerRow = $lockPlayer->fetch(PDO::FETCH_ASSOC);
+                    $balance = $playerRow ? (int) $playerRow['coins'] : 0;
+                    $playerLevel = $playerRow ? (int) floor((int) $playerRow['experience'] / 100) + 1 : 1;
                     $lockPlot = $db->prepare('SELECT crop_key FROM qqfarm_plots WHERE user_id = :uid AND plot_no = :plot FOR UPDATE');
                     $lockPlot->execute([':uid' => $userId, ':plot' => $plotNo]);
                     $currentCrop = $lockPlot->fetchColumn();
                     if ($currentCrop !== false && $currentCrop !== null && $currentCrop !== '') {
                         $notice = 'Ô đất này đang có cây trồng.';
+                    } elseif ($playerLevel < $crop['level']) {
+                        $notice = 'Bạn cần đạt cấp ' . $crop['level'] . ' để mở khóa ' . $crop['name'] . '.';
                     } elseif ((int) $balance < $crop['cost']) {
                         $notice = 'Bạn không đủ xu để mua hạt giống.';
                     } else {
@@ -174,7 +180,9 @@ if ($player) {
         if (empty($key)) {
             echo '<span class="farm-state">Đất trống</span></div><div class="farm-crop">🟫<small>Chưa gieo trồng</small></div><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><input type="hidden" name="plot" value="' . $no . '"><select name="crop">';
             foreach ($crops as $cropId => $crop) {
-                echo '<option value="' . $esc($cropId) . '">' . $esc($crop['icon'] . ' ' . $crop['name'] . ' — ' . $crop['cost'] . ' xu, thu ' . $crop['reward'] . ' xu, +' . $crop['xp'] . ' XP, ' . $crop['seconds'] . ' giây') . '</option>';
+                if ($level >= $crop['level']) {
+                    echo '<option value="' . $esc($cropId) . '">' . $esc($crop['icon'] . ' ' . $crop['name'] . ' — ' . $crop['cost'] . ' xu, thu ' . $crop['reward'] . ' xu, +' . $crop['xp'] . ' XP, ' . $crop['seconds'] . ' giây') . '</option>';
+                }
             }
             echo '</select> <button type="submit" name="plant" value="1">Gieo hạt</button></form>';
         } elseif (!isset($crops[$key])) {
@@ -192,7 +200,8 @@ if ($player) {
     }
     echo '</div><div class="farm-market"><b>🛒 Chợ hạt giống</b><br>';
     foreach ($crops as $crop) {
-        echo $esc($crop['icon'] . ' ' . $crop['name'] . ': ' . $crop['cost'] . ' xu → ' . $crop['reward'] . ' xu, +' . $crop['xp'] . ' XP; ' . $crop['seconds'] . ' giây') . '<br>';
+        $locked = $level < $crop['level'];
+        echo $esc($crop['icon'] . ' ' . $crop['name'] . ': ' . $crop['cost'] . ' xu → ' . $crop['reward'] . ' xu, +' . $crop['xp'] . ' XP; ' . $crop['seconds'] . ' giây' . ($locked ? ' — mở khóa ở cấp ' . $crop['level'] : ' — đã mở khóa')) . '<br>';
     }
     echo '</div>';
     echo '<p class="farm-muted">Bản thử nghiệm PHP/HTML; chưa phải bản chuyển đổi đầy đủ QQFarm 6.2 gốc.</p>';
