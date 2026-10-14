@@ -204,7 +204,7 @@ Repository có tài liệu đánh giá và hướng dẫn chuẩn bị tích h�
 - SQL khởi tạo: [`qqfarm/install.sql`](qqfarm/install.sql)
 - Điểm vào module: [`qqfarm/index.php`](qqfarm/index.php)
 
-Cài đặt bằng cách sao lưu database, import `qqfarm/install.sql`, tải thư mục `qqfarm/` lên webroot và truy cập `/qqfarm/` sau khi đăng nhập. Bản thử nghiệm hiện có giao diện lưới responsive, 6 ô đất, 3 loại cây, gieo hạt, thời gian chín, thu hoạch, ví xu và thưởng ngày. Đây là vòng lặp chơi thử PHP/HTML; **chưa phải bản port đầy đủ QQFarm gốc**. Client SWF, vật nuôi, cửa hàng/nhiệm vụ và API Discuz!/vBulletin vẫn cần được chuyển đổi/kiểm thử.
+Cài đặt bằng cách sao lưu database, import `qqfarm/install.sql`, tải thư mục `qqfarm/` lên webroot và truy cập `/qqfarm/` sau khi đăng nhập. Bản thử nghiệm hiện có giao diện lưới responsive, 6 ô đất, 3 loại cây, gieo hạt, thời gian chín, thu hoạch, ví xu, thưởng ngày và XP/cấp độ (100 XP mỗi cấp). Nếu đã cài bản QQFarm trước đó, sao lưu database rồi chạy `qqfarm/upgrade-v2.sql` một lần để thêm cột kinh nghiệm. Đây là vòng lặp chơi thử PHP/HTML; **chưa phải bản port đầy đủ QQFarm gốc**. Client SWF, vật nuôi, cửa hàng/nhiệm vụ và API Discuz!/vBulletin vẫn cần được chuyển đổi/kiểm thử.
 
 ## 📄 Giấy phép
 
