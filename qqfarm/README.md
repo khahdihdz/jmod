@@ -16,9 +16,10 @@
 - Dùng bootstrap, session và tài khoản đăng nhập của JohnCMS 7.1.
 - Tự tạo hồ sơ người chơi với 100 xu và sáu ô đất.
 - Thưởng đăng nhập mỗi ngày: 20 xu, giới hạn bằng cập nhật có điều kiện ở database.
-- Hệ thống kinh nghiệm/cấp độ: cà rốt +5 XP, lúa mì +10 XP, ngô +15 XP; mỗi 100 XP tăng một cấp. XP và xu được cộng trong cùng giao dịch thu hoạch.
+- Hệ thống kinh nghiệm/cấp độ: cà rốt +5 XP, lúa mì +10 XP, ngô +15 XP, dâu tây +25 XP, bí đỏ +40 XP; mỗi 100 XP tăng một cấp. XP và xu được cộng trong cùng giao dịch thu hoạch.
+- Chợ có 5 loại cây; dâu tây mở khóa ở cấp 2, bí đỏ mở khóa ở cấp 4. Điều kiện cấp được kiểm tra phía máy chủ khi gieo, không chỉ ẩn trên giao diện.
 - Giao diện nông trại dạng lưới responsive, co giãn cho desktop và điện thoại (CSS tại `farm.css`).
-- Ba loại cây thử nghiệm: cà rốt (10 xu / 60 giây / thu 18 xu), lúa mì (20 xu / 120 giây / thu 35 xu), ngô (35 xu / 240 giây / thu 60 xu).
+- Năm loại cây thử nghiệm: cà rốt (10 xu / 60 giây / thu 18 xu), lúa mì (20 xu / 120 giây / thu 35 xu), ngô (35 xu / 240 giây / thu 60 xu), dâu tây (60 xu / 360 giây / thu 105 xu, mở cấp 2), bí đỏ (100 xu / 600 giây / thu 175 xu, mở cấp 4).
 - Gieo cây trừ xu trong transaction; thu hoạch kiểm tra thời gian chín và quyền sở hữu ô đất phía máy chủ.
 - Prepared statements, token chống CSRF, và ràng buộc unique cho mỗi ô đất của từng người dùng.
 
