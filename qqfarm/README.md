@@ -15,6 +15,7 @@
 - Dùng bootstrap, session và tài khoản đăng nhập của JohnCMS 7.1.
 - Tự tạo hồ sơ người chơi với 100 xu và sáu ô đất.
 - Thưởng đăng nhập mỗi ngày: 20 xu, giới hạn bằng cập nhật có điều kiện ở database.
+- Giao diện nông trại dạng lưới responsive, co giãn cho desktop và điện thoại (CSS tại `farm.css`).
 - Ba loại cây thử nghiệm: cà rốt (10 xu / 60 giây / thu 18 xu), lúa mì (20 xu / 120 giây / thu 35 xu), ngô (35 xu / 240 giây / thu 60 xu).
 - Gieo cây trừ xu trong transaction; thu hoạch kiểm tra thời gian chín và quyền sở hữu ô đất phía máy chủ.
 - Prepared statements, token chống CSRF, và ràng buộc unique cho mỗi ô đất của từng người dùng.
