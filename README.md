@@ -203,7 +203,7 @@ Repository có tài liệu đánh giá và hướng dẫn chuẩn bị tích h�
 - SQL khởi tạo: [`qqfarm/install.sql`](qqfarm/install.sql)
 - Điểm vào module: [`qqfarm/index.php`](qqfarm/index.php)
 
-Cài đặt bằng cách sao lưu database, import `qqfarm/install.sql`, tải thư mục `qqfarm/` lên webroot và truy cập `/qqfarm/` sau khi đăng nhập. Đây mới là scaffold tích hợp session JohnCMS và ví dụ xu thưởng; **chưa phải bản port đầy đủ QQFarm gốc**. Client SWF và API Discuz!/vBulletin vẫn cần được chuyển đổi/kiểm thử.
+Cài đặt bằng cách sao lưu database, import `qqfarm/install.sql`, tải thư mục `qqfarm/` lên webroot và truy cập `/qqfarm/` sau khi đăng nhập. Bản thử nghiệm hiện có 6 ô đất, 3 loại cây, gieo hạt, thời gian chín, thu hoạch, ví xu và thưởng ngày. Đây là vòng lặp chơi thử PHP/HTML; **chưa phải bản port đầy đủ QQFarm gốc**. Client SWF, vật nuôi, cửa hàng/nhiệm vụ và API Discuz!/vBulletin vẫn cần được chuyển đổi/kiểm thử.
 
 ## 📄 Giấy phép
 
