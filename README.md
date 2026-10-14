@@ -195,6 +195,16 @@ Thay vì chỉnh sửa trực tiếp CSS của từng module, giúp giao diện 
 
 Repository có tài liệu đánh giá và hướng dẫn chuẩn bị tích hợp QQFarm đời cũ với JohnCMS 7.1.0 tại [`docs/QQFARM_JOHNCMS7.md`](docs/QQFARM_JOHNCMS7.md). Game gốc dùng API dành cho Discuz X/vBulletin và client Flash, nên cần adapter đăng nhập JohnCMS, rà soát bảo mật/schema database và kiểm thử client trước khi triển khai. Tài liệu hiện không đồng nghĩa với việc runtime game đã được tích hợp hoặc kiểm thử thành công.
 
+## 🌾 QQFarm Việt hóa (tích hợp ban đầu)
+
+Đã thêm module thử nghiệm tại [`qqfarm/`](qqfarm/):
+
+- Hướng dẫn cài đặt: [`qqfarm/README.md`](qqfarm/README.md)
+- SQL khởi tạo: [`qqfarm/install.sql`](qqfarm/install.sql)
+- Điểm vào module: [`qqfarm/index.php`](qqfarm/index.php)
+
+Cài đặt bằng cách sao lưu database, import `qqfarm/install.sql`, tải thư mục `qqfarm/` lên webroot và truy cập `/qqfarm/` sau khi đăng nhập. Đây mới là scaffold tích hợp session JohnCMS và ví dụ xu thưởng; **chưa phải bản port đầy đủ QQFarm gốc**. Client SWF và API Discuz!/vBulletin vẫn cần được chuyển đổi/kiểm thử.
+
 ## 📄 Giấy phép
 
 JohnCMS là phần mềm mã nguồn mở. Vui lòng xem file [`LICENSE.md`](LICENSE.md) để biết thông tin đầy đủ về giấy phép và điều kiện sử dụng.
