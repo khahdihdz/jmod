@@ -147,49 +147,51 @@ try {
 }
 
 require '../system/head.php';
+echo '<link rel="stylesheet" href="farm.css?v=1">';
+echo '<main class="qqfarm">';
 $esc = function ($value) {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 };
-echo '<div class="phdr"><b>🌱 QQFarm Việt hóa</b></div>';
+echo '<section class="farm-hero"><h2>🌱 QQFarm Việt hóa</h2><div>Chăm sóc nông trại, gieo hạt và thu hoạch để tích lũy xu.</div></section>';
 echo '<div class="menu">Xin chào, <b>' . $esc($systemUser->name) . '</b>! Trồng cây, chờ cây lớn và thu hoạch để kiếm xu.</div>';
 if ($notice !== '') {
     echo '<div class="rmenu">' . $esc($notice) . '</div>';
 }
 if ($player) {
-    echo '<div class="gmenu"><b>Ví xu:</b> ' . number_format((int) $player['coins']) . ' xu &nbsp;|&nbsp; <b>Đất:</b> ' . count($plots) . ' ô</div>';
-    echo '<div class="menu"><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><button type="submit" name="claim_daily" value="1">🎁 Nhận 20 xu hằng ngày</button></form>';
+    echo '<div class="farm-stats"><div class="farm-stat"><span>💰 Ví xu</span><strong>' . number_format((int) $player['coins']) . '</strong><span class="farm-muted">xu hiện có</span></div><div class="farm-stat"><span>🟫 Nông trại</span><strong>' . count($plots) . ' ô đất</strong><span class="farm-muted">mỗi tài khoản một ruộng</span></div></div>';
+    echo '<div class="menu farm-daily"><div><b>🎁 Thưởng hằng ngày</b><br><small class="farm-muted">Nhận 20 xu, tối đa một lần mỗi ngày.</small></div><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><button type="submit" name="claim_daily" value="1">Nhận thưởng</button></form>';
     echo !empty($player['last_daily']) && $player['last_daily'] >= gmdate('Y-m-d') ? '<small>Đã nhận thưởng hôm nay.</small>' : '<small>Thưởng đăng nhập mỗi ngày: 20 xu.</small>';
     echo '</div>';
-    echo '<div class="phdr"><b>Ruộng của bạn</b></div>';
+    echo '<h3>🌿 Ruộng của bạn</h3><div class="farm-grid">';
     foreach ($plots as $plot) {
         $no = (int) $plot['plot_no'];
         $key = $plot['crop_key'];
-        echo '<div class="menu"><b>Ô đất ' . $no . '</b><br>';
+        echo '<section class="farm-plot"><div class="farm-plot-title"><b>Ô đất ' . $no . '</b>';
         if (empty($key)) {
-            echo '🟫 Đất trống<br><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><input type="hidden" name="plot" value="' . $no . '"><select name="crop">';
+            echo '<span class="farm-state">Đất trống</span></div><div class="farm-crop">🟫<small>Chưa gieo trồng</small></div><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><input type="hidden" name="plot" value="' . $no . '"><select name="crop">';
             foreach ($crops as $cropId => $crop) {
                 echo '<option value="' . $esc($cropId) . '">' . $esc($crop['icon'] . ' ' . $crop['name'] . ' — ' . $crop['cost'] . ' xu, thu ' . $crop['reward'] . ' xu, ' . $crop['seconds'] . ' giây') . '</option>';
             }
             echo '</select> <button type="submit" name="plant" value="1">Gieo hạt</button></form>';
         } elseif (!isset($crops[$key])) {
-            echo 'Cây không xác định.';
+            echo '</div><div class="farm-crop">Cây không xác định.</div>';
         } else {
             $crop = $crops[$key];
-            echo $esc($crop['icon'] . ' ' . $crop['name']) . '<br>';
+            echo '<span class="farm-state">' . ((int) $plot['is_ready'] === 1 ? 'Đã chín' : 'Đang lớn') . '</span></div><div class="farm-crop"><span>' . $esc($crop['icon']) . '</span><b>' . $esc($crop['name']) . '</b>';
             if ((int) $plot['is_ready'] === 1) {
-                echo '<b>Đã chín — sẵn sàng thu hoạch!</b><br><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><input type="hidden" name="plot" value="' . $no . '"><button type="submit" name="harvest" value="1">Thu hoạch +' . $crop['reward'] . ' xu</button></form>';
+                echo '<small>Sẵn sàng thu hoạch</small></div><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><input type="hidden" name="plot" value="' . $no . '"><button type="submit" name="harvest" value="1">Thu hoạch +' . $crop['reward'] . ' xu</button></form>';
             } else {
-                echo 'Đang phát triển. Dự kiến xong: ' . $esc($plot['ready_at']) . ' UTC.';
+                echo '<small class="farm-muted">Dự kiến chín: ' . $esc($plot['ready_at']) . ' UTC</small></div>';
             }
         }
-        echo '</div>';
+        echo '</section>';
     }
-    echo '<div class="menu"><b>Giá hạt giống / tiền thu hoạch</b><br>';
+    echo '</div><div class="farm-market"><b>🛒 Chợ hạt giống</b><br>';
     foreach ($crops as $crop) {
         echo $esc($crop['icon'] . ' ' . $crop['name'] . ': ' . $crop['cost'] . ' xu → ' . $crop['reward'] . ' xu; ' . $crop['seconds'] . ' giây') . '<br>';
     }
     echo '</div>';
-    echo '<div class="menu"><small>Đây là bản chơi thử PHP/HTML, chưa phải bản chuyển đổi đầy đủ của QQFarm 6.2 gốc.</small></div>';
+    echo '<p class="farm-muted">Bản thử nghiệm PHP/HTML; chưa phải bản chuyển đổi đầy đủ QQFarm 6.2 gốc.</p>';
 }
-echo '<div class="menu"><a href="../">Quay lại trang chủ</a></div>';
+echo '<p><a href="../">← Quay lại trang chủ</a></p></main>';
 require '../system/end.php';
