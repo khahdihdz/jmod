@@ -55,24 +55,36 @@ try {
             http_response_code(403);
             $notice = 'Phiên thao tác không hợp lệ. Hãy tải lại trang.';
         } elseif (isset($_POST['adopt_pet'])) {
+            $petTypes = [
+                'farm_cat' => ['name' => 'Mèo Nông Trại', 'cost' => 150, 'gift' => 10, 'icon' => '🐱'],
+                'farm_rabbit' => ['name' => 'Thỏ Đồng', 'cost' => 220, 'gift' => 15, 'icon' => '🐰'],
+                'farm_fox' => ['name' => 'Cáo Đỏ', 'cost' => 350, 'gift' => 20, 'icon' => '🦊'],
+            ];
+            $requestedPet = isset($_POST['pet_key']) ? (string) $_POST['pet_key'] : 'farm_cat';
             $db->beginTransaction();
             try {
+                // Lock the player row first to serialize simultaneous adoption requests.
                 $lockPetPlayer = $db->prepare('SELECT coins FROM qqfarm_players WHERE user_id = :uid FOR UPDATE');
                 $lockPetPlayer->execute([':uid' => $userId]);
                 $petBalance = (int) $lockPetPlayer->fetchColumn();
-                $petExists = $db->prepare('SELECT user_id FROM qqfarm_pets WHERE user_id = :uid FOR UPDATE');
+                $petExists = $db->prepare('SELECT user_id FROM qqfarm_pets WHERE user_id = :uid');
                 $petExists->execute([':uid' => $userId]);
-                if ($petExists->fetchColumn() !== false) {
+                if (!isset($petTypes[$requestedPet])) {
+                    $notice = 'Loại thú nuôi không hợp lệ.';
+                } elseif ($petExists->fetchColumn() !== false) {
                     $notice = 'Bạn đã có thú nuôi đồng hành rồi.';
-                } elseif ($petBalance < 150) {
-                    $notice = 'Bạn cần 150 xu để nhận nuôi mèo nông trại.';
+                } elseif ($petBalance < $petTypes[$requestedPet]['cost']) {
+                    $notice = 'Bạn không đủ xu để nhận nuôi ' . $petTypes[$requestedPet]['name'] . '.';
                 } else {
-                    $spendPet = $db->prepare('UPDATE qqfarm_players SET coins = coins - 150 WHERE user_id = :uid AND coins >= 150');
-                    $spendPet->execute([':uid' => $userId]);
+                    $petType = $petTypes[$requestedPet];
+                    $spendPet = $db->prepare('UPDATE qqfarm_players SET coins = coins - :cost WHERE user_id = :uid AND coins >= :minimum');
+                    $spendPet->execute([':cost' => $petType['cost'], ':uid' => $userId, ':minimum' => $petType['cost']]);
                     if ($spendPet->rowCount() === 1) {
-                        $adopt = $db->prepare("INSERT INTO qqfarm_pets (user_id, pet_key, last_gift, created_at) VALUES (:uid, 'farm_cat', NULL, CURRENT_TIMESTAMP)");
-                        $adopt->execute([':uid' => $userId]);
-                        $notice = 'Bạn đã nhận nuôi Mèo Nông Trại! Mèo có thể tặng 10 xu mỗi ngày.';
+                        $adopt = $db->prepare('INSERT INTO qqfarm_pets (user_id, pet_key, last_gift, created_at) VALUES (:uid, :pet_key, NULL, CURRENT_TIMESTAMP)');
+                        $adopt->execute([':uid' => $userId, ':pet_key' => $requestedPet]);
+                        $notice = 'Bạn đã nhận nuôi ' . $petType['name'] . '! Thú nuôi tặng ' . $petType['gift'] . ' xu mỗi ngày.';
+                    } else {
+                        $notice = 'Số dư đã thay đổi; hãy tải lại trang và thử lại.';
                     }
                 }
                 $db->commit();
@@ -81,16 +93,31 @@ try {
                 throw $e;
             }
         } elseif (isset($_POST['claim_pet_gift'])) {
+            $petTypes = [
+                'farm_cat' => ['name' => 'Mèo Nông Trại', 'gift' => 10, 'icon' => '🐱'],
+                'farm_rabbit' => ['name' => 'Thỏ Đồng', 'gift' => 15, 'icon' => '🐰'],
+                'farm_fox' => ['name' => 'Cáo Đỏ', 'gift' => 20, 'icon' => '🦊'],
+            ];
             $db->beginTransaction();
             try {
-                $petGift = $db->prepare('UPDATE qqfarm_pets SET last_gift = CURRENT_DATE WHERE user_id = :uid AND (last_gift IS NULL OR last_gift < CURRENT_DATE)');
-                $petGift->execute([':uid' => $userId]);
-                if ($petGift->rowCount() === 1) {
-                    $petReward = $db->prepare('UPDATE qqfarm_players SET coins = coins + 10 WHERE user_id = :uid');
-                    $petReward->execute([':uid' => $userId]);
-                    $notice = 'Mèo Nông Trại tặng bạn 10 xu hôm nay!';
+                $lockPet = $db->prepare('SELECT pet_key, last_gift FROM qqfarm_pets WHERE user_id = :uid FOR UPDATE');
+                $lockPet->execute([':uid' => $userId]);
+                $petRow = $lockPet->fetch(PDO::FETCH_ASSOC);
+                if (!$petRow || !isset($petTypes[$petRow['pet_key']])) {
+                    $notice = 'Bạn chưa có thú nuôi hợp lệ.';
+                } elseif (!empty($petRow['last_gift']) && $petRow['last_gift'] >= date('Y-m-d')) {
+                    $notice = 'Thú nuôi đã tặng quà hôm nay. Hãy quay lại ngày mai.';
                 } else {
-                    $notice = 'Mèo đã tặng quà hôm nay. Hãy quay lại ngày mai.';
+                    $petGift = $db->prepare('UPDATE qqfarm_pets SET last_gift = CURRENT_DATE WHERE user_id = :uid AND (last_gift IS NULL OR last_gift < CURRENT_DATE)');
+                    $petGift->execute([':uid' => $userId]);
+                    if ($petGift->rowCount() === 1) {
+                        $giftAmount = $petTypes[$petRow['pet_key']]['gift'];
+                        $petReward = $db->prepare('UPDATE qqfarm_players SET coins = coins + :gift WHERE user_id = :uid');
+                        $petReward->execute([':gift' => $giftAmount, ':uid' => $userId]);
+                        $notice = $petTypes[$petRow['pet_key']]['name'] . ' tặng bạn ' . $giftAmount . ' xu hôm nay!';
+                    } else {
+                        $notice = 'Thú nuôi đã tặng quà hôm nay. Hãy quay lại ngày mai.';
+                    }
                 }
                 $db->commit();
             } catch (Exception $e) {
@@ -256,14 +283,24 @@ if ($player) {
     }
     echo '</section>';
     echo '<section class="menu farm-pet"><b>🐾 Thú nuôi đồng hành</b><br>';
+    $petTypes = [
+        'farm_cat' => ['name' => 'Mèo Nông Trại', 'cost' => 150, 'gift' => 10, 'icon' => '🐱', 'desc' => 'Thân thiện, quà 10 xu/ngày'],
+        'farm_rabbit' => ['name' => 'Thỏ Đồng', 'cost' => 220, 'gift' => 15, 'icon' => '🐰', 'desc' => 'Nhanh nhẹn, quà 15 xu/ngày'],
+        'farm_fox' => ['name' => 'Cáo Đỏ', 'cost' => 350, 'gift' => 20, 'icon' => '🦊', 'desc' => 'Hiếm, quà 20 xu/ngày'],
+    ];
     if (!$pet) {
-        echo '<p>Mèo Nông Trại giúp bạn nhận thêm 10 xu mỗi ngày. Giá nhận nuôi: 150 xu.</p><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><button type="submit" name="adopt_pet" value="1">Nhận nuôi mèo — 150 xu</button></form>';
+        echo '<p>Chọn một người bạn đồng hành. Mỗi tài khoản chỉ nhận nuôi được một thú.</p><div class="farm-pet-options">';
+        foreach ($petTypes as $petKey => $petType) {
+            echo '<form method="post" action="" class="farm-pet-option"><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><input type="hidden" name="pet_key" value="' . $esc($petKey) . '"><div class="farm-pet-icon">' . $esc($petType['icon']) . '</div><b>' . $esc($petType['name']) . '</b><small>' . $esc($petType['desc']) . '</small><button type="submit" name="adopt_pet" value="1">Nhận nuôi · ' . $petType['cost'] . ' xu</button></form>';
+        }
+        echo '</div>';
     } else {
-        echo '<p>🐱 <b>Mèo Nông Trại</b> đang đồng hành cùng bạn.</p>';
+        $activePet = isset($petTypes[$pet['pet_key']]) ? $petTypes[$pet['pet_key']] : $petTypes['farm_cat'];
+        echo '<p><span class="farm-pet-icon">' . $esc($activePet['icon']) . '</span> <b>' . $esc($activePet['name']) . '</b> đang đồng hành cùng bạn.</p>';
         if (!empty($pet['last_gift']) && $pet['last_gift'] >= date('Y-m-d')) {
-            echo '<small class="farm-muted">Mèo đã tặng quà hôm nay.</small>';
+            echo '<small class="farm-muted">Thú nuôi đã tặng quà hôm nay.</small>';
         } else {
-            echo '<form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><button type="submit" name="claim_pet_gift" value="1">Nhận quà từ mèo (+10 xu)</button></form>';
+            echo '<form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><button type="submit" name="claim_pet_gift" value="1">Nhận quà từ thú nuôi (+' . $activePet['gift'] . ' xu)</button></form>';
         }
     }
     echo '</section>';
