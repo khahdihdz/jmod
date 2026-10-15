@@ -41,3 +41,13 @@ CREATE TABLE IF NOT EXISTS `qqfarm_pets` (
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE IF NOT EXISTS `qqfarm_inventory` (
+  `user_id` INT UNSIGNED NOT NULL,
+  `item_key` VARCHAR(24) NOT NULL,
+  `quantity` INT UNSIGNED NOT NULL DEFAULT 0,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`, `item_key`),
+  KEY `idx_qqfarm_inventory_item` (`item_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
