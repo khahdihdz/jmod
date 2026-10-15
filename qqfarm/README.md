@@ -25,7 +25,7 @@
 - Tự tạo hồ sơ người chơi với 100 xu và sáu ô đất.
 - Thưởng đăng nhập mỗi ngày: 20 xu, giới hạn bằng cập nhật có điều kiện ở database.
 - Nhiệm vụ hằng ngày: thu hoạch 3 lần, nhận một lần 50 xu và 20 XP; tiến độ lưu theo ngày trong bảng `qqfarm_daily_missions`.
-- Thú nuôi: nhận nuôi Mèo Nông Trại với giá 150 xu; mèo tặng 10 xu mỗi ngày, giới hạn một lần/ngày trong database.
+- Thú nuôi: chọn một trong ba bạn đồng hành — Mèo Nông Trại (150 xu, quà 10 xu/ngày), Thỏ Đồng (220 xu, quà 15 xu/ngày) hoặc Cáo Đỏ (350 xu, quà 20 xu/ngày). Mỗi tài khoản chỉ có một thú; lượt nhận quà được khóa và ghi nhận trong database.
 - Hệ thống kinh nghiệm/cấp độ: cà rốt +5 XP, lúa mì +10 XP, ngô +15 XP, dâu tây +25 XP, bí đỏ +40 XP; mỗi 100 XP tăng một cấp. XP và xu được cộng trong cùng giao dịch thu hoạch.
 - Chợ có 5 loại cây; dâu tây mở khóa ở cấp 2, bí đỏ mở khóa ở cấp 4. Điều kiện cấp được kiểm tra phía máy chủ khi gieo, không chỉ ẩn trên giao diện.
 - Giao diện nông trại dạng lưới responsive, co giãn cho desktop và điện thoại (CSS tại `farm.css`).
@@ -36,7 +36,7 @@
 ## Lưu ý quan trọng
 
 - Các loại cây, thời gian và giá hiện là dữ liệu chơi thử được định nghĩa trong `index.php`, chưa được nhập từ dữ liệu game gốc.
-- Chưa chuyển đổi hệ thống vật nuôi, cửa hàng đầy đủ, vật phẩm, nhiệm vụ, bạn bè, quà tặng hoặc API Discuz!/vBulletin.
+- Hệ thống thú nuôi hiện là phiên bản cơ bản gồm chọn một thú và nhận quà hằng ngày; cửa hàng đầy đủ, vật phẩm, hệ thống bạn bè/thăm nông trại và API Discuz!/vBulletin chưa được chuyển đổi.
 - SWF gốc không được sử dụng; giao diện hiện là HTML thuần tương thích trình duyệt hiện đại.
 - Nên thử trên bản staging trước khi đưa lên website thật. Chưa thể xác nhận tương thích runtime cho đến khi chạy thử trên môi trường PHP/database thực tế của site.
 - Bản JMod này yêu cầu PHP 5.6–7.x theo bootstrap hiện có; không nâng PHP của toàn website chỉ để chạy module.
