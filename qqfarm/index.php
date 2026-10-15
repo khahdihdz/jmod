@@ -45,7 +45,10 @@ try {
     $init = $db->prepare('INSERT IGNORE INTO qqfarm_players (user_id, coins, last_daily, created_at) VALUES (:uid, 100, NULL, CURRENT_TIMESTAMP)');
     $init->execute([':uid' => $userId]);
     $makePlots = $db->prepare('INSERT IGNORE INTO qqfarm_plots (user_id, plot_no, crop_key, planted_at, ready_at) VALUES (:uid, :plot, NULL, NULL, NULL)');
-    for ($plotNo = 1; $plotNo <= 6; $plotNo++) {
+    $plotLimitStmt = $db->prepare('SELECT unlocked_plots FROM qqfarm_players WHERE user_id = :uid');
+    $plotLimitStmt->execute([':uid' => $userId]);
+    $unlockedPlots = max(6, min(12, (int) $plotLimitStmt->fetchColumn()));
+    for ($plotNo = 1; $plotNo <= $unlockedPlots; $plotNo++) {
         $makePlots->execute([':uid' => $userId, ':plot' => $plotNo]);
     }
 
@@ -54,6 +57,39 @@ try {
         if (!hash_equals($csrf, $token)) {
             http_response_code(403);
             $notice = 'Phiên thao tác không hợp lệ. Hãy tải lại trang.';
+        } elseif (isset($_POST['buy_plot'])) {
+            $db->beginTransaction();
+            try {
+                $lockFarm = $db->prepare('SELECT coins, unlocked_plots FROM qqfarm_players WHERE user_id = :uid FOR UPDATE');
+                $lockFarm->execute([':uid' => $userId]);
+                $farmRow = $lockFarm->fetch(PDO::FETCH_ASSOC);
+                $currentPlots = $farmRow ? max(6, min(12, (int) $farmRow['unlocked_plots'])) : 6;
+                if (!$farmRow) {
+                    $notice = 'Không tìm thấy hồ sơ nông trại.';
+                } elseif ($currentPlots >= 12) {
+                    $notice = 'Bạn đã mở khóa toàn bộ 12 ô đất.';
+                } else {
+                    $nextPlot = $currentPlots + 1;
+                    $plotCost = ($nextPlot - 5) * 100;
+                    if ((int) $farmRow['coins'] < $plotCost) {
+                        $notice = 'Bạn cần ' . $plotCost . ' xu để mở ô đất số ' . $nextPlot . '.';
+                    } else {
+                        $purchasePlot = $db->prepare('UPDATE qqfarm_players SET coins = coins - :cost, unlocked_plots = :new_count WHERE user_id = :uid AND coins >= :minimum AND unlocked_plots = :current_count');
+                        $purchasePlot->execute([':cost' => $plotCost, ':new_count' => $nextPlot, ':uid' => $userId, ':minimum' => $plotCost, ':current_count' => $currentPlots]);
+                        if ($purchasePlot->rowCount() === 1) {
+                            $newPlot = $db->prepare('INSERT INTO qqfarm_plots (user_id, plot_no, crop_key, planted_at, ready_at) VALUES (:uid, :plot, NULL, NULL, NULL)');
+                            $newPlot->execute([':uid' => $userId, ':plot' => $nextPlot]);
+                            $notice = 'Đã mở khóa ô đất số ' . $nextPlot . ' với giá ' . $plotCost . ' xu.';
+                        } else {
+                            $notice = 'Số dư hoặc nông trại đã thay đổi. Hãy tải lại trang.';
+                        }
+                    }
+                }
+                $db->commit();
+            } catch (Exception $e) {
+                if ($db->inTransaction()) { $db->rollBack(); }
+                throw $e;
+            }
         } elseif (isset($_POST['adopt_pet'])) {
             $petTypes = [
                 'farm_cat' => ['name' => 'Mèo Nông Trại', 'cost' => 150, 'gift' => 10, 'icon' => '🐱'],
@@ -148,7 +184,7 @@ try {
         } elseif (isset($_POST['plant'], $_POST['plot'], $_POST['crop'])) {
             $plotNo = (int) $_POST['plot'];
             $cropKey = (string) $_POST['crop'];
-            if ($plotNo < 1 || $plotNo > 6 || !isset($crops[$cropKey])) {
+            if ($plotNo < 1 || $plotNo > 12 || $plotNo > $unlockedPlots || !isset($crops[$cropKey])) {
                 $notice = 'Lựa chọn ô đất hoặc hạt giống không hợp lệ.';
             } else {
                 $crop = $crops[$cropKey];
@@ -159,6 +195,9 @@ try {
                     $playerRow = $lockPlayer->fetch(PDO::FETCH_ASSOC);
                     $balance = $playerRow ? (int) $playerRow['coins'] : 0;
                     $playerLevel = $playerRow ? (int) floor((int) $playerRow['experience'] / 100) + 1 : 1;
+                    if ($plotNo > $unlockedPlots) {
+                        throw new RuntimeException('Ô đất chưa được mở khóa.');
+                    }
                     $lockPlot = $db->prepare('SELECT crop_key FROM qqfarm_plots WHERE user_id = :uid AND plot_no = :plot FOR UPDATE');
                     $lockPlot->execute([':uid' => $userId, ':plot' => $plotNo]);
                     $currentCrop = $lockPlot->fetchColumn();
@@ -193,7 +232,7 @@ try {
             }
         } elseif (isset($_POST['harvest'], $_POST['plot'])) {
             $plotNo = (int) $_POST['plot'];
-            if ($plotNo < 1 || $plotNo > 6) {
+            if ($plotNo < 1 || $plotNo > $unlockedPlots) {
                 $notice = 'Ô đất không hợp lệ.';
             } else {
                 $db->beginTransaction();
@@ -231,7 +270,7 @@ try {
         }
     }
 
-    $stmt = $db->prepare('SELECT user_id, coins, experience, last_daily FROM qqfarm_players WHERE user_id = :uid LIMIT 1');
+    $stmt = $db->prepare('SELECT user_id, coins, experience, last_daily, unlocked_plots FROM qqfarm_players WHERE user_id = :uid LIMIT 1');
     $stmt->execute([':uid' => $userId]);
     $player = $stmt->fetch(PDO::FETCH_ASSOC);
     $plotStmt = $db->prepare('SELECT plot_no, crop_key, planted_at, ready_at, (ready_at IS NOT NULL AND ready_at <= CURRENT_TIMESTAMP) AS is_ready FROM qqfarm_plots WHERE user_id = :uid ORDER BY plot_no');
@@ -243,6 +282,7 @@ try {
     $missionStmt->execute([':uid' => $userId]);
     $missionRow = $missionStmt->fetch(PDO::FETCH_ASSOC);
     if ($missionRow) { $mission = $missionRow; }
+    $unlockedPlots = max(6, min(12, (int) $player['unlocked_plots']));
     $petStmt = $db->prepare('SELECT pet_key, last_gift FROM qqfarm_pets WHERE user_id = :uid LIMIT 1');
     $petStmt->execute([':uid' => $userId]);
     $pet = $petStmt->fetch(PDO::FETCH_ASSOC);
@@ -329,6 +369,14 @@ if ($player) {
         }
         echo '</section>';
     }
+    $nextPlotCost = $unlockedPlots < 12 ? (($unlockedPlots + 1 - 5) * 100) : 0;
+    echo '<section class="menu farm-expand"><div><b>🧱 Mở rộng nông trại</b><br><small class="farm-muted">Đã mở ' . $unlockedPlots . '/12 ô đất. Mỗi lần mua mở thêm một ô; giá tăng dần.</small></div>';
+    if ($unlockedPlots < 12) {
+        echo '<div class="farm-expand-price">Ô tiếp theo: ' . ($unlockedPlots + 1) . ' · ' . $nextPlotCost . ' xu</div><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><button type="submit" name="buy_plot" value="1">Mở khóa ô đất</button></form>';
+    } else {
+        echo '<span class="farm-state">Đã mở tối đa</span>';
+    }
+    echo '</section>';
     echo '</div><div class="farm-market"><b>🛒 Chợ hạt giống</b><br>';
     foreach ($crops as $crop) {
         $locked = $level < $crop['level'];
