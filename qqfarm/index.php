@@ -182,6 +182,76 @@ try {
             $claim = $db->prepare('UPDATE qqfarm_players SET coins = coins + 20, last_daily = CURRENT_DATE WHERE user_id = :uid AND (last_daily IS NULL OR last_daily < CURRENT_DATE)');
             $claim->execute([':uid' => $userId]);
             $notice = $claim->rowCount() === 1 ? 'Bạn nhận được 20 xu thưởng hằng ngày.' : 'Bạn đã nhận thưởng hôm nay. Hãy quay lại ngày mai.';
+        } elseif (isset($_POST['buy_fertilizer'])) {
+            $fertilizerPack = 3;
+            $fertilizerCost = 60;
+            $db->beginTransaction();
+            try {
+                $lockFertilizerBuyer = $db->prepare('SELECT coins FROM qqfarm_players WHERE user_id = :uid FOR UPDATE');
+                $lockFertilizerBuyer->execute([':uid' => $userId]);
+                $fertilizerBuyer = $lockFertilizerBuyer->fetch(PDO::FETCH_ASSOC);
+                if (!$fertilizerBuyer) {
+                    $notice = 'Không tìm thấy hồ sơ nông trại.';
+                } elseif ((int) $fertilizerBuyer['coins'] < $fertilizerCost) {
+                    $notice = 'Bạn cần 60 xu để mua gói 3 phân bón.';
+                } else {
+                    $spendFertilizer = $db->prepare('UPDATE qqfarm_players SET coins = coins - :cost WHERE user_id = :uid AND coins >= :minimum');
+                    $spendFertilizer->execute([':cost' => $fertilizerCost, ':uid' => $userId, ':minimum' => $fertilizerCost]);
+                    if ($spendFertilizer->rowCount() === 1) {
+                        $addFertilizer = $db->prepare("INSERT INTO qqfarm_inventory (user_id, item_key, quantity) VALUES (:uid, 'fertilizer', :qty) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)");
+                        $addFertilizer->execute([':uid' => $userId, ':qty' => $fertilizerPack]);
+                        $notice = 'Đã mua 3 phân bón với giá 60 xu.';
+                    } else {
+                        $notice = 'Số dư đã thay đổi; hãy tải lại trang.';
+                    }
+                }
+                $db->commit();
+            } catch (Exception $e) {
+                if ($db->inTransaction()) { $db->rollBack(); }
+                throw $e;
+            }
+        } elseif (isset($_POST['apply_fertilizer'], $_POST['plot'])) {
+            $plotNo = (int) $_POST['plot'];
+            if ($plotNo < 1 || $plotNo > $unlockedPlots) {
+                $notice = 'Ô đất không hợp lệ.';
+            } else {
+                $db->beginTransaction();
+                try {
+                    $lockFertilizerPlayer = $db->prepare('SELECT user_id FROM qqfarm_players WHERE user_id = :uid FOR UPDATE');
+                    $lockFertilizerPlayer->execute([':uid' => $userId]);
+                    $lockFertilizerPlayer->fetchColumn();
+                    $lockFertilizerPlot = $db->prepare('SELECT crop_key, ready_at FROM qqfarm_plots WHERE user_id = :uid AND plot_no = :plot FOR UPDATE');
+                    $lockFertilizerPlot->execute([':uid' => $userId, ':plot' => $plotNo]);
+                    $fertilizerPlot = $lockFertilizerPlot->fetch(PDO::FETCH_ASSOC);
+                    $lockFertilizerStock = $db->prepare("SELECT quantity FROM qqfarm_inventory WHERE user_id = :uid AND item_key = 'fertilizer' FOR UPDATE");
+                    $lockFertilizerStock->execute([':uid' => $userId]);
+                    $fertilizerStock = (int) $lockFertilizerStock->fetchColumn();
+                    if (!$fertilizerPlot || empty($fertilizerPlot['crop_key']) || empty($fertilizerPlot['ready_at'])) {
+                        $notice = 'Ô đất chưa có cây để bón phân.';
+                    } elseif (strtotime($fertilizerPlot['ready_at']) <= time()) {
+                        $notice = 'Cây đã chín, không cần bón phân.';
+                    } elseif ($fertilizerStock < 1) {
+                        $notice = 'Bạn đã hết phân bón. Hãy mua thêm tại cửa hàng.';
+                    } else {
+                        $consumeFertilizer = $db->prepare("UPDATE qqfarm_inventory SET quantity = quantity - 1 WHERE user_id = :uid AND item_key = 'fertilizer' AND quantity > 0");
+                        $consumeFertilizer->execute([':uid' => $userId]);
+                        if ($consumeFertilizer->rowCount() !== 1) {
+                            throw new RuntimeException('Không thể trừ phân bón trong kho.');
+                        }
+                        $speedUp = $db->prepare('UPDATE qqfarm_plots SET ready_at = DATE_ADD(CURRENT_TIMESTAMP, INTERVAL GREATEST(1, FLOOR(TIMESTAMPDIFF(SECOND, CURRENT_TIMESTAMP, ready_at) * 0.75)) SECOND) WHERE user_id = :uid AND plot_no = :plot AND ready_at > CURRENT_TIMESTAMP');
+                        $speedUp->execute([':uid' => $userId, ':plot' => $plotNo]);
+                        if ($speedUp->rowCount() === 1) {
+                            $notice = 'Đã bón phân cho ô đất số ' . $plotNo . '! Thời gian còn lại giảm khoảng 25%.';
+                        } else {
+                            throw new RuntimeException('Không thể cập nhật thời gian cây lớn.');
+                        }
+                    }
+                    $db->commit();
+                } catch (Exception $e) {
+                    if ($db->inTransaction()) { $db->rollBack(); }
+                    throw $e;
+                }
+            }
         } elseif (isset($_POST['buy_seeds'], $_POST['crop'])) {
             $cropKey = (string) $_POST['crop'];
             $packSize = 5;
@@ -418,7 +488,7 @@ if ($player) {
             if ((int) $plot['is_ready'] === 1) {
                 echo '<small>Sẵn sàng thu hoạch</small></div><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><input type="hidden" name="plot" value="' . $no . '"><button type="submit" name="harvest" value="1">Thu hoạch +' . $crop['reward'] . ' xu</button></form>';
             } else {
-                echo '<small class="farm-muted">Dự kiến chín: ' . $esc($plot['ready_at']) . ' UTC</small></div>';
+                echo '<small class="farm-muted">Dự kiến chín: ' . $esc($plot['ready_at']) . ' UTC</small></div><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><input type="hidden" name="plot" value="' . $no . '"><button type="submit" name="apply_fertilizer" value="1">Bón phân · giảm 25% thời gian</button></form>';
             }
         }
         echo '</section>';
@@ -445,6 +515,7 @@ if ($player) {
         }
         echo '</div>';
     }
+    echo '<div class="farm-stock"><div><b>🌱 Phân bón tăng tốc</b><br><small class="farm-muted">Trong kho: ' . (isset($inventory['fertilizer']) ? $inventory['fertilizer'] : 0) . ' · Gói 3 túi: 60 xu</small><br><small class="farm-muted">Mỗi lần bón giảm khoảng 25% thời gian còn lại; chỉ dùng được khi cây chưa chín.</small></div><form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><button type="submit" name="buy_fertilizer" value="1">Mua 3 phân bón · 60 xu</button></form></div>';
     echo '</section>';
     echo '<p class="farm-muted">Bản thử nghiệm PHP/HTML; chưa phải bản chuyển đổi đầy đủ QQFarm 6.2 gốc.</p>';
 }
