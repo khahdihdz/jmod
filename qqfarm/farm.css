@@ -6,3 +6,5 @@
 .qqfarm .farm-expand{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-color:#c8dfbf;background:#f3faef}.qqfarm .farm-expand form{margin:0}.qqfarm .farm-expand-price{font-weight:700;color:#276738}.qqfarm .farm-expand button{cursor:pointer;border:0;border-radius:8px;padding:9px 12px;background:#287845;color:#fff;font-weight:600}
 
 .qqfarm .farm-market{margin:14px 0}.qqfarm .farm-inventory{display:grid;gap:9px;margin-top:12px}.qqfarm .farm-stock{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#fff;border:1px solid #dce8d6;border-radius:10px}.qqfarm .farm-stock form{margin:0;flex-shrink:0}.qqfarm .farm-stock button{cursor:pointer;border:0;border-radius:8px;padding:9px 12px;background:#287845;color:#fff;font-weight:600}@media(max-width:520px){.qqfarm .farm-stock{align-items:stretch;flex-direction:column}.qqfarm .farm-stock button{width:100%}}
+
+.qqfarm .farm-plot form button[name="apply_fertilizer"]{background:#8b6a27}.qqfarm .farm-stock{flex-wrap:wrap}
