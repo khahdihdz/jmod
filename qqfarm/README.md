@@ -17,7 +17,8 @@
 - **Bản cũ có `qqfarm_players` và chưa có XP:** chạy `upgrade-v2.sql`; script tự bỏ qua nếu cột `experience` đã tồn tại.
 - **Thêm nhiệm vụ hằng ngày:** chạy `upgrade-v3.sql`; tạo bảng nếu chưa có.
 - **Thêm thú nuôi:** chạy `upgrade-v4.sql`; tạo bảng nếu chưa có.
-- **Mở rộng nông trại:** chạy `upgrade-v5.sql`; thêm cột `unlocked_plots` nếu chưa có, giữ nguyên dữ liệu người chơi.\n- **Kho hạt giống:** chạy `upgrade-v6.sql`; tạo bảng kho đồ nếu chưa có, không xóa dữ liệu hiện có.
+- **Mở rộng nông trại:** chạy `upgrade-v5.sql`; thêm cột `unlocked_plots` nếu chưa có, giữ nguyên dữ liệu người chơi.
+- **Kho hạt giống:** chạy `upgrade-v6.sql`; tạo bảng kho đồ nếu chưa có, không xóa dữ liệu hiện có.
 - Hãy chọn đúng database trong phpMyAdmin trước khi import. Không xóa dữ liệu người chơi trong quá trình nâng cấp.
 
 ## Chức năng hiện có
@@ -29,7 +30,8 @@
 - Thú nuôi: chọn một trong ba bạn đồng hành — Mèo Nông Trại (150 xu, quà 10 xu/ngày), Thỏ Đồng (220 xu, quà 15 xu/ngày) hoặc Cáo Đỏ (350 xu, quà 20 xu/ngày). Mỗi tài khoản chỉ có một thú; lượt nhận quà được khóa và ghi nhận trong database.
 - Hệ thống kinh nghiệm/cấp độ: cà rốt +5 XP, lúa mì +10 XP, ngô +15 XP, dâu tây +25 XP, bí đỏ +40 XP; mỗi 100 XP tăng một cấp. XP và xu được cộng trong cùng giao dịch thu hoạch.
 - Chợ có 5 loại cây; dâu tây mở khóa ở cấp 2, bí đỏ mở khóa ở cấp 4. Điều kiện cấp được kiểm tra phía máy chủ khi gieo, không chỉ ẩn trên giao diện.
-- Mở rộng ruộng: bắt đầu với 6 ô, tối đa 12 ô; ô tiếp theo giá 200 xu và mỗi ô sau tăng thêm 100 xu. Giao dịch khóa hồ sơ, trừ xu và tạo ô đất trong cùng transaction.\n- Cửa hàng hạt giống và kho đồ: mua gói 5 hạt với giá bằng 4 lần giá gieo lẻ (tiết kiệm 20%); số hạt được lưu riêng theo tài khoản và loại cây. Khi gieo, hệ thống ưu tiên dùng hạt trong kho; nếu hết hạt, vẫn hỗ trợ mua lẻ trực tiếp để giữ tương thích cách chơi cũ.
+- Mở rộng ruộng: bắt đầu với 6 ô, tối đa 12 ô; ô tiếp theo giá 200 xu và mỗi ô sau tăng thêm 100 xu. Giao dịch khóa hồ sơ, trừ xu và tạo ô đất trong cùng transaction.
+- Cửa hàng hạt giống và kho đồ: mua gói 5 hạt với giá bằng 4 lần giá gieo lẻ (tiết kiệm 20%); số hạt được lưu riêng theo tài khoản và loại cây. Khi gieo, hệ thống ưu tiên dùng hạt trong kho; nếu hết hạt, vẫn hỗ trợ mua lẻ trực tiếp để giữ tương thích cách chơi cũ.
 - Phân bón tăng tốc: mua 3 túi với giá 60 xu; mỗi túi giảm khoảng 25% thời gian còn lại của một cây chưa chín. Tồn kho lưu chung trong `qqfarm_inventory`; không cần migration bổ sung.
 - Giao diện nông trại dạng lưới responsive, co giãn cho desktop và điện thoại (CSS tại `farm.css`).
 - Năm loại cây thử nghiệm: cà rốt (10 xu / 60 giây / thu 18 xu), lúa mì (20 xu / 120 giây / thu 35 xu), ngô (35 xu / 240 giây / thu 60 xu), dâu tây (60 xu / 360 giây / thu 105 xu, mở cấp 2), bí đỏ (100 xu / 600 giây / thu 175 xu, mở cấp 4).
