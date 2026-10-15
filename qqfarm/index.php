@@ -27,6 +27,7 @@ $player = null;
 $plots = [];
 $mission = ['progress' => 0, 'claimed_at' => null];
 $pet = null;
+$inventory = [];
 $crops = [
     'carrot' => ['name' => 'Cà rốt', 'cost' => 10, 'reward' => 18, 'xp' => 5, 'seconds' => 60, 'level' => 1, 'icon' => '🥕'],
     'wheat' => ['name' => 'Lúa mì', 'cost' => 20, 'reward' => 35, 'xp' => 10, 'seconds' => 120, 'level' => 1, 'icon' => '🌾'],
@@ -181,6 +182,43 @@ try {
             $claim = $db->prepare('UPDATE qqfarm_players SET coins = coins + 20, last_daily = CURRENT_DATE WHERE user_id = :uid AND (last_daily IS NULL OR last_daily < CURRENT_DATE)');
             $claim->execute([':uid' => $userId]);
             $notice = $claim->rowCount() === 1 ? 'Bạn nhận được 20 xu thưởng hằng ngày.' : 'Bạn đã nhận thưởng hôm nay. Hãy quay lại ngày mai.';
+        } elseif (isset($_POST['buy_seeds'], $_POST['crop'])) {
+            $cropKey = (string) $_POST['crop'];
+            $packSize = 5;
+            if (!isset($crops[$cropKey])) {
+                $notice = 'Loại hạt giống không hợp lệ.';
+            } else {
+                $crop = $crops[$cropKey];
+                $db->beginTransaction();
+                try {
+                    $lockSeedBuyer = $db->prepare('SELECT coins, experience FROM qqfarm_players WHERE user_id = :uid FOR UPDATE');
+                    $lockSeedBuyer->execute([':uid' => $userId]);
+                    $buyer = $lockSeedBuyer->fetch(PDO::FETCH_ASSOC);
+                    $buyerLevel = $buyer ? (int) floor((int) $buyer['experience'] / 100) + 1 : 1;
+                    $packCost = (int) $crop['cost'] * 4;
+                    if (!$buyer) {
+                        $notice = 'Không tìm thấy hồ sơ nông trại.';
+                    } elseif ($buyerLevel < $crop['level']) {
+                        $notice = 'Bạn cần đạt cấp ' . $crop['level'] . ' để mua hạt giống ' . $crop['name'] . '.';
+                    } elseif ((int) $buyer['coins'] < $packCost) {
+                        $notice = 'Bạn cần ' . $packCost . ' xu để mua gói ' . $packSize . ' hạt ' . $crop['name'] . '.';
+                    } else {
+                        $spendSeeds = $db->prepare('UPDATE qqfarm_players SET coins = coins - :cost WHERE user_id = :uid AND coins >= :minimum');
+                        $spendSeeds->execute([':cost' => $packCost, ':uid' => $userId, ':minimum' => $packCost]);
+                        if ($spendSeeds->rowCount() === 1) {
+                            $addSeeds = $db->prepare('INSERT INTO qqfarm_inventory (user_id, item_key, quantity) VALUES (:uid, :item, :qty) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)');
+                            $addSeeds->execute([':uid' => $userId, ':item' => $cropKey, ':qty' => $packSize]);
+                            $notice = 'Đã mua ' . $packSize . ' hạt ' . $crop['name'] . ' với giá ' . $packCost . ' xu.';
+                        } else {
+                            $notice = 'Số dư đã thay đổi; hãy tải lại trang.';
+                        }
+                    }
+                    $db->commit();
+                } catch (Exception $e) {
+                    if ($db->inTransaction()) { $db->rollBack(); }
+                    throw $e;
+                }
+            }
         } elseif (isset($_POST['plant'], $_POST['plot'], $_POST['crop'])) {
             $plotNo = (int) $_POST['plot'];
             $cropKey = (string) $_POST['crop'];
@@ -195,31 +233,42 @@ try {
                     $playerRow = $lockPlayer->fetch(PDO::FETCH_ASSOC);
                     $balance = $playerRow ? (int) $playerRow['coins'] : 0;
                     $playerLevel = $playerRow ? (int) floor((int) $playerRow['experience'] / 100) + 1 : 1;
-                    if ($plotNo > $unlockedPlots) {
-                        throw new RuntimeException('Ô đất chưa được mở khóa.');
-                    }
                     $lockPlot = $db->prepare('SELECT crop_key FROM qqfarm_plots WHERE user_id = :uid AND plot_no = :plot FOR UPDATE');
                     $lockPlot->execute([':uid' => $userId, ':plot' => $plotNo]);
                     $currentCrop = $lockPlot->fetchColumn();
-                    if ($currentCrop !== false && $currentCrop !== null && $currentCrop !== '') {
+                    $lockSeedStock = $db->prepare('SELECT quantity FROM qqfarm_inventory WHERE user_id = :uid AND item_key = :item FOR UPDATE');
+                    $lockSeedStock->execute([':uid' => $userId, ':item' => $cropKey]);
+                    $seedStock = (int) $lockSeedStock->fetchColumn();
+                    if (!$playerRow) {
+                        $notice = 'Không tìm thấy hồ sơ nông trại.';
+                    } elseif ($currentCrop !== false && $currentCrop !== null && $currentCrop !== '') {
                         $notice = 'Ô đất này đang có cây trồng.';
                     } elseif ($playerLevel < $crop['level']) {
                         $notice = 'Bạn cần đạt cấp ' . $crop['level'] . ' để mở khóa ' . $crop['name'] . '.';
-                    } elseif ((int) $balance < $crop['cost']) {
+                    } elseif ($seedStock < 1 && $balance < $crop['cost']) {
                         $notice = 'Bạn không đủ xu để mua hạt giống.';
                     } else {
-                        $spend = $db->prepare('UPDATE qqfarm_players SET coins = coins - :cost WHERE user_id = :uid AND coins >= :check_cost');
-                        $spend->execute([':cost' => $crop['cost'], ':uid' => $userId, ':check_cost' => $crop['cost']]);
-                        if ($spend->rowCount() === 1) {
-                            $plant = $db->prepare('UPDATE qqfarm_plots SET crop_key = :crop, planted_at = CURRENT_TIMESTAMP, ready_at = DATE_ADD(CURRENT_TIMESTAMP, INTERVAL ' . (int) $crop['seconds'] . ' SECOND) WHERE user_id = :uid AND plot_no = :plot AND crop_key IS NULL');
-                            $plant->execute([':crop' => $cropKey, ':uid' => $userId, ':plot' => $plotNo]);
-                            if ($plant->rowCount() === 1) {
-                                $notice = 'Đã gieo ' . $crop['name'] . ' ở ô đất số ' . $plotNo . '.';
-                            } else {
-                                throw new RuntimeException('Không thể cập nhật ô đất.');
+                        if ($seedStock > 0) {
+                            $consumeSeed = $db->prepare('UPDATE qqfarm_inventory SET quantity = quantity - 1 WHERE user_id = :uid AND item_key = :item AND quantity > 0');
+                            $consumeSeed->execute([':uid' => $userId, ':item' => $cropKey]);
+                            if ($consumeSeed->rowCount() !== 1) {
+                                throw new RuntimeException('Không thể trừ hạt giống trong kho.');
                             }
                         } else {
-                            $notice = 'Bạn không đủ xu để mua hạt giống.';
+                            $spend = $db->prepare('UPDATE qqfarm_players SET coins = coins - :cost WHERE user_id = :uid AND coins >= :check_cost');
+                            $spend->execute([':cost' => $crop['cost'], ':uid' => $userId, ':check_cost' => $crop['cost']]);
+                            if ($spend->rowCount() !== 1) {
+                                throw new RuntimeException('Không thể thanh toán hạt giống.');
+                            }
+                        }
+                        $plant = $db->prepare('UPDATE qqfarm_plots SET crop_key = :crop, planted_at = CURRENT_TIMESTAMP, ready_at = DATE_ADD(CURRENT_TIMESTAMP, INTERVAL ' . (int) $crop['seconds'] . ' SECOND) WHERE user_id = :uid AND plot_no = :plot AND crop_key IS NULL');
+                        $plant->execute([':crop' => $cropKey, ':uid' => $userId, ':plot' => $plotNo]);
+                        if ($plant->rowCount() === 1) {
+                            $notice = $seedStock > 0
+                                ? 'Đã gieo ' . $crop['name'] . ' ở ô đất số ' . $plotNo . '. Đã dùng 1 hạt trong kho.'
+                                : 'Đã gieo ' . $crop['name'] . ' ở ô đất số ' . $plotNo . '. Đã mua hạt với giá ' . $crop['cost'] . ' xu.';
+                        } else {
+                            throw new RuntimeException('Không thể cập nhật ô đất.');
                         }
                     }
                     $db->commit();
@@ -286,6 +335,11 @@ try {
     $petStmt = $db->prepare('SELECT pet_key, last_gift FROM qqfarm_pets WHERE user_id = :uid LIMIT 1');
     $petStmt->execute([':uid' => $userId]);
     $pet = $petStmt->fetch(PDO::FETCH_ASSOC);
+    $inventoryStmt = $db->prepare('SELECT item_key, quantity FROM qqfarm_inventory WHERE user_id = :uid');
+    $inventoryStmt->execute([':uid' => $userId]);
+    foreach ($inventoryStmt->fetchAll(PDO::FETCH_ASSOC) as $stockRow) {
+        $inventory[$stockRow['item_key']] = (int) $stockRow['quantity'];
+    }
 } catch (Exception $e) {
     error_log('[QQFarm] ' . $e->getMessage());
     $player = null;
@@ -377,12 +431,21 @@ if ($player) {
         echo '<span class="farm-state">Đã mở tối đa</span>';
     }
     echo '</section>';
-    echo '</div><div class="farm-market"><b>🛒 Chợ hạt giống</b><br>';
-    foreach ($crops as $crop) {
+    echo '</div><section class="farm-market"><h3>🛒 Chợ hạt giống & kho đồ</h3><p class="farm-muted">Mỗi gói gồm 5 hạt, giá bằng 4 lần giá gieo lẻ (tiết kiệm 20%). Khi có hạt trong kho, gieo cây sẽ dùng hạt trước; nếu hết hạt, hệ thống vẫn cho mua lẻ trực tiếp như trước.</p>';
+    echo '<div class="farm-inventory">';
+    foreach ($crops as $cropId => $crop) {
         $locked = $level < $crop['level'];
-        echo $esc($crop['icon'] . ' ' . $crop['name'] . ': ' . $crop['cost'] . ' xu → ' . $crop['reward'] . ' xu, +' . $crop['xp'] . ' XP; ' . $crop['seconds'] . ' giây' . ($locked ? ' — mở khóa ở cấp ' . $crop['level'] : ' — đã mở khóa')) . '<br>';
+        $stock = isset($inventory[$cropId]) ? $inventory[$cropId] : 0;
+        $packCost = $crop['cost'] * 4;
+        echo '<div class="farm-stock"><div><b>' . $esc($crop['icon'] . ' ' . $crop['name']) . '</b><br><small class="farm-muted">Trong kho: ' . $stock . ' hạt · Gói 5 hạt: ' . $packCost . ' xu</small><br><small class="farm-muted">Thu hoạch: ' . $crop['reward'] . ' xu, +' . $crop['xp'] . ' XP · ' . $crop['seconds'] . ' giây</small></div>';
+        if ($locked) {
+            echo '<span class="farm-state">Mở ở cấp ' . $crop['level'] . '</span>';
+        } else {
+            echo '<form method="post" action=""><input type="hidden" name="csrf" value="' . $esc($csrf) . '"><input type="hidden" name="crop" value="' . $esc($cropId) . '"><button type="submit" name="buy_seeds" value="1">Mua 5 hạt · ' . $packCost . ' xu</button></form>';
+        }
+        echo '</div>';
     }
-    echo '</div>';
+    echo '</section>';
     echo '<p class="farm-muted">Bản thử nghiệm PHP/HTML; chưa phải bản chuyển đổi đầy đủ QQFarm 6.2 gốc.</p>';
 }
 echo '<p><a href="../">← Quay lại trang chủ</a></p></main>';
