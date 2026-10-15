@@ -1,5 +1,6 @@
 -- QQFarm upgrade v3: daily mission progress/rewards.
--- Back up the database first; run once on existing installations.
+-- Safe to re-run: CREATE TABLE IF NOT EXISTS avoids duplicate-table errors.
+-- Select the JohnCMS database before importing this file.
 CREATE TABLE IF NOT EXISTS `qqfarm_daily_missions` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
