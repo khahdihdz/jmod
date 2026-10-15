@@ -254,7 +254,6 @@ try {
 }
 
 require '../system/head.php';
-echo '<link rel="stylesheet" href="farm.css?v=1">';
 echo '<main class="qqfarm">';
 $esc = function ($value) {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
