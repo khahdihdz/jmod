@@ -32,3 +32,11 @@ CREATE TABLE IF NOT EXISTS `qqfarm_daily_missions` (
   UNIQUE KEY `uq_qqfarm_daily_mission` (`user_id`, `mission_date`, `mission_key`),
   KEY `idx_qqfarm_mission_date` (`mission_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `qqfarm_pets` (
+  `user_id` INT UNSIGNED NOT NULL,
+  `pet_key` VARCHAR(32) NOT NULL DEFAULT 'farm_cat',
+  `last_gift` DATE DEFAULT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
