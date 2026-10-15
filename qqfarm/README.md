@@ -6,10 +6,18 @@
 
 1. Sao lưu mã nguồn và cơ sở dữ liệu website.
 2. Đưa thư mục `qqfarm/` vào thư mục gốc cài đặt JohnCMS.
-3. Mở phpMyAdmin, chọn đúng database của JohnCMS, chạy toàn bộ `qqfarm/install.sql`. Script tạo ba bảng riêng của module: `qqfarm_players`, `qqfarm_plots` và `qqfarm_daily_missions`.
-   - Nếu đã cài bản QQFarm trước đó, **không chạy lại `install.sql` để nâng cấp**; hãy sao lưu database rồi chạy `qqfarm/upgrade-v2.sql` đúng một lần để thêm cột XP, sau đó chạy `qqfarm/upgrade-v3.sql` để tạo bảng nhiệm vụ ngày và `qqfarm/upgrade-v4.sql` để tạo bảng thú nuôi (mỗi migration chỉ chạy một lần).
-4. Đăng nhập website rồi mở `https://ten-mien-cua-ban/qqfarm/`.
-5. Thử nhận thưởng ngày, gieo cây, chờ cây chín rồi thu hoạch.
+3. Mở phpMyAdmin, chọn đúng database JohnCMS rồi chạy `qqfarm/install.sql` để tạo các bảng module.
+4. Nếu đã có bản QQFarm cũ, **không cần chạy lại `install.sql` để nâng cấp**. Chọn đúng database và chạy lần lượt `upgrade-v2.sql`, `upgrade-v3.sql`, `upgrade-v4.sql`. Các script nâng cấp đã được thiết kế để chạy lại không báo lỗi do cột/bảng đã tồn tại; v2 sẽ báo trạng thái nếu thiếu bảng nền.
+5. Đăng nhập website rồi mở `https://ten-mien-cua-ban/qqfarm/`.
+6. Thử nhận thưởng ngày, gieo cây, chờ cây chín rồi thu hoạch.
+
+### Nâng cấp database theo phiên bản
+
+- **Bản mới hoàn toàn:** chạy `install.sql` một lần.
+- **Bản cũ có `qqfarm_players` và chưa có XP:** chạy `upgrade-v2.sql`; script tự bỏ qua nếu cột `experience` đã tồn tại.
+- **Thêm nhiệm vụ hằng ngày:** chạy `upgrade-v3.sql`; tạo bảng nếu chưa có.
+- **Thêm thú nuôi:** chạy `upgrade-v4.sql`; tạo bảng nếu chưa có.
+- Hãy chọn đúng database trong phpMyAdmin trước khi import. Không xóa dữ liệu người chơi trong quá trình nâng cấp.
 
 ## Chức năng hiện có
 
@@ -35,4 +43,4 @@
 
 ## Gỡ cài đặt
 
-Sao lưu dữ liệu trước. Xóa thư mục `qqfarm/`; chỉ khi chắc chắn không cần dữ liệu nữa mới xóa thủ công hai bảng `qqfarm_players` và `qqfarm_plots`.
+Sao lưu dữ liệu trước. Xóa thư mục `qqfarm/`; chỉ khi chắc chắn không cần dữ liệu nữa mới xóa thủ công các bảng `qqfarm_players`, `qqfarm_plots`, `qqfarm_daily_missions` và `qqfarm_pets`.
