@@ -1,5 +1,6 @@
 -- QQFarm upgrade v4: companion pets and daily pet gift.
--- Back up the database first; run once on existing installations.
+-- Safe to re-run: CREATE TABLE IF NOT EXISTS avoids duplicate-table errors.
+-- Select the JohnCMS database before importing this file.
 CREATE TABLE IF NOT EXISTS `qqfarm_pets` (
   `user_id` INT UNSIGNED NOT NULL,
   `pet_key` VARCHAR(32) NOT NULL DEFAULT 'farm_cat',
