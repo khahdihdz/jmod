@@ -100,6 +100,9 @@ class Bbcode implements Api\BbcodeInterface
             '[justify]' => '', '[/justify]' => '', '[sup]' => '', '[/sup]' => '',
             '[sub]' => '', '[/sub]' => '', '[br]' => '', '[hr]' => '',
             '[list]' => '', '[/list]' => '', '[*]' => '', '[/*]' => '',
+            '[list=1]' => '',
+            '[h1]' => '', '[/h1]' => '', '[h2]' => '', '[/h2]' => '',
+            '[h3]' => '', '[/h3]' => '', '[h4]' => '', '[/h4]' => '',
         ];
 
         return strtr($var, $replace);
@@ -115,7 +118,7 @@ class Bbcode implements Api\BbcodeInterface
     public function buttons($form, $field)
     {
         $field = preg_replace('/[^a-zA-Z0-9_-]/', '', (string) $field);
-        $scriptUrl = htmlspecialchars($this->homeUrl . '/system/js/jmod-editor.js?v=20260927-smiley-fix', ENT_QUOTES, 'UTF-8');
+        $scriptUrl = htmlspecialchars($this->homeUrl . '/system/js/jmod-editor.js?v=20261016-editor2', ENT_QUOTES, 'UTF-8');
 
         return '<div class="jmod-editor-mount" data-jmod-editor="' . $field . '"></div>'
             . '<script src="' . $scriptUrl . '"></script>'
@@ -498,10 +501,10 @@ class Bbcode implements Api\BbcodeInterface
                 'from' => '#\[(quote|c)](.+?)\[/(quote|c)]#is',
                 'to'   => '<span class="quote" style="display:block">$2</span>',
             ],
-            // Список
-            'list'    => [
+            // Элемент списка
+            'listitem' => [
                 'from' => '#\[\*](.+?)\[/\*]#is',
-                'to'   => '<span class="bblist">$1</span>',
+                'to'   => '<li>$1</li>',
             ],
             // Спойлер
             'spoiler' => [
@@ -514,12 +517,19 @@ class Bbcode implements Api\BbcodeInterface
             'left' => ['from' => '#\[left\](.+?)\[/left]#is', 'to' => '<div class="bb-left">$1</div>'],
             'right' => ['from' => '#\[right\](.+?)\[/right]#is', 'to' => '<div class="bb-right">$1</div>'],
             'justify' => ['from' => '#\[justify\](.+?)\[/justify]#is', 'to' => '<div class="bb-justify">$1</div>'],
+            // Заголовки
+            'h1' => ['from' => '#\[h1\](.+?)\[/h1]#is', 'to' => '<div class="bb-h bb-h1">$1</div>'],
+            'h2' => ['from' => '#\[h2\](.+?)\[/h2]#is', 'to' => '<div class="bb-h bb-h2">$1</div>'],
+            'h3' => ['from' => '#\[h3\](.+?)\[/h3]#is', 'to' => '<div class="bb-h bb-h3">$1</div>'],
+            'h4' => ['from' => '#\[h4\](.+?)\[/h4]#is', 'to' => '<div class="bb-h bb-h4">$1</div>'],
             // Chỉ số
             'sup' => ['from' => '#\[sup\](.+?)\[/sup]#is', 'to' => '<sup>$1</sup>'],
             'sub' => ['from' => '#\[sub\](.+?)\[/sub]#is', 'to' => '<sub>$1</sub>'],
             'br' => ['from' => '#\[br\]#i', 'to' => '<br>'],
             'hr' => ['from' => '#\[hr\]#i', 'to' => '<hr class="bb-hr">'],
             'list' => ['from' => '#\[list\](.+?)\[/list]#is', 'to' => '<ul class="bb-list">$1</ul>'],
+            // Нумерованный список
+            'listnum' => ['from' => '#\[list=1\](.+?)\[/list]#is', 'to' => '<ol class="bb-list">$1</ol>'],
         ];
     }
 
